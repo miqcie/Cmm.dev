@@ -7,13 +7,16 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
-    "preview": "vite preview"
+    "preview": "bun run build && wrangler dev",
+    "deploy": "bun run build && wrangler deploy"
   },
   "dependencies": {
+    "@cloudflare/vite-plugin": "^1.30.2",
+    "@gridland/utils": "^0.2.53",
+    "@gridland/web": "^0.2.53",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@gridland/web": "^0.2.53",
-    "@gridland/utils": "^0.2.53"
+    "wrangler": "^4.78.0"
   },
   "devDependencies": {
     "vite": "^6.0.0",
