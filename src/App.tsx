@@ -11,6 +11,7 @@ function Shell() {
   const [screen, setScreen] = useState<Screen>("home")
 
   useKeyboard((event) => {
+    if (event.ctrl || event.meta || event.shift) return
     if (event.name === "p") setScreen("projects")
     else if (event.name === "a") setScreen("about")
     else if (event.name === "h" || event.name === "escape") setScreen("home")
