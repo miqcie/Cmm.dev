@@ -2,6 +2,8 @@ import { defineConfig, type Plugin } from "vite"
 import react from "@vitejs/plugin-react"
 import { gridlandWebPlugin } from "@gridland/web/vite-plugin"
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 /**
  * The @gridland/web dist bundle declares a local `var process = { env: {} }`
  * polyfill (line 1 of dist/index.js). This shadows the global `process` and
@@ -30,7 +32,7 @@ function fixGridlandProcessEnv(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [gridlandWebPlugin(), react(), fixGridlandProcessEnv()],
+  plugins: [gridlandWebPlugin(), react(), fixGridlandProcessEnv(), cloudflare()],
   build: {
     target: "esnext",
   },
