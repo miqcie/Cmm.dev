@@ -1,3 +1,17 @@
+const PORTRAIT = `⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⡖⠛⠛⠶⢶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢀⣴⠛⠒⠒⠂⠄⠩⠭⠭⠊⠻⣦⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠸⣧⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣀⣸⣧⣤⣤⣤⣤⣄⡀⠀⣠⣤⣤⣴⣶⣿⣄⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣠⠟⣿⠀⠀⢠⣤⡀⣹⠛⢻⡇⣀⣤⣀⠀⢘⡿⢷⡄⠀⠀⠀⠀
+⠀⠀⠀⠀⣿⠀⣿⣆⠀⠈⠉⣠⡿⠀⠈⢧⡉⠀⠈⢀⣼⡇⠀⡟⠀⠀⠀⠀
+⠀⠀⠀⠀⠘⣧⣿⠈⠉⠉⣉⣩⣇⣀⣀⣆⣉⣉⡉⠉⢰⣇⡼⠃⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢻⣦⣀⣾⠿⡿⠿⠿⠛⠛⣻⢿⣷⣀⣾⡏⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⡄⠙⠓⠶⠒⠛⠁⣼⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣦⣇⣇⣇⣠⣾⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`
+
 export function About() {
   return (
     <box flexDirection="column" flexGrow={1} padding={1}>
@@ -5,14 +19,24 @@ export function About() {
         <span style={{ fg: "#ebcb8b", attributes: 1 }}>{"─── About ───"}</span>
       </text>
 
-      <box
-        flexDirection="column"
-        border
-        borderStyle="rounded"
-        borderColor="#5e81ac"
-        padding={2}
-        marginTop={1}
-      >
+      <box flexDirection="row" marginTop={1} gap={2}>
+        <box
+          border
+          borderStyle="rounded"
+          borderColor="#5e81ac"
+          padding={1}
+        >
+          <text fg="#81a1c1">{PORTRAIT}</text>
+        </box>
+
+        <box
+          flexDirection="column"
+          border
+          borderStyle="rounded"
+          borderColor="#5e81ac"
+          padding={2}
+          flexGrow={1}
+        >
         <text fg="#d8dee9">
           <span style={{ fg: "#88c0d0", attributes: 1 }}>Chris McConnell, MBA</span>
         </text>
@@ -47,7 +71,18 @@ export function About() {
           </text>
         </box>
 
-        <box marginTop={2} flexDirection="column">
+        </box>
+      </box>
+
+      <box flexDirection="row" marginTop={1} gap={2}>
+        <box
+          flexDirection="column"
+          border
+          borderStyle="rounded"
+          borderColor="#5e81ac"
+          padding={1}
+          flexGrow={1}
+        >
           <text fg="#4c566a">
             Led 300+ consultants through Zero Trust for CMMC compliance.
           </text>
@@ -59,7 +94,13 @@ export function About() {
           </text>
         </box>
 
-        <box marginTop={2} flexDirection="column" gap={1}>
+        <box
+          flexDirection="column"
+          border
+          borderStyle="rounded"
+          borderColor="#5e81ac"
+          padding={1}
+        >
           <text>
             <span style={{ fg: "#81a1c1" }}>Links</span>
           </text>
