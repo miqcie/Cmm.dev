@@ -1,14 +1,28 @@
-export function Home() {
-  return (
-    <box flexDirection="column" flexGrow={1} padding={1}>
-      <box flexDirection="column" alignItems="center" marginTop={1}>
-        <text fg="#88c0d0">
-          {`  ██████╗███╗   ███╗███╗   ███╗   ██████╗ ███████╗██╗   ██╗
+import { useIsMobile } from "../hooks/useIsMobile"
+
+const BANNER_FULL = `  ██████╗███╗   ███╗███╗   ███╗   ██████╗ ███████╗██╗   ██╗
  ██╔════╝████╗ ████║████╗ ████║   ██╔══██╗██╔════╝██║   ██║
  ██║     ██╔████╔██║██╔████╔██║   ██║  ██║█████╗  ██║   ██║
  ██║     ██║╚██╔╝██║██║╚██╔╝██║   ██║  ██║██╔══╝  ╚██╗ ██╔╝
  ╚██████╗██║ ╚═╝ ██║██║ ╚═╝ ██║██╗██████╔╝███████╗ ╚████╔╝
-  ╚═════╝╚═╝     ╚═╝╚═╝     ╚═╝╚═╝╚═════╝ ╚══════╝  ╚═══╝`}
+  ╚═════╝╚═╝     ╚═╝╚═╝     ╚═╝╚═╝╚═════╝ ╚══════╝  ╚═══╝`
+
+const BANNER_SMALL = ` ██████╗██╗  ██╗██╗  ██╗
+██╔════╝███╗███║███╗███║
+██║     ██████║██████║
+██║     ██╔██╔██║██╔██╔██║
+╚██████╗██║  ██║██║  ██║
+ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝
+       ·  D E V  ·`
+
+export function Home() {
+  const isMobile = useIsMobile()
+
+  return (
+    <box flexDirection="column" flexGrow={1} padding={1}>
+      <box flexDirection="column" alignItems="center" marginTop={1}>
+        <text fg="#88c0d0">
+          {isMobile ? BANNER_SMALL : BANNER_FULL}
         </text>
       </box>
 
@@ -16,15 +30,28 @@ export function Home() {
         <text fg="#d8dee9">
           <span style={{ fg: "#ebcb8b", attributes: 1 }}>Practitioner Who Builds</span>
         </text>
-        <text fg="#d8dee9" marginTop={1}>
-          GRC + Cybersecurity. The first mile for companies
-        </text>
-        <text fg="#d8dee9">
-          on their compliance journey. I build the tools I use
-        </text>
-        <text fg="#d8dee9">
-          with clients — then open-source the methodology.
-        </text>
+        {isMobile ? (
+          <>
+            <text fg="#d8dee9" marginTop={1} wrapMode="word">
+              GRC + Cybersecurity. The first mile for companies on their compliance journey.
+            </text>
+            <text fg="#d8dee9" marginTop={1} wrapMode="word">
+              I build the tools I use with clients — then open-source the methodology.
+            </text>
+          </>
+        ) : (
+          <>
+            <text fg="#d8dee9" marginTop={1}>
+              GRC + Cybersecurity. The first mile for companies
+            </text>
+            <text fg="#d8dee9">
+              on their compliance journey. I build the tools I use
+            </text>
+            <text fg="#d8dee9">
+              with clients — then open-source the methodology.
+            </text>
+          </>
+        )}
       </box>
 
       <box marginTop={3} flexDirection="column" alignItems="center">
@@ -38,7 +65,7 @@ export function Home() {
       </box>
 
       <box marginTop={3} flexDirection="column" alignItems="center">
-        <text fg="#4c566a">
+        <text fg="#4c566a" wrapMode="word" textAlign="center">
           {"github.com/miqcie  •  humaine.studio  •  richmond, va"}
         </text>
       </box>

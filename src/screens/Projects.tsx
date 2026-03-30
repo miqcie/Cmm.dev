@@ -1,4 +1,5 @@
 import { projects } from "../data/projects"
+import { useIsMobile } from "../hooks/useIsMobile"
 
 const langColors: Record<string, string> = {
   JavaScript: "#ebcb8b",
@@ -10,12 +11,13 @@ const langColors: Record<string, string> = {
   TypeScript: "#81a1c1",
 }
 
-function ProjectCard({ name, description, language, stars, url }: {
+function ProjectCard({ name, description, language, stars, url, isMobile }: {
   name: string
   description: string
   language: string
   stars: number
   url: string
+  isMobile: boolean
 }) {
   const langColor = langColors[language] || "#d8dee9"
   return (
@@ -25,12 +27,12 @@ function ProjectCard({ name, description, language, stars, url }: {
       borderStyle="rounded"
       borderColor="#5e81ac"
       padding={1}
-      width="50%"
+      width={isMobile ? "100%" : "50%"}
     >
       <text>
         <span style={{ fg: "#88c0d0", attributes: 1 }}>{name}</span>
       </text>
-      <text fg="#d8dee9" marginTop={1}>{description}</text>
+      <text fg="#d8dee9" marginTop={1} wrapMode="word">{description}</text>
       <box flexDirection="row" marginTop={1} gap={2}>
         <text>
           <span style={{ fg: langColor }}>● {language}</span>
@@ -49,6 +51,23 @@ function ProjectCard({ name, description, language, stars, url }: {
 }
 
 export function Projects() {
+  const isMobile = useIsMobile()
+
+  if (isMobile) {
+    return (
+      <scrollbox flexDirection="column" flexGrow={1} padding={1} overflow="scroll">
+        <text>
+          <span style={{ fg: "#ebcb8b", attributes: 1 }}>{"─── Projects ───"}</span>
+        </text>
+        <box flexDirection="column" marginTop={1} gap={1}>
+          {projects.map((project) => (
+            <ProjectCard key={project.name} {...project} isMobile />
+          ))}
+        </box>
+      </scrollbox>
+    )
+  }
+
   const rows: typeof projects[] = []
   for (let i = 0; i < projects.length; i += 2) {
     rows.push(projects.slice(i, i + 2))
@@ -63,7 +82,7 @@ export function Projects() {
         {rows.map((row, i) => (
           <box key={i} flexDirection="row" gap={1}>
             {row.map((project) => (
-              <ProjectCard key={project.name} {...project} />
+              <ProjectCard key={project.name} {...project} isMobile={false} />
             ))}
             {row.length === 1 && <box width="50%" />}
           </box>

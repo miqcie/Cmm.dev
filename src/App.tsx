@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { TUI } from "@gridland/web"
 import { useKeyboard } from "@gridland/utils"
+import { useIsMobile } from "./hooks/useIsMobile"
 import { Home } from "./screens/Home"
 import { Projects } from "./screens/Projects"
 import { About } from "./screens/About"
@@ -9,6 +10,7 @@ type Screen = "home" | "projects" | "about"
 
 function Shell() {
   const [screen, setScreen] = useState<Screen>("home")
+  const isMobile = useIsMobile()
 
   useKeyboard((event) => {
     if (event.ctrl || event.meta || event.shift) return
@@ -26,7 +28,7 @@ function Shell() {
       </box>
       <box
         flexDirection="row"
-        justifyContent="space-between"
+        justifyContent={isMobile ? "center" : "space-between"}
         padding={1}
         borderColor="#4c566a"
       >
@@ -37,7 +39,7 @@ function Shell() {
           {"  "}
           <span style={{ fg: screen === "about" ? "#88c0d0" : "#4c566a" }}>[a]bout</span>
         </text>
-        <text fg="#4c566a">cmm.dev</text>
+        {!isMobile && <text fg="#4c566a">cmm.dev</text>}
       </box>
     </box>
   )
