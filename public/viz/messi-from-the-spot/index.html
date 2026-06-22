@@ -1,448 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Messi From The Spot</title>
+<title>Messi From The Spot — CMM.dev</title>
+<meta name="description" content="Lionel Messi's career penalties, by placement and outcome.">
 <style>
-  :root{
-    --ink:#222019;
-    --ink-soft:#6b675c;
-    --ink-faint:#9b968a;
-    --paper:#fbfaf6;
-    --rule:#dcd8cc;
-    --rule-faint:#ece9df;
-    --accent:#9c6b1f;      /* muted ochre, the one accent */
-    --accent-soft:#c9a35e;
-    --good:#3f6e4b;
-    --bad:#a8503f;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html,body{background:var(--paper);color:var(--ink);
-    font-family:Georgia,"Times New Roman",serif;-webkit-font-smoothing:antialiased;
-    line-height:1.45;}
-  body{padding:54px 0 72px;}
-  .wrap{max-width:760px;margin:0 auto;padding:0 28px;}
-  .sans{font-family:"Gill Sans","Helvetica Neue",Helvetica,Arial,sans-serif;}
+:root{--ink:#222019;--ink-soft:#6b675c;--ink-faint:#9b968a;--paper:#fbfaf6;--rule:#dcd8cc;
+--rule-faint:#ece9df;--accent:#9c6b1f;--accent-soft:#c9a35e;--good:#3f6e4b;--bad:#a8503f;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font-family:Georgia,"Times New Roman",serif;
+-webkit-font-smoothing:antialiased;line-height:1.45}body{padding:48px 0 72px}
+.wrap{max-width:760px;margin:0 auto;padding:0 28px}
+.sans{font-family:"Gill Sans","Helvetica Neue",Helvetica,Arial,sans-serif}
+.home{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.1em;
+text-transform:uppercase;color:var(--ink-soft);text-decoration:none}.home:hover{color:var(--accent)}
+.eyebrow{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.22em;
+text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-top:22px}
+h1{font-size:clamp(30px,5.5vw,46px);line-height:1.04;font-weight:400;letter-spacing:-.01em;margin:8px 0 10px}
+h1 em{font-style:italic}.standfirst{font-size:16px;color:var(--ink-soft);max-width:60ch;line-height:1.5}
+.rule{border:0;border-top:1px solid var(--ink);margin:26px 0 0}
+.lead-stats{margin:30px 0 6px;font-size:19px;line-height:1.65}
+.lead-stats b{font-weight:400;font-size:25px;font-variant-numeric:tabular-nums;
+border-bottom:2px solid var(--accent-soft);padding-bottom:1px}
+section{margin-top:46px}
+.sec-label{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.16em;
+text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-bottom:4px}
+h2{font-size:23px;font-weight:400;letter-spacing:-.01em;margin-bottom:6px}
+.note{font-size:14px;color:var(--ink-soft);max-width:62ch;line-height:1.5}
+.controls{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 6px;align-items:center}
+button{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:12px;padding:5px 11px;
+border:1px solid var(--rule);background:transparent;color:var(--ink-soft);cursor:pointer;border-radius:2px;transition:.12s}
+button:hover{border-color:var(--ink-faint);color:var(--ink)}
+button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.fsep{width:1px;height:16px;background:var(--rule);margin:0 4px}
+.count{margin-left:auto;font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:12px;color:var(--ink-faint)}
+svg.goal{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--rule)}
+.lab{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:11px;fill:var(--ink-soft)}
+.figcap{font-size:13px;color:var(--ink-soft);margin-top:14px;line-height:1.5;max-width:60ch}
+.figcap b{color:var(--ink);font-weight:400;border-bottom:1.5px solid var(--accent-soft)}
+.legend{display:flex;gap:16px;margin-top:10px;font-family:"Gill Sans",Helvetica,Arial,sans-serif;
+font-size:12px;color:var(--ink-soft);flex-wrap:wrap}
+.sides{margin-top:24px}
+.siderow{display:grid;grid-template-columns:120px 1fr 96px;align-items:center;gap:14px;padding:11px 0;
+border-top:1px solid var(--rule-faint)}.siderow:first-child{border-top:1px solid var(--rule)}
+.sidename{font-size:15px}.sidename .small{display:block;font-size:11.5px;color:var(--ink-soft);
+font-family:"Gill Sans",Helvetica,Arial,sans-serif}
+.track{position:relative;height:9px}.track .base{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--rule)}
+.track .freq{position:absolute;top:50%;transform:translateY(-50%);height:9px;background:var(--accent);opacity:.85}
+.sideval{text-align:right;font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:13px;
+font-variant-numeric:tabular-nums;color:var(--ink-soft)}.sideval b{color:var(--ink);font-weight:600}
+.tbl-scroll{max-height:430px;overflow:auto;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);margin-top:16px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+thead th{position:sticky;top:0;background:var(--paper);text-align:left;font-family:"Gill Sans",Helvetica,Arial,sans-serif;
+font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+padding:9px 10px 7px;cursor:pointer;border-bottom:1px solid var(--ink);white-space:nowrap}
+thead th:hover{color:var(--ink)}tbody td{padding:7px 10px;border-bottom:1px solid var(--rule-faint);font-variant-numeric:tabular-nums}
+tbody tr:hover{background:#f3f0e7}td.opp{font-style:italic}.comp{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:11px;color:var(--ink-soft)}
+.out-s{color:var(--good)}.out-m{color:var(--bad)}.marker{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:11px}
+.src{font-size:12px;color:var(--ink-faint);margin-top:18px;line-height:1.55}.src b{color:var(--ink-soft)}
+.tip{position:fixed;pointer-events:none;background:#222;color:#fff;font:12px/1.3 Gill Sans,Arial;padding:5px 8px;border-radius:3px;opacity:0;transition:.1s;z-index:9}
+footer{margin-top:44px;font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.1em;color:var(--ink-faint)}
+</style></head><body><div class="wrap">
+<a class="home" href="/viz/">← data viz</a>
+<div class="eyebrow">Lionel Messi · 146 career penalties</div>
+<h1>From the <em>spot</em></h1>
+<p class="standfirst">Where the most analyzed left foot in football sends the ball — every career penalty, by placement and outcome.</p>
+<hr class="rule">
+<p class="lead-stats">Across nineteen years Messi has stepped up <b>146</b> times, scored <b>113</b>,
+and been denied <b>33</b> — a conversion rate of <b>77%</b>, about the elite-league average for a high-volume taker.</p>
 
-  /* MASTHEAD */
-  .eyebrow{font-family:"Gill Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);
-    font-weight:600;}
-  h1{font-size:clamp(30px,5.5vw,46px);line-height:1.04;font-weight:400;
-    letter-spacing:-.01em;margin:8px 0 10px;}
-  h1 em{font-style:italic;}
-  .standfirst{font-size:16px;color:var(--ink-soft);max-width:60ch;line-height:1.5;}
-  .rule{border:0;border-top:1px solid var(--ink);margin:26px 0 0;}
-  .rule.thin{border-top:1px solid var(--rule);}
+<section>
+<div class="sec-label">Placement · shooter's view</div>
+<h2>Where they actually went</h2>
+<p class="note">Each mark is one penalty, plotted where it crossed the goal. ● scored · ✕ missed.
+Solid = <b>verified</b> (StatsBomb-measured or hand-tagged); hollow = <b>estimated</b> from video.</p>
+<div class="controls">
+<button class="on" data-f="src" data-v="all">All</button>
+<button data-f="src" data-v="verified">Verified</button>
+<button data-f="src" data-v="estimated">Estimated</button>
+<span class="fsep"></span>
+<button class="on" data-f="out" data-v="all">All</button>
+<button data-f="out" data-v="scored">Scored</button>
+<button data-f="out" data-v="missed">Missed</button>
+<span class="count" id="count"></span></div>
+<svg class="goal" id="goal" viewBox="0 0 600 360"></svg>
+<div class="legend"><span>● scored</span><span>✕ missed</span><span>solid = verified</span><span>hollow = estimated</span></div>
+<p class="figcap">134 of 146 penalties have a known placement (83 verified, the rest video-estimated).
+The cloud sits <b>low and to the corners</b> — centre is rare, and the floor of the goal is where most of them live.</p>
+</section>
 
-  /* SENTENCE STATS (data in the flow of text, Tufte-style) */
-  .lead-stats{margin:30px 0 6px;font-size:19px;line-height:1.65;}
-  .lead-stats b{font-weight:400;font-size:25px;font-variant-numeric:tabular-nums;
-    border-bottom:2px solid var(--accent-soft);padding-bottom:1px;}
+<section>
+<div class="sec-label">Side &amp; height</div>
+<h2 id="sideHead">Read of the current selection</h2>
+<p class="note">Share &amp; conversion of on-target placements in the current selection (wide/over misses excluded). Conversion is over <em>located</em> penalties only — switch to <b>Verified</b> for the trustworthy split; the video estimates lean low-left.</p>
+<div class="sides" id="sides"></div>
+</section>
 
-  /* SECTION */
-  section{margin-top:46px;}
-  .sec-label{font-family:"Gill Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);
-    font-weight:600;margin-bottom:4px;}
-  h2{font-size:23px;font-weight:400;letter-spacing:-.01em;margin-bottom:6px;}
-  .note{font-size:14px;color:var(--ink-soft);max-width:62ch;line-height:1.5;}
-
-  /* GOAL GRID — Tufte: thin frame, no fill chrome, value printed in cell */
-  .goalfig{margin:24px 0 4px;}
-  .goalwrap{position:relative;width:100%;max-width:520px;}
-  svg{width:100%;height:auto;display:block;}
-  .axis-x{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:10.5px;
-    letter-spacing:.04em;fill:var(--ink-soft);}
-  .axis-y{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:10px;
-    letter-spacing:.06em;fill:var(--ink-faint);text-transform:uppercase;}
-  .cellval{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-weight:600;
-    font-variant-numeric:tabular-nums;}
-  .figcap{font-size:13px;color:var(--ink-soft);margin-top:14px;line-height:1.5;
-    max-width:58ch;}
-  .figcap b{color:var(--ink);font-weight:400;border-bottom:1.5px solid var(--accent-soft);}
-
-  /* SIDE COMPARISON — slope / dot style, minimal */
-  .sides{margin-top:26px;display:grid;grid-template-columns:1fr;gap:0;}
-  .siderow{display:grid;grid-template-columns:120px 1fr 78px;align-items:center;
-    gap:14px;padding:11px 0;border-top:1px solid var(--rule-faint);}
-  .siderow:first-child{border-top:1px solid var(--rule);}
-  .sidename{font-size:15px;}
-  .sidename .small{display:block;font-size:11.5px;color:var(--ink-soft);
-    font-family:"Gill Sans",Helvetica,Arial,sans-serif;}
-  .track{position:relative;height:9px;}
-  .track .base{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--rule);}
-  .track .freq{position:absolute;top:50%;transform:translateY(-50%);height:9px;
-    background:var(--accent);opacity:.85;}
-  .sideval{text-align:right;font-family:"Gill Sans",Helvetica,Arial,sans-serif;
-    font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink-soft);}
-  .sideval b{color:var(--ink);font-weight:600;}
-  .insight{margin-top:18px;font-size:15px;line-height:1.6;border-left:2px solid var(--accent-soft);
-    padding-left:16px;color:var(--ink);max-width:60ch;}
-
-  /* SPARK / CAREER ROW (small multiples vibe, minimal) */
-  .tablewrap{margin-top:20px;}
-  .filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:14px;}
-  .chip{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:12px;
-    padding:5px 11px;border:1px solid var(--rule);background:transparent;cursor:pointer;
-    color:var(--ink-soft);border-radius:2px;transition:.12s;}
-  .chip:hover{border-color:var(--ink-faint);color:var(--ink);}
-  .chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink);}
-  .fsep{width:1px;height:18px;background:var(--rule);margin:0 4px;}
-  .fcount{margin-left:auto;font-family:"Gill Sans",Helvetica,Arial,sans-serif;
-    font-size:12px;color:var(--ink-faint);}
-  .tbl-scroll{max-height:430px;overflow:auto;border-top:1.5px solid var(--ink);
-    border-bottom:1.5px solid var(--ink);}
-  table{width:100%;border-collapse:collapse;font-size:13.5px;}
-  thead th{position:sticky;top:0;background:var(--paper);text-align:left;
-    font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;
-    letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
-    padding:9px 10px 7px;cursor:pointer;border-bottom:1px solid var(--ink);white-space:nowrap;}
-  thead th:hover{color:var(--ink);}
-  tbody td{padding:7px 10px;border-bottom:1px solid var(--rule-faint);
-    font-variant-numeric:tabular-nums;}
-  tbody tr:hover{background:#f3f0e7;}
-  .out-s{color:var(--good);}
-  .out-m{color:var(--bad);}
-  .marker{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:11px;}
-  .comp{font-family:"Gill Sans",Helvetica,Arial,sans-serif;font-size:11px;
-    color:var(--ink-soft);}
-  td.opp{font-style:italic;}
-  .src{font-size:12px;color:var(--ink-faint);margin-top:18px;line-height:1.55;}
-  .src a{color:var(--accent);}
-</style>
-</head>
-<body>
-<div class="wrap">
-
-  <div class="eyebrow">Lionel Messi &middot; 147 career penalties</div>
-  <h1>From the <em>spot</em></h1>
-  <p class="standfirst">Where the most analyzed left foot in football sends the ball &mdash; and the quiet paradox in the numbers.</p>
-  <hr class="rule">
-
-  <p class="lead-stats">
-    Across nineteen years Messi has stepped up <b>147</b> times, scored <b>114</b>,
-    and been denied <b>33</b> &mdash; a conversion rate of <b>78%</b>, almost exactly the
-    elite-league average for a high-volume taker.
-  </p>
-
-  <!-- PLACEMENT GRID -->
-  <section>
-    <div class="sec-label">Placement &middot; shooter's view</div>
-    <h2>His right, kept low</h2>
-    <p class="note">Each cell shows the share of penalties sent there. Read it as the shooter sees the goal: his left hand side on the left, his right on the right.</p>
-
-    <div class="goalfig">
-      <div class="goalwrap">
-        <svg viewBox="0 0 520 330" preserveAspectRatio="xMidYMid meet" aria-label="Nine-zone goal grid, Messi penalty placement, shooter's view">
-          <!-- y labels -->
-          <text class="axis-y" x="6" y="78"  >High</text>
-          <text class="axis-y" x="6" y="170" >Mid</text>
-          <text class="axis-y" x="6" y="262" >Low</text>
-
-          <!-- goal frame: thin, only the posts+bar, no fill -->
-          <line x1="70" y1="36" x2="70"  y2="300" stroke="#222019" stroke-width="2"/>
-          <line x1="470" y1="36" x2="470" y2="300" stroke="#222019" stroke-width="2"/>
-          <line x1="70" y1="36" x2="470" y2="36" stroke="#222019" stroke-width="2"/>
-          <line x1="60" y1="300" x2="480" y2="300" stroke="#dcd8cc" stroke-width="1"/>
-
-          <!-- faint interior dividers (data-ink minimal) -->
-          <line x1="203" y1="36" x2="203" y2="300" stroke="#ece9df" stroke-width="1"/>
-          <line x1="337" y1="36" x2="337" y2="300" stroke="#ece9df" stroke-width="1"/>
-          <line x1="70" y1="124" x2="470" y2="124" stroke="#ece9df" stroke-width="1"/>
-          <line x1="70" y1="212" x2="470" y2="212" stroke="#ece9df" stroke-width="1"/>
-
-          <!-- value dots: radius encodes share, single accent color.
-               columns center x: left 136, centre 270, right 404
-               rows center y: high 80, mid 168, low 256
-               Shares (estimated from side split + low/mid lean; rounded, must total ~100):
-               left  : high 4, mid 12, low 17   (=33)
-               centre: high 1, mid 3,  low 4    (=8)
-               right : high 9, mid 21, low 30   (=60)  -> bottom-right dominant -->
-          <!-- left col -->
-          <circle cx="136" cy="80"  r="7"  fill="#9c6b1f" opacity="0.78"/>
-          <text class="cellval" x="136" y="103" text-anchor="middle" font-size="11" fill="#6b675c">4%</text>
-          <circle cx="136" cy="168" r="13" fill="#9c6b1f" opacity="0.82"/>
-          <text class="cellval" x="136" y="196" text-anchor="middle" font-size="12" fill="#6b675c">12%</text>
-          <circle cx="136" cy="256" r="16" fill="#9c6b1f" opacity="0.85"/>
-          <text class="cellval" x="136" y="287" text-anchor="middle" font-size="12" fill="#6b675c">17%</text>
-          <!-- centre col -->
-          <circle cx="270" cy="80"  r="3.5" fill="#c9a35e" opacity="0.8"/>
-          <text class="cellval" x="270" y="100" text-anchor="middle" font-size="10.5" fill="#9b968a">1%</text>
-          <circle cx="270" cy="168" r="6"  fill="#c9a35e" opacity="0.8"/>
-          <text class="cellval" x="270" y="190" text-anchor="middle" font-size="10.5" fill="#9b968a">3%</text>
-          <circle cx="270" cy="256" r="7"  fill="#c9a35e" opacity="0.8"/>
-          <text class="cellval" x="270" y="280" text-anchor="middle" font-size="10.5" fill="#9b968a">4%</text>
-          <!-- right col -->
-          <circle cx="404" cy="80"  r="11" fill="#9c6b1f" opacity="0.85"/>
-          <text class="cellval" x="404" y="105" text-anchor="middle" font-size="12" fill="#6b675c">9%</text>
-          <circle cx="404" cy="168" r="18" fill="#9c6b1f" opacity="0.9"/>
-          <text class="cellval" x="404" y="200" text-anchor="middle" font-size="12.5" fill="#4a463c">21%</text>
-          <circle cx="404" cy="256" r="22" fill="#9c6b1f" opacity="0.96"/>
-          <text class="cellval" x="404" y="291" text-anchor="middle" font-size="13.5" font-weight="700" fill="#222019">30%</text>
-
-          <!-- x labels -->
-          <text class="axis-x" x="136" y="320" text-anchor="middle">His left</text>
-          <text class="axis-x" x="270" y="320" text-anchor="middle">Centre</text>
-          <text class="axis-x" x="404" y="320" text-anchor="middle">His right</text>
-        </svg>
-      </div>
-      <p class="figcap">Dot size is the share of penalties to each zone. The heaviest dot sits <b>bottom-right &mdash; his right, low</b>: the intersection of his preferred side and his low-to-mid habit. Centre is nearly empty.</p>
-    </div>
-  </section>
-
-  <!-- THE PARADOX -->
-  <section>
-    <div class="sec-label">The paradox</div>
-    <h2>He shoots right, but scores left</h2>
-    <p class="note">Side split and conversion from a 95-penalty Barcelona sample &mdash; the most granular public placement data that exists.</p>
-
-    <div class="sides">
-      <div class="siderow">
-        <div class="sidename">His right<span class="small">the &ldquo;safety side&rdquo;</span></div>
-        <div class="track"><div class="base"></div><div class="freq" style="width:60%"></div></div>
-        <div class="sideval"><b>60%</b> of kicks</div>
-      </div>
-      <div class="siderow">
-        <div class="sidename">His left<span class="small">used less, missed less</span></div>
-        <div class="track"><div class="base"></div><div class="freq" style="width:33%"></div></div>
-        <div class="sideval"><b>33%</b> of kicks</div>
-      </div>
-      <div class="siderow">
-        <div class="sidename">Centre<span class="small">the rarity</span></div>
-        <div class="track"><div class="base"></div><div class="freq" style="width:8%"></div></div>
-        <div class="sideval"><b>8%</b> of kicks</div>
-      </div>
-    </div>
-
-    <p class="insight">
-      He goes right almost twice as often, yet converts <b>86.7%</b> to his left versus
-      <b>77.2%</b> to his right. The favorite side is the <em>less</em> efficient one &mdash;
-      keepers anticipate it and still mostly fail, but the under-used left is where he's
-      deadliest.
-    </p>
-  </section>
-
-  <!-- FULL LOG -->
-  <section>
-    <div class="sec-label">The record</div>
-    <h2>Every penalty, 2007&ndash;2026</h2>
-    <p class="note">Outcome and goalkeeper are logged; in-goal coordinates are not published for the full career. Filter and sort below.</p>
-
-    <div class="tablewrap">
-      <div class="filters">
-        <div id="f-outcome" style="display:flex;gap:6px;">
-          <button class="chip on" data-f="all">All</button>
-          <button class="chip" data-f="scored">Scored</button>
-          <button class="chip" data-f="missed">Missed</button>
-        </div>
-        <span class="fsep"></span>
-        <div id="f-team" style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="chip on" data-t="all">All teams</button>
-          <button class="chip" data-t="Barcelona">Barcelona</button>
-          <button class="chip" data-t="PSG">PSG</button>
-          <button class="chip" data-t="Miami">Miami</button>
-          <button class="chip" data-t="Argentina">Argentina</button>
-        </div>
-        <span class="fcount" id="fcount"></span>
-      </div>
-      <div class="tbl-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th data-sort="date">Date</th>
-              <th data-sort="comp">Comp</th>
-              <th data-sort="team">Team</th>
-              <th data-sort="opp">Opponent</th>
-              <th data-sort="min">Min</th>
-              <th data-sort="out">Result</th>
-            </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-        </table>
-      </div>
-      <p class="src">
-        Penalty log: <a href="https://www.messistats.com/en/penalty" target="_blank">MessiStats</a>.
-        Conversion cross-checked with <a href="https://www.messivsronaldo.app/detailed-stats/penalties/" target="_blank">messivsronaldo.app</a>
-        and <a href="https://www.transfermarkt.us/lionel-messi/elfmetertore/spieler/28003" target="_blank">Transfermarkt</a>.
-        Side split &amp; conversion: <a href="https://m.allfootballapp.com/news/EPL/Analyzing-Messis-penalties-where-he-shoots-reliability--safety-side/2269484" target="_blank">All Football</a> (95-penalty Barcelona sample).
-        Vertical (high/mid/low) shares are estimated from the documented side split plus his low-to-mid lean &mdash; no public source plots exact placement for all kicks.
-      </p>
-    </div>
-  </section>
-
-</div>
-
+<section>
+<div class="sec-label">The record</div>
+<h2>Every penalty, 2007–2026</h2>
+<p class="note">Outcome and competition for all 146. Placement filled where known. Sort by any column.</p>
+<div class="tbl-scroll"><table><thead><tr>
+<th data-s="date">Date</th><th data-s="comp">Comp</th><th data-s="team">Team</th>
+<th data-s="opp">Opponent</th><th data-s="min">Min</th><th data-s="out">Result</th><th data-s="place">Placement</th>
+</tr></thead><tbody id="tbody"></tbody></table></div>
+<p class="src"><b>Sources.</b> Measured coordinates: StatsBomb open data (Messi La Liga, 2004/05–2020/21).
+Hand-verified + video-estimated placements built from match footage. Penalty log cross-checked with
+MessiStats, messivsronaldo.app, Transfermarkt. Estimated marks are coarse zone-level reads, not exact.</p>
+</section>
+<footer>cmm.dev · data viz</footer>
+</div><div class="tip" id="tip"></div>
 <script>
-const D = [
-  ["2026-06-22","WCP","Argentina","Austria",9,"missed"],
-  ["2026-06-09","FRN","Argentina","Iceland",72,"scored"],
-  ["2026-04-18","MLS","Miami","Colorado Rapids",18,"scored"],
-  ["2025-10-19","MLS","Miami","Nashville SC",63,"scored"],
-  ["2025-09-13","MLS","Miami","Charlotte FC",32,"missed"],
-  ["2025-08-27","NAM","Miami","Orlando City",77,"scored"],
-  ["2025-04-09","NAM","Miami","Los Angeles FC",84,"scored"],
-  ["2024-04-20","MLS","Miami","Nashville SC",81,"scored"],
-  ["2022-12-18","WCP","Argentina","France",23,"scored"],
-  ["2022-12-13","WCP","Argentina","Croatia",34,"scored"],
-  ["2022-12-09","WCP","Argentina","Netherlands",73,"scored"],
-  ["2022-11-30","WCP","Argentina","Poland",38,"missed"],
-  ["2022-11-22","WCP","Argentina","Saudi Arabia",10,"scored"],
-  ["2022-09-23","FRN","Argentina","Honduras",45,"scored"],
-  ["2022-06-05","FRN","Argentina","Estonia",8,"scored"],
-  ["2022-02-15","EUR","PSG","Real Madrid",61,"missed"],
-  ["2021-12-07","EUR","PSG","Club Brugge",76,"scored"],
-  ["2021-10-19","EUR","PSG","RB Leipzig",74,"scored"],
-  ["2021-06-28","CPA","Argentina","Bolivia",33,"scored"],
-  ["2021-06-04","WCQ","Argentina","Chile",23,"scored"],
-  ["2021-05-02","PRM","Barcelona","Valencia",57,"missed"],
-  ["2021-03-10","EUR","Barcelona","PSG",45,"missed"],
-  ["2021-02-21","PRM","Barcelona","Cadiz",32,"scored"],
-  ["2021-02-16","EUR","Barcelona","PSG",28,"scored"],
-  ["2020-12-19","PRM","Barcelona","Valencia",45,"missed"],
-  ["2020-11-07","PRM","Barcelona","Real Betis",61,"scored"],
-  ["2020-11-04","EUR","Barcelona","Dynamo Kyiv",5,"scored"],
-  ["2020-10-28","EUR","Barcelona","Juventus",90,"scored"],
-  ["2020-10-20","EUR","Barcelona","Ferencvaros",27,"scored"],
-  ["2020-10-09","WCQ","Argentina","Ecuador",13,"scored"],
-  ["2020-09-27","PRM","Barcelona","Villarreal",35,"scored"],
-  ["2020-06-30","PRM","Barcelona","Atletico Madrid",50,"scored"],
-  ["2020-06-16","PRM","Barcelona","Leganes",69,"scored"],
-  ["2020-03-07","PRM","Barcelona","Real Sociedad",81,"scored"],
-  ["2019-11-18","FRN","Argentina","Uruguay",90,"scored"],
-  ["2019-11-15","FRN","Argentina","Brazil",13,"missed"],
-  ["2019-11-09","PRM","Barcelona","Celta de Vigo",23,"scored"],
-  ["2019-11-02","PRM","Barcelona","Levante",38,"scored"],
-  ["2019-06-19","CPA","Argentina","Paraguay",57,"scored"],
-  ["2019-03-13","EUR","Barcelona","Olympique Lyonnais",18,"scored"],
-  ["2019-03-09","PRM","Barcelona","Rayo Vallecano",51,"scored"],
-  ["2019-02-16","PRM","Barcelona","Real Valladolid",85,"missed"],
-  ["2019-02-16","PRM","Barcelona","Real Valladolid",43,"scored"],
-  ["2019-02-02","PRM","Barcelona","Valencia",39,"scored"],
-  ["2018-11-11","PRM","Barcelona","Real Betis",68,"scored"],
-  ["2018-06-16","WCP","Argentina","Iceland",64,"missed"],
-  ["2018-05-29","FRN","Argentina","Haiti",17,"scored"],
-  ["2018-01-17","CUP","Barcelona","Espanyol",62,"missed"],
-  ["2017-12-23","PRM","Barcelona","Real Madrid",64,"scored"],
-  ["2017-12-17","PRM","Barcelona","Deportivo La Coruna",70,"missed"],
-  ["2017-09-19","PRM","Barcelona","Eibar",20,"scored"],
-  ["2017-08-26","PRM","Barcelona","Alaves",39,"missed"],
-  ["2017-08-13","SUP","Barcelona","Real Madrid",76,"scored"],
-  ["2017-05-21","PRM","Barcelona","Eibar",76,"scored"],
-  ["2017-05-21","PRM","Barcelona","Eibar",69,"missed"],
-  ["2017-05-06","PRM","Barcelona","Villarreal",82,"scored"],
-  ["2017-03-23","WCQ","Argentina","Chile",16,"scored"],
-  ["2017-03-19","PRM","Barcelona","Valencia",45,"scored"],
-  ["2017-03-08","EUR","Barcelona","PSG",50,"scored"],
-  ["2017-02-19","PRM","Barcelona","Leganes",89,"scored"],
-  ["2017-01-26","CUP","Barcelona","Real Sociedad",55,"scored"],
-  ["2016-11-23","EUR","Barcelona","Celtic",55,"scored"],
-  ["2016-10-22","PRM","Barcelona","Valencia",90,"scored"],
-  ["2016-09-17","PRM","Barcelona","Leganes",55,"scored"],
-  ["2016-03-29","WCQ","Argentina","Bolivia",30,"scored"],
-  ["2016-03-12","PRM","Barcelona","Getafe",11,"missed"],
-  ["2016-03-06","PRM","Barcelona","Eibar",76,"scored"],
-  ["2016-02-23","EUR","Barcelona","Arsenal",83,"scored"],
-  ["2016-02-14","PRM","Barcelona","Celta de Vigo",81,"scored"],
-  ["2016-01-17","PRM","Barcelona","Athletic Bilbao",7,"scored"],
-  ["2015-09-20","PRM","Barcelona","Levante",75,"missed"],
-  ["2015-09-20","PRM","Barcelona","Levante",61,"scored"],
-  ["2015-08-23","PRM","Barcelona","Athletic Bilbao",31,"missed"],
-  ["2015-06-13","CPA","Argentina","Paraguay",35,"scored"],
-  ["2015-04-28","PRM","Barcelona","Getafe",9,"scored"],
-  ["2015-03-14","PRM","Barcelona","Eibar",31,"scored"],
-  ["2015-03-08","PRM","Barcelona","Rayo Vallecano",56,"scored"],
-  ["2015-02-24","EUR","Barcelona","Manchester City",90,"missed"],
-  ["2015-02-15","PRM","Barcelona","Levante",65,"scored"],
-  ["2015-01-24","PRM","Barcelona","Elche",55,"scored"],
-  ["2015-01-21","CUP","Barcelona","Atletico Madrid",85,"missed"],
-  ["2015-01-08","CUP","Barcelona","Elche",45,"scored"],
-  ["2014-11-12","FRN","Argentina","Croatia",57,"scored"],
-  ["2014-10-11","FRN","Argentina","Brazil",41,"missed"],
-  ["2014-09-21","PRM","Barcelona","Levante",42,"missed"],
-  ["2014-04-05","PRM","Barcelona","Real Betis",86,"missed"],
-  ["2014-04-05","PRM","Barcelona","Real Betis",15,"scored"],
-  ["2014-03-29","PRM","Barcelona","Espanyol",77,"scored"],
-  ["2014-03-23","PRM","Barcelona","Real Madrid",84,"scored"],
-  ["2014-03-23","PRM","Barcelona","Real Madrid",65,"scored"],
-  ["2014-02-18","EUR","Barcelona","Manchester City",54,"scored"],
-  ["2014-02-01","PRM","Barcelona","Valencia",54,"scored"],
-  ["2013-11-06","EUR","Barcelona","AC Milan",30,"scored"],
-  ["2013-09-11","WCQ","Argentina","Paraguay",52,"scored"],
-  ["2013-09-11","WCQ","Argentina","Paraguay",12,"scored"],
-  ["2013-08-28","SUP","Barcelona","Atletico Madrid",89,"missed"],
-  ["2013-08-18","PRM","Barcelona","Levante",42,"scored"],
-  ["2013-06-15","FRN","Argentina","Guatemala",40,"scored"],
-  ["2013-03-23","WCQ","Argentina","Venezuela",44,"scored"],
-  ["2013-02-03","PRM","Barcelona","Valencia",39,"scored"],
-  ["2013-01-27","PRM","Barcelona","Osasuna",28,"scored"],
-  ["2013-01-06","PRM","Barcelona","Espanyol",29,"scored"],
-  ["2012-09-15","PRM","Barcelona","Getafe",74,"scored"],
-  ["2012-08-23","SUP","Barcelona","Real Madrid",70,"scored"],
-  ["2012-08-15","FRN","Argentina","Germany",32,"missed"],
-  ["2012-05-05","PRM","Barcelona","Espanyol",79,"scored"],
-  ["2012-05-05","PRM","Barcelona","Espanyol",64,"scored"],
-  ["2012-05-02","PRM","Barcelona","Malaga",59,"scored"],
-  ["2012-05-02","PRM","Barcelona","Malaga",35,"scored"],
-  ["2012-04-24","EUR","Barcelona","Chelsea",49,"missed"],
-  ["2012-04-14","PRM","Barcelona","Levante",72,"scored"],
-  ["2012-04-07","PRM","Barcelona","Real Zaragoza",86,"scored"],
-  ["2012-04-03","EUR","Barcelona","AC Milan",41,"scored"],
-  ["2012-04-03","EUR","Barcelona","AC Milan",11,"scored"],
-  ["2012-03-31","PRM","Barcelona","Athletic Bilbao",58,"scored"],
-  ["2012-03-11","PRM","Barcelona","Racing Santander",56,"scored"],
-  ["2012-02-29","FRN","Argentina","Switzerland",90,"scored"],
-  ["2012-02-01","CUP","Barcelona","Valencia",56,"missed"],
-  ["2012-01-15","PRM","Barcelona","Real Betis",86,"scored"],
-  ["2011-11-23","EUR","Barcelona","AC Milan",31,"scored"],
-  ["2011-11-01","EUR","Barcelona","Viktoria Plzen",24,"scored"],
-  ["2011-10-29","PRM","Barcelona","Real Mallorca",13,"scored"],
-  ["2011-10-22","PRM","Barcelona","Sevilla",90,"missed"],
-  ["2011-04-16","PRM","Barcelona","Real Madrid",53,"scored"],
-  ["2011-04-09","PRM","Barcelona","UD Almeria",53,"scored"],
-  ["2011-03-08","EUR","Barcelona","Arsenal",71,"scored"],
-  ["2011-02-09","FRN","Argentina","Portugal",90,"scored"],
-  ["2011-01-22","PRM","Barcelona","Racing Santander",33,"scored"],
-  ["2011-01-19","CUP","Barcelona","Real Betis",54,"missed"],
-  ["2010-12-04","PRM","Barcelona","Osasuna",83,"scored"],
-  ["2010-09-14","EUR","Barcelona","Panathinaikos",55,"missed"],
-  ["2009-11-14","FRN","Argentina","Spain",61,"scored"],
-  ["2009-11-07","PRM","Barcelona","Real Mallorca",87,"scored"],
-  ["2009-08-23","SUP","Barcelona","Athletic Bilbao",68,"scored"],
-  ["2009-04-11","PRM","Barcelona","Recreativo Huelva",81,"missed"],
-  ["2009-03-07","PRM","Barcelona","Athletic Bilbao",32,"scored"],
-  ["2009-01-06","CUP","Barcelona","Atletico Madrid",57,"scored"],
-  ["2008-11-12","CUP","Barcelona","Benidorm",87,"missed"],
-  ["2008-09-27","PRM","Barcelona","Espanyol",90,"scored"],
-  ["2008-09-13","PRM","Barcelona","Racing Santander",71,"scored"],
-  ["2008-05-04","PRM","Barcelona","Valencia",6,"scored"],
-  ["2008-01-31","CUP","Barcelona","Villarreal",76,"missed"],
-  ["2007-11-27","EUR","Barcelona","Olympique Lyonnais",58,"scored"],
-  ["2007-11-24","PRM","Barcelona","Recreativo Huelva",82,"scored"],
-  ["2007-10-28","PRM","Barcelona","UD Almeria",81,"scored"],
-  ["2007-09-22","PRM","Barcelona","Sevilla",80,"scored"]
-];
-const COMP_LABEL={WCP:"World Cup",FRN:"Friendly",MLS:"MLS",NAM:"Leagues Cup",EUR:"UCL",CPA:"Copa Am.",WCQ:"WC Qual.",PRM:"League",CUP:"Copa del Rey",SUP:"Super Cup"};
-const TEAM_LABEL={Barcelona:"Barcelona",PSG:"PSG",Miami:"Inter Miami",Argentina:"Argentina"};
-let state={outcome:"all",team:"all",sortKey:"date",sortDir:-1};
-const tbody=document.getElementById('tbody'),fcount=document.getElementById('fcount');
-function fmtDate(d){const[y,m,day]=d.split('-');const mo=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+m-1];return `${mo} ${+day}, ’${y.slice(2)}`;}
-function render(){
-  let rows=D.filter(r=>(state.outcome==="all"||r[5]===state.outcome)&&(state.team==="all"||r[2]===state.team));
-  const idx={date:0,comp:1,team:2,opp:3,min:4,out:5}[state.sortKey];
-  rows.sort((a,b)=>{let av=a[idx],bv=b[idx];if(state.sortKey==="min"){av=+av;bv=+bv;}return av<bv?-1*state.sortDir:av>bv?state.sortDir:0;});
-  tbody.innerHTML=rows.map(r=>{
-    const out=r[5]==="scored"?'<span class="out-s marker">&#9679; Scored</span>':'<span class="out-m marker">&#9675; Missed</span>';
-    return `<tr><td>${fmtDate(r[0])}</td><td class="comp">${COMP_LABEL[r[1]]||r[1]}</td><td>${TEAM_LABEL[r[2]]}</td><td class="opp">${r[3]}</td><td>${r[4]}'</td><td>${out}</td></tr>`;
-  }).join('');
-  const sc=rows.filter(r=>r[5]==="scored").length;
-  fcount.textContent=`${rows.length} shown · ${sc} scored · ${rows.length-sc} missed`;
+const DATA=[{"date": "2026-06-22", "comp": "WCP", "team": "Argentina", "opp": "Austria", "min": 9, "out": "missed", "gx": 1.049, "gy": 0.045, "ot": true, "src": "verified", "tech": "stutter"}, {"date": "2026-06-09", "comp": "FRN", "team": "Argentina", "opp": "Iceland", "min": 72, "out": "scored", "gx": 0.664, "gy": 0.837, "ot": false, "src": "verified", "tech": ""}, {"date": "2026-04-18", "comp": "MLS", "team": "Miami", "opp": "Colorado Rapids", "min": 18, "out": "scored", "gx": 0.386, "gy": 0.04, "ot": false, "src": "verified", "tech": ""}, {"date": "2025-10-19", "comp": "MLS", "team": "Miami", "opp": "Nashville SC", "min": 63, "out": "scored", "gx": 0.326, "gy": 0.028, "ot": false, "src": "verified", "tech": ""}, {"date": "2025-09-13", "comp": "MLS", "team": "Miami", "opp": "Charlotte FC", "min": 32, "out": "missed", "gx": 0.292, "gy": 0.679, "ot": false, "src": "verified", "tech": "panenka"}, {"date": "2025-08-27", "comp": "NAM", "team": "Miami", "opp": "Orlando City", "min": 77, "out": "scored", "gx": 0.865, "gy": 0.336, "ot": false, "src": "verified", "tech": ""}, {"date": "2025-04-09", "comp": "NAM", "team": "Miami", "opp": "Los Angeles FC", "min": 84, "out": "scored", "gx": 0.835, "gy": 0.512, "ot": false, "src": "verified", "tech": ""}, {"date": "2024-04-20", "comp": "MLS", "team": "Miami", "opp": "Nashville SC", "min": 81, "out": "scored", "gx": 0.862, "gy": 0.141, "ot": false, "src": "verified", "tech": "standard"}, {"date": "2022-12-18", "comp": "WCP", "team": "Argentina", "opp": "France", "min": 23, "out": "scored", "gx": 0.754, "gy": 0.124, "ot": false, "src": "verified", "tech": "stutter"}, {"date": "2022-12-13", "comp": "WCP", "team": "Argentina", "opp": "Croatia", "min": 34, "out": "scored", "gx": 0.25, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2022-12-09", "comp": "WCP", "team": "Argentina", "opp": "Netherlands", "min": 73, "out": "scored", "gx": 0.8, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2022-11-30", "comp": "WCP", "team": "Argentina", "opp": "Poland", "min": 38, "out": "missed"}, {"date": "2022-11-22", "comp": "WCP", "team": "Argentina", "opp": "Saudi Arabia", "min": 10, "out": "scored", "gx": 0.3, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2022-09-23", "comp": "FRN", "team": "Argentina", "opp": "Honduras", "min": 45, "out": "scored", "gx": 0.65, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2022-06-05", "comp": "FRN", "team": "Argentina", "opp": "Estonia", "min": 8, "out": "scored"}, {"date": "2022-02-15", "comp": "EUR", "team": "PSG", "opp": "Real Madrid", "min": 61, "out": "missed", "gx": 0.25, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2021-12-07", "comp": "EUR", "team": "PSG", "opp": "Club Brugge", "min": 76, "out": "scored", "gx": 0.25, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2021-10-19", "comp": "EUR", "team": "PSG", "opp": "RB Leipzig", "min": 74, "out": "scored", "gx": 0.5, "gy": 0.3, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2021-06-28", "comp": "CPA", "team": "Argentina", "opp": "Bolivia", "min": 33, "out": "scored", "gx": 0.3, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2021-06-04", "comp": "WCQ", "team": "Argentina", "opp": "Chile", "min": 23, "out": "scored", "gx": 0.8, "gy": 0.1, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2021-05-02", "comp": "PRM", "team": "Barcelona", "opp": "Valencia", "min": 56, "out": "missed", "gx": 0.825, "gy": 0.0, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2021-03-10", "comp": "EUR", "team": "Barcelona", "opp": "PSG", "min": 45, "out": "missed"}, {"date": "2021-02-21", "comp": "PRM", "team": "Barcelona", "opp": "C\u00e1diz", "min": 31, "out": "scored", "gx": 0.875, "gy": 0.262, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2021-02-16", "comp": "EUR", "team": "Barcelona", "opp": "PSG", "min": 28, "out": "scored"}, {"date": "2020-12-19", "comp": "PRM", "team": "Barcelona", "opp": "Valencia", "min": 48, "out": "missed", "gx": 0.8, "gy": 0.375, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2020-11-07", "comp": "PRM", "team": "Barcelona", "opp": "Real Betis", "min": 60, "out": "scored", "gx": 0.088, "gy": 0.861, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2020-11-04", "comp": "EUR", "team": "Barcelona", "opp": "Dynamo Kyiv", "min": 5, "out": "scored", "gx": 0.65, "gy": 0.1, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2020-10-28", "comp": "EUR", "team": "Barcelona", "opp": "Juventus", "min": 90, "out": "scored", "gx": 0.3, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2020-10-20", "comp": "EUR", "team": "Barcelona", "opp": "Ferencvaros", "min": 27, "out": "scored", "gx": 0.7, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2020-10-09", "comp": "WCQ", "team": "Argentina", "opp": "Ecuador", "min": 13, "out": "scored", "gx": 0.78, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2020-09-27", "comp": "PRM", "team": "Barcelona", "opp": "Villarreal", "min": 34, "out": "scored", "gx": 0.875, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2020-06-30", "comp": "PRM", "team": "Barcelona", "opp": "Atl\u00e9tico Madrid", "min": 49, "out": "scored", "gx": 0.8, "gy": 0.412, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2020-06-16", "comp": "PRM", "team": "Barcelona", "opp": "Legan\u00e9s", "min": 68, "out": "scored", "gx": 0.05, "gy": 0.3, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2020-03-07", "comp": "PRM", "team": "Barcelona", "opp": "Real Sociedad", "min": 80, "out": "scored", "gx": 0.088, "gy": 0.412, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2019-11-18", "comp": "FRN", "team": "Argentina", "opp": "Uruguay", "min": 90, "out": "scored", "gx": 0.2, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2019-11-15", "comp": "FRN", "team": "Argentina", "opp": "Brazil", "min": 13, "out": "missed", "gx": 0.7, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2019-11-09", "comp": "PRM", "team": "Barcelona", "opp": "Celta Vigo", "min": 22, "out": "scored", "gx": 0.938, "gy": 0.0, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2019-11-02", "comp": "PRM", "team": "Barcelona", "opp": "Levante UD", "min": 37, "out": "scored", "gx": 0.2, "gy": 0.749, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2019-06-19", "comp": "CPA", "team": "Argentina", "opp": "Paraguay", "min": 57, "out": "scored", "gx": 0.25, "gy": 0.35, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2019-03-13", "comp": "EUR", "team": "Barcelona", "opp": "Olympique Lyonnais", "min": 18, "out": "scored", "gx": 0.5, "gy": 0.35, "ot": false, "src": "estimated", "tech": "panenka"}, {"date": "2019-03-09", "comp": "PRM", "team": "Barcelona", "opp": "Rayo Vallecano", "min": 50, "out": "scored", "gx": 0.112, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2019-02-16", "comp": "PRM", "team": "Barcelona", "opp": "Real Valladolid", "min": 84, "out": "missed", "gx": 0.112, "gy": 0.225, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2019-02-16", "comp": "PRM", "team": "Barcelona", "opp": "Real Valladolid", "min": 42, "out": "scored", "gx": 0.05, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2019-02-02", "comp": "PRM", "team": "Barcelona", "opp": "Valencia", "min": 38, "out": "scored", "gx": 0.287, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2018-11-11", "comp": "PRM", "team": "Barcelona", "opp": "Real Betis", "min": 67, "out": "scored", "gx": 0.125, "gy": 0.787, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2018-06-16", "comp": "WCP", "team": "Argentina", "opp": "Iceland", "min": 64, "out": "missed", "gx": 0.25, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2018-05-29", "comp": "FRN", "team": "Argentina", "opp": "Haiti", "min": 17, "out": "scored", "gx": 0.7, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2018-01-17", "comp": "CUP", "team": "Barcelona", "opp": "Espanyol", "min": 62, "out": "missed", "gx": 0.3, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2017-12-23", "comp": "PRM", "team": "Barcelona", "opp": "Real Madrid", "min": 63, "out": "scored", "gx": 0.275, "gy": 0.599, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2017-12-17", "comp": "PRM", "team": "Barcelona", "opp": "RC Deportivo La Coru\u00f1a", "min": 69, "out": "missed", "gx": 0.15, "gy": 0.524, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2017-09-19", "comp": "PRM", "team": "Barcelona", "opp": "Eibar", "min": 20, "out": "scored", "gx": 0.888, "gy": 0.599, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2017-08-26", "comp": "PRM", "team": "Barcelona", "opp": "Deportivo Alav\u00e9s", "min": 38, "out": "missed", "gx": 0.888, "gy": 0.412, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2017-08-13", "comp": "SUP", "team": "Barcelona", "opp": "Real Madrid", "min": 76, "out": "scored", "gx": 0.7, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2017-05-21", "comp": "PRM", "team": "Barcelona", "opp": "Eibar", "min": 74, "out": "scored", "gx": 0.037, "gy": 0.487, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2017-05-21", "comp": "PRM", "team": "Barcelona", "opp": "Eibar", "min": 69, "out": "missed", "gx": 0.338, "gy": 0.337, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2017-05-06", "comp": "PRM", "team": "Barcelona", "opp": "Villarreal", "min": 81, "out": "scored", "gx": 0.362, "gy": 0.824, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2017-03-23", "comp": "WCQ", "team": "Argentina", "opp": "Chile", "min": 16, "out": "scored"}, {"date": "2017-03-19", "comp": "PRM", "team": "Barcelona", "opp": "Valencia", "min": 44, "out": "scored", "gx": 0.5, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2017-03-08", "comp": "EUR", "team": "Barcelona", "opp": "PSG", "min": 50, "out": "scored", "gx": 0.6, "gy": 0.5, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2017-02-19", "comp": "PRM", "team": "Barcelona", "opp": "Legan\u00e9s", "min": 89, "out": "scored", "gx": 0.9, "gy": 0.674, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2017-01-26", "comp": "CUP", "team": "Barcelona", "opp": "Real Sociedad", "min": 55, "out": "scored", "gx": 0.6, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2016-11-23", "comp": "EUR", "team": "Barcelona", "opp": "Celtic", "min": 55, "out": "scored", "gx": 0.7, "gy": 0.3, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2016-10-22", "comp": "PRM", "team": "Barcelona", "opp": "Valencia", "min": 93, "out": "scored", "gx": 0.938, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2016-09-17", "comp": "PRM", "team": "Barcelona", "opp": "Legan\u00e9s", "min": 54, "out": "scored", "gx": 0.125, "gy": 0.749, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2016-03-29", "comp": "WCQ", "team": "Argentina", "opp": "Bolivia", "min": 30, "out": "scored", "gx": 0.7, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2016-03-12", "comp": "PRM", "team": "Barcelona", "opp": "Getafe", "min": 10, "out": "missed", "gx": 0.213, "gy": 0.037, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2016-03-06", "comp": "PRM", "team": "Barcelona", "opp": "Eibar", "min": 75, "out": "scored", "gx": 0.487, "gy": 0.487, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2016-02-23", "comp": "EUR", "team": "Barcelona", "opp": "Arsenal", "min": 83, "out": "scored", "gx": 0.35, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2016-02-14", "comp": "PRM", "team": "Barcelona", "opp": "Celta Vigo", "min": 80, "out": "missed", "gx": 0.1, "gy": null, "ot": true, "src": "verified", "tech": "Normal"}, {"date": "2016-01-17", "comp": "PRM", "team": "Barcelona", "opp": "Athletic Club", "min": 6, "out": "scored", "gx": 0.037, "gy": 0.037, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2015-09-20", "comp": "PRM", "team": "Barcelona", "opp": "Levante UD", "min": 75, "out": "missed", "gx": 0.362, "gy": 1.348, "ot": true, "src": "verified", "tech": "Normal"}, {"date": "2015-09-20", "comp": "PRM", "team": "Barcelona", "opp": "Levante UD", "min": 60, "out": "scored", "gx": 0.263, "gy": 0.749, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2015-08-23", "comp": "PRM", "team": "Barcelona", "opp": "Athletic Club", "min": 30, "out": "missed", "gx": 0.9, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2015-06-13", "comp": "CPA", "team": "Argentina", "opp": "Paraguay", "min": 35, "out": "scored", "gx": 0.25, "gy": 0.1, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2015-04-28", "comp": "PRM", "team": "Barcelona", "opp": "Getafe", "min": 8, "out": "scored", "gx": 0.45, "gy": 0.712, "ot": false, "src": "verified", "tech": "Lob"}, {"date": "2015-03-14", "comp": "PRM", "team": "Barcelona", "opp": "Eibar", "min": 30, "out": "scored", "gx": 0.175, "gy": 0.599, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2015-03-08", "comp": "PRM", "team": "Barcelona", "opp": "Rayo Vallecano", "min": 55, "out": "scored", "gx": 0.062, "gy": 0.0, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2015-02-24", "comp": "EUR", "team": "Barcelona", "opp": "Manchester City", "min": 90, "out": "missed", "gx": 0.25, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2015-02-15", "comp": "PRM", "team": "Barcelona", "opp": "Levante UD", "min": 64, "out": "scored", "gx": 0.088, "gy": 0.0, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2015-01-24", "comp": "PRM", "team": "Barcelona", "opp": "Elche", "min": 54, "out": "scored", "gx": 0.787, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2015-01-21", "comp": "CUP", "team": "Barcelona", "opp": "Atletico Madrid", "min": 85, "out": "missed"}, {"date": "2015-01-08", "comp": "CUP", "team": "Barcelona", "opp": "Elche", "min": 45, "out": "scored", "gx": 0.7, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2014-11-12", "comp": "FRN", "team": "Argentina", "opp": "Croatia", "min": 57, "out": "scored", "gx": 0.35, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2014-10-11", "comp": "FRN", "team": "Argentina", "opp": "Brazil", "min": 41, "out": "missed"}, {"date": "2014-09-21", "comp": "PRM", "team": "Barcelona", "opp": "Levante UD", "min": 41, "out": "missed", "gx": 1.062, "gy": 0.599, "ot": true, "src": "verified", "tech": "Normal"}, {"date": "2014-04-05", "comp": "PRM", "team": "Barcelona", "opp": "Real Betis", "min": 85, "out": "missed", "gx": 0.213, "gy": 0.337, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2014-04-05", "comp": "PRM", "team": "Barcelona", "opp": "Real Betis", "min": 14, "out": "scored", "gx": 0.7, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2014-03-29", "comp": "PRM", "team": "Barcelona", "opp": "Espanyol", "min": 76, "out": "scored", "gx": 0.838, "gy": 0.112, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2014-03-23", "comp": "PRM", "team": "Barcelona", "opp": "Real Madrid", "min": 83, "out": "scored", "gx": 0.037, "gy": 0.899, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2014-03-23", "comp": "PRM", "team": "Barcelona", "opp": "Real Madrid", "min": 64, "out": "scored", "gx": 0.088, "gy": 0.524, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2014-02-18", "comp": "EUR", "team": "Barcelona", "opp": "Manchester City", "min": 54, "out": "scored", "gx": 0.65, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2014-02-01", "comp": "PRM", "team": "Barcelona", "opp": "Valencia", "min": 53, "out": "scored", "gx": 0.025, "gy": 0.899, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2013-11-06", "comp": "EUR", "team": "Barcelona", "opp": "AC Milan", "min": 30, "out": "scored", "gx": 0.65, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2013-09-11", "comp": "WCQ", "team": "Argentina", "opp": "Paraguay", "min": 52, "out": "scored", "gx": 0.7, "gy": 0.5, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2013-09-11", "comp": "WCQ", "team": "Argentina", "opp": "Paraguay", "min": 12, "out": "scored", "gx": 0.6, "gy": 0.3, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2013-08-28", "comp": "SUP", "team": "Barcelona", "opp": "Atletico Madrid", "min": 89, "out": "missed", "gx": 0.05, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2013-08-18", "comp": "PRM", "team": "Barcelona", "opp": "Levante UD", "min": 41, "out": "scored", "gx": 0.862, "gy": 0.375, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2013-06-15", "comp": "FRN", "team": "Argentina", "opp": "Guatemala", "min": 40, "out": "scored"}, {"date": "2013-03-23", "comp": "WCQ", "team": "Argentina", "opp": "Venezuela", "min": 44, "out": "scored", "gx": 0.55, "gy": 0.25, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2013-02-03", "comp": "PRM", "team": "Barcelona", "opp": "Valencia", "min": 38, "out": "scored", "gx": 0.912, "gy": 0.861, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2013-01-27", "comp": "PRM", "team": "Barcelona", "opp": "Osasuna", "min": 27, "out": "scored", "gx": 0.925, "gy": 0.187, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2013-01-06", "comp": "PRM", "team": "Barcelona", "opp": "Espanyol", "min": 28, "out": "scored", "gx": 0.812, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2012-09-15", "comp": "PRM", "team": "Barcelona", "opp": "Getafe", "min": 73, "out": "scored", "gx": 0.2, "gy": 0.487, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2012-08-23", "comp": "SUP", "team": "Barcelona", "opp": "Real Madrid", "min": 70, "out": "scored", "gx": 0.7, "gy": 0.3, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2012-08-15", "comp": "FRN", "team": "Argentina", "opp": "Germany", "min": 32, "out": "missed", "gx": 0.5, "gy": 1.3, "ot": true, "src": "estimated", "tech": "standard"}, {"date": "2012-05-05", "comp": "PRM", "team": "Barcelona", "opp": "Espanyol", "min": 78, "out": "scored", "gx": 0.075, "gy": 0.487, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2012-05-05", "comp": "PRM", "team": "Barcelona", "opp": "Espanyol", "min": 63, "out": "scored", "gx": 0.025, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2012-05-02", "comp": "PRM", "team": "Barcelona", "opp": "M\u00e1laga", "min": 58, "out": "scored", "gx": 0.075, "gy": 0.712, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2012-05-02", "comp": "PRM", "team": "Barcelona", "opp": "M\u00e1laga", "min": 34, "out": "scored", "gx": 0.662, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2012-04-24", "comp": "EUR", "team": "Barcelona", "opp": "Chelsea", "min": 49, "out": "missed", "gx": 0.5, "gy": 1.0, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2012-04-14", "comp": "PRM", "team": "Barcelona", "opp": "Levante UD", "min": 71, "out": "scored", "gx": 0.225, "gy": 0.787, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2012-04-07", "comp": "PRM", "team": "Barcelona", "opp": "Real Zaragoza", "min": 85, "out": "scored", "gx": 0.65, "gy": 0.712, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2012-04-03", "comp": "EUR", "team": "Barcelona", "opp": "AC Milan", "min": 41, "out": "scored", "gx": 0.6, "gy": 0.6, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2012-04-03", "comp": "EUR", "team": "Barcelona", "opp": "AC Milan", "min": 11, "out": "scored", "gx": 0.25, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2012-03-31", "comp": "PRM", "team": "Barcelona", "opp": "Athletic Club", "min": 57, "out": "scored", "gx": 0.1, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2012-03-11", "comp": "PRM", "team": "Barcelona", "opp": "Racing Santander", "min": 55, "out": "scored", "gx": 0.188, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2012-02-29", "comp": "FRN", "team": "Argentina", "opp": "Switzerland", "min": 90, "out": "scored"}, {"date": "2012-02-01", "comp": "CUP", "team": "Barcelona", "opp": "Valencia", "min": 56, "out": "missed", "gx": 0.25, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2012-01-15", "comp": "PRM", "team": "Barcelona", "opp": "Real Betis", "min": 85, "out": "scored", "gx": 0.75, "gy": 0.487, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2011-11-23", "comp": "EUR", "team": "Barcelona", "opp": "AC Milan", "min": 31, "out": "scored", "gx": 0.75, "gy": 0.25, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2011-11-01", "comp": "EUR", "team": "Barcelona", "opp": "Viktoria Plzen", "min": 24, "out": "scored", "gx": 0.7, "gy": 0.15, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2011-10-29", "comp": "PRM", "team": "Barcelona", "opp": "Mallorca", "min": 12, "out": "scored", "gx": 0.138, "gy": 0.861, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2011-10-22", "comp": "PRM", "team": "Barcelona", "opp": "Sevilla", "min": 94, "out": "missed", "gx": 0.088, "gy": 0.337, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2011-04-16", "comp": "PRM", "team": "Barcelona", "opp": "Real Madrid", "min": 52, "out": "scored", "gx": 0.287, "gy": 0.487, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2011-04-09", "comp": "PRM", "team": "Barcelona", "opp": "Almer\u00eda", "min": 52, "out": "scored", "gx": 0.237, "gy": 0.3, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2011-03-08", "comp": "EUR", "team": "Barcelona", "opp": "Arsenal", "min": 71, "out": "scored", "gx": 0.7, "gy": 0.3, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2011-02-09", "comp": "FRN", "team": "Argentina", "opp": "Portugal", "min": 90, "out": "scored", "gx": 0.5, "gy": 0.3, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2011-01-22", "comp": "PRM", "team": "Barcelona", "opp": "Racing Santander", "min": 32, "out": "scored", "gx": 0.075, "gy": 0.037, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2011-01-19", "comp": "CUP", "team": "Barcelona", "opp": "Real Betis", "min": 54, "out": "missed", "gx": 0.6, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2010-12-04", "comp": "PRM", "team": "Barcelona", "opp": "Osasuna", "min": 83, "out": "scored", "gx": 0.062, "gy": 0.0, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2010-09-14", "comp": "EUR", "team": "Barcelona", "opp": "Panathinaikos", "min": 55, "out": "missed"}, {"date": "2009-11-14", "comp": "FRN", "team": "Argentina", "opp": "Spain", "min": 61, "out": "scored", "gx": 0.65, "gy": 0.25, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2009-11-07", "comp": "PRM", "team": "Barcelona", "opp": "Mallorca", "min": 86, "out": "scored", "gx": 0.0, "gy": 0.15, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2009-08-23", "comp": "SUP", "team": "Barcelona", "opp": "Athletic Bilbao", "min": 68, "out": "scored", "gx": 0.5, "gy": 0.3, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2009-04-11", "comp": "PRM", "team": "Barcelona", "opp": "Recreativo Huelva", "min": 80, "out": "missed", "gx": 0.763, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2009-03-07", "comp": "PRM", "team": "Barcelona", "opp": "Athletic Club", "min": 31, "out": "scored", "gx": 0.838, "gy": 0.562, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2009-01-06", "comp": "CUP", "team": "Barcelona", "opp": "Atletico Madrid", "min": 57, "out": "scored"}, {"date": "2008-11-12", "comp": "CUP", "team": "Barcelona", "opp": "Benidorm", "min": 87, "out": "missed", "gx": 0.4, "gy": 0.2, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2008-09-27", "comp": "PRM", "team": "Barcelona", "opp": "Espanyol", "min": 98, "out": "scored", "gx": 0.188, "gy": 0.0, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2008-09-13", "comp": "PRM", "team": "Barcelona", "opp": "Racing Santander", "min": 70, "out": "scored", "gx": 0.85, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2008-05-04", "comp": "PRM", "team": "Barcelona", "opp": "Valencia", "min": 5, "out": "scored", "gx": 0.275, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2008-01-31", "comp": "CUP", "team": "Barcelona", "opp": "Villarreal", "min": 76, "out": "missed"}, {"date": "2007-11-27", "comp": "EUR", "team": "Barcelona", "opp": "Olympique Lyonnais", "min": 58, "out": "scored", "gx": 0.35, "gy": 0.25, "ot": false, "src": "estimated", "tech": "standard"}, {"date": "2007-11-24", "comp": "PRM", "team": "Barcelona", "opp": "Recreativo Huelva", "min": 81, "out": "scored", "gx": 0.825, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2007-10-28", "comp": "PRM", "team": "Barcelona", "opp": "Almer\u00eda", "min": 80, "out": "scored", "gx": 0.275, "gy": 0.562, "ot": false, "src": "verified", "tech": "Normal"}, {"date": "2007-09-22", "comp": "PRM", "team": "Barcelona", "opp": "Sevilla", "min": 79, "out": "scored", "gx": 0.088, "gy": 0.075, "ot": false, "src": "verified", "tech": "Normal"}];
+const COMP={WCP:"World Cup",FRN:"Friendly",MLS:"MLS",NAM:"Leagues Cup",EUR:"UCL",CPA:"Copa Am.",WCQ:"WC Qual.",PRM:"League",CUP:"Copa del Rey",SUP:"Super Cup"};
+const TEAM={Barcelona:"Barcelona",PSG:"PSG",Miami:"Inter Miami",Argentina:"Argentina"};
+const f={src:"all",out:"all"},G={x0:140,x1:460,y0:280,y1:80};
+const $=s=>document.querySelector(s),tip=$("#tip"),goal=$("#goal");
+const clamp=(v,lo,hi)=>Math.min(Math.max(v,lo),hi);
+const px=d=>({x:G.x0+clamp(d.gx,-.04,1.04)*(G.x1-G.x0),y:G.y0-clamp(d.gy==null?0:d.gy,-.04,1.04)*(G.y0-G.y1)});
+const sideOf=x=>x<0.4?"left":x>0.6?"right":"centre";       // single source of truth for buckets
+const heightOf=y=>y<0.34?"low":y>0.66?"high":"mid";
+const scored=a=>a.filter(d=>d.out=="scored").length;
+function shown(){return DATA.filter(d=>d.gx!=null&&(f.src=="all"||d.src==f.src)&&(f.out=="all"||d.out==f.out));}
+function drawGoal(){
+ const r=shown(),w=G.x1-G.x0,h=G.y0-G.y1,f1=n=>n.toFixed(1);let s='';
+ s+=`<rect x="${G.x0}" y="${G.y1}" width="${w}" height="${h}" fill="#fff" stroke="#222019" stroke-width="2"/>`;
+ for(let k=1;k<3;k++){s+=`<line x1="${G.x0+k*w/3}" y1="${G.y1}" x2="${G.x0+k*w/3}" y2="${G.y0}" stroke="#ece9df"/>`;}
+ s+=`<line x1="${G.x0}" y1="${G.y1+h/2}" x2="${G.x1}" y2="${G.y1+h/2}" stroke="#ece9df"/>`;
+ s+=`<line x1="80" y1="${G.y0}" x2="520" y2="${G.y0}" stroke="#9b968a"/>`;
+ s+=`<text class="lab" x="${G.x0+34}" y="312">his left</text><text class="lab" x="292" y="312">centre</text><text class="lab" x="404" y="312">his right</text>`;
+ r.forEach(d=>{const p=px(d),c=d.out=="scored"?"#3f6e4b":"#a8503f",solid=d.src=="verified",op=d.ot?0.4:0.85,i=DATA.indexOf(d);
+  if(d.out=="scored") s+=`<circle cx="${f1(p.x)}" cy="${f1(p.y)}" r="5" fill="${solid?c:'none'}" stroke="${c}" stroke-width="1.5" opacity="${op}" data-i="${i}"/>`;
+  else{const sw=solid?2.4:1.3;s+=`<g data-i="${i}" opacity="${op}"><line x1="${f1(p.x-5)}" y1="${f1(p.y-5)}" x2="${f1(p.x+5)}" y2="${f1(p.y+5)}" stroke="${c}" stroke-width="${sw}"/><line x1="${f1(p.x+5)}" y1="${f1(p.y-5)}" x2="${f1(p.x-5)}" y2="${f1(p.y+5)}" stroke="${c}" stroke-width="${sw}"/></g>`;}});
+ goal.innerHTML=s;
+ $("#count").textContent=`${r.length} shown · ${scored(r)} scored · ${r.length-scored(r)} missed`;
 }
-document.querySelectorAll('#f-outcome .chip').forEach(b=>b.onclick=()=>{document.querySelectorAll('#f-outcome .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');state.outcome=b.dataset.f;render();});
-document.querySelectorAll('#f-team .chip').forEach(b=>b.onclick=()=>{document.querySelectorAll('#f-team .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');state.team=b.dataset.t;render();});
-document.querySelectorAll('thead th').forEach(th=>th.onclick=()=>{const k=th.dataset.sort;if(state.sortKey===k)state.sortDir*=-1;else{state.sortKey=k;state.sortDir=(k==="date")?-1:1;}render();});
-render();
-</script>
-</body>
-</html>
+function drawSides(){
+ const r=shown().filter(d=>!d.ot);  // on-target only: wide/over misses have no goal zone
+ const groups={right:[],centre:[],left:[]};r.forEach(d=>groups[sideOf(d.gx)].push(d));
+ const order=[["right","his right","preferred corner"],["left","his left","the other side"],["centre","centre","the gamble"]];
+ $("#sides").innerHTML=order.map(([k,nm,sub])=>{const g=groups[k];
+  const pct=r.length?Math.round(g.length/r.length*100):0;
+  const cv=g.length?Math.round(scored(g)/g.length*100)+"% conv":"—";
+  return `<div class="siderow"><div class="sidename">${nm}<span class="small">${sub}</span></div>
+  <div class="track"><div class="base"></div><div class="freq" style="width:${pct}%"></div></div>
+  <div class="sideval"><b>${pct}%</b> · ${cv}</div></div>`;}).join('');
+}
+function fmtDate(d){const[y,m,da]=d.split('-');return `${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+m-1]} ${+da}, ’${y.slice(2)}`;}
+let sortK="date",sortD=-1;
+function place(d){if(d.gx==null)return"—";if(d.ot)return"off";return `${ {left:"L",centre:"C",right:"R"}[sideOf(d.gx)] }·${heightOf(d.gy)}`;}
+function drawTable(){
+ const idx=sortK=="place"?"gx":sortK;
+ let r=[...DATA].sort((a,b)=>{let av=a[idx]??-1,bv=b[idx]??-1;
+  if(av<bv)return -sortD; if(av>bv)return sortD; return sortK=="date"?(a.min-b.min)*sortD:0;});
+ $("#tbody").innerHTML=r.map(d=>{const o=d.out=="scored"?'<span class="out-s marker">● Scored</span>':'<span class="out-m marker">○ Missed</span>';
+  return `<tr><td>${fmtDate(d.date)}</td><td class="comp">${COMP[d.comp]||d.comp}</td><td>${TEAM[d.team]||d.team}</td>
+  <td class="opp">${d.opp}</td><td>${d.min}'</td><td>${o}</td><td class="comp">${place(d)}</td></tr>`;}).join('');
+}
+goal.addEventListener("mousemove",e=>{const t=e.target.closest("[data-i]");if(!t){tip.style.opacity=0;return;}
+ const d=DATA[+t.dataset.i];tip.textContent=`${fmtDate(d.date)} · ${d.opp} — ${d.out}${d.ot?' (off target)':''}${d.src=='estimated'?' · est.':''}`;
+ tip.style.opacity=1;tip.style.left=(e.clientX+12)+"px";tip.style.top=(e.clientY+12)+"px";});
+goal.addEventListener("mouseleave",()=>tip.style.opacity=0);
+document.querySelectorAll(".controls button").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll(`button[data-f="${b.dataset.f}"]`).forEach(x=>x.classList.remove("on"));
+ b.classList.add("on");f[b.dataset.f]=b.dataset.v;drawGoal();drawSides();});
+document.querySelectorAll("thead th").forEach(th=>th.onclick=()=>{const k=th.dataset.s;
+ if(sortK==k)sortD*=-1;else{sortK=k;sortD=(k=="date")?-1:1;}drawTable();});
+drawGoal();drawSides();drawTable();
+</script></body></html>
