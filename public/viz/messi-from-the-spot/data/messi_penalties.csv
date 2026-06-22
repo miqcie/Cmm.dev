@@ -1,0 +1,147 @@
+date,comp,team,opponent,minute,outcome,gx,gy,technique,source,confidence,source_url
+2026-06-22,WCP,Argentina,Austria,9,missed,1.049,0.045,stutter,manual_tag,verified,https://www.youtube.com/watch?v=SllfQUDS6UU
+2026-06-09,FRN,Argentina,Iceland,72,scored,0.664,0.837,,manual_tag,verified,https://www.youtube.com/watch?v=eDXbHKF5VaY
+2026-04-18,MLS,Miami,Colorado Rapids,18,scored,0.386,0.04,,manual_tag,verified,https://www.youtube.com/watch?v=oOsLNgDVQ6g
+2025-10-19,MLS,Miami,Nashville SC,63,scored,0.326,0.028,,manual_tag,verified,https://youtu.be/yhhtOVbiQsI?si=WDPnSXtmnvSJOE9k&t=295
+2025-09-13,MLS,Miami,Charlotte FC,32,missed,0.292,0.679,panenka,manual_tag,verified,https://www.youtube.com/watch?v=OwPz6JTn5-0
+2025-08-27,NAM,Miami,Orlando City,77,scored,0.865,0.336,,manual_tag,verified,https://www.youtube.com/watch?v=oel4SaTvkIM
+2025-04-09,NAM,Miami,Los Angeles FC,84,scored,0.835,0.512,,manual_tag,verified,https://www.youtube.com/watch?v=GtMj0fUVHn4
+2024-04-20,MLS,Miami,Nashville SC,81,scored,0.862,0.141,standard,manual_tag,verified,https://www.youtube.com/watch?v=P8kxJRoYsfo
+2022-12-18,WCP,Argentina,France,23,scored,0.754,0.124,stutter,manual_tag,verified,https://www.youtube.com/watch?v=Mxkg3qLIPC8
+2022-12-13,WCP,Argentina,Croatia,34,scored,0.25,0.15,standard,auto_estimate,med,https://youtu.be/cQWYYQkZKSE?t=30
+2022-12-09,WCP,Argentina,Netherlands,73,scored,0.8,0.15,standard,auto_estimate,med,https://youtu.be/0i-gsQJg7jc?t=51
+2022-11-30,WCP,Argentina,Poland,38,missed,,,,unplaced,,
+2022-11-22,WCP,Argentina,Saudi Arabia,10,scored,0.3,0.2,standard,auto_estimate,low,https://youtu.be/8Q-imks2lDU?t=6
+2022-09-23,FRN,Argentina,Honduras,45,scored,0.65,0.2,standard,auto_estimate,low,https://youtu.be/xOYtffBcyjg?t=6
+2022-06-05,FRN,Argentina,Estonia,8,scored,,,,unplaced,,
+2022-02-15,EUR,PSG,Real Madrid,61,missed,0.25,0.15,standard,auto_estimate,med,https://youtu.be/5XKhCJgZBvg?t=24
+2021-12-07,EUR,PSG,Club Brugge,76,scored,0.25,0.15,standard,auto_estimate,med,https://youtu.be/WqHAoD-AbWM?t=9
+2021-10-19,EUR,PSG,RB Leipzig,74,scored,0.5,0.3,standard,auto_estimate,low,https://youtu.be/lbyCgQxw7gM?t=12
+2021-06-28,CPA,Argentina,Bolivia,33,scored,0.3,0.2,standard,auto_estimate,low,https://youtu.be/iYWThZVTuXY?t=9
+2021-06-04,WCQ,Argentina,Chile,23,scored,0.8,0.1,standard,auto_estimate,high,https://youtu.be/W5P-VNdk8y8?t=21
+2021-05-02,PRM,Barcelona,Valencia,56,missed,0.825,0.0,Normal,statsbomb_measured,verified,
+2021-03-10,EUR,Barcelona,PSG,45,missed,,,,unplaced,,
+2021-02-21,PRM,Barcelona,Cádiz,31,scored,0.875,0.262,Normal,statsbomb_measured,verified,
+2021-02-16,EUR,Barcelona,PSG,28,scored,,,,unplaced,,
+2020-12-19,PRM,Barcelona,Valencia,48,missed,0.8,0.375,Normal,statsbomb_measured,verified,
+2020-11-07,PRM,Barcelona,Real Betis,60,scored,0.088,0.861,Normal,statsbomb_measured,verified,
+2020-11-04,EUR,Barcelona,Dynamo Kyiv,5,scored,0.65,0.1,standard,auto_estimate,low,https://youtu.be/bG7BOuKSj4E?t=3
+2020-10-28,EUR,Barcelona,Juventus,90,scored,0.3,0.2,standard,auto_estimate,low,https://youtu.be/LKW8BwuzVYg?t=6
+2020-10-20,EUR,Barcelona,Ferencvaros,27,scored,0.7,0.15,standard,auto_estimate,low,https://youtu.be/MLn1Tp-3aok?t=21
+2020-10-09,WCQ,Argentina,Ecuador,13,scored,0.78,0.15,standard,auto_estimate,med,https://youtu.be/tl_eVzHmOhM?t=33
+2020-09-27,PRM,Barcelona,Villarreal,34,scored,0.875,0.075,Normal,statsbomb_measured,verified,
+2020-06-30,PRM,Barcelona,Atlético Madrid,49,scored,0.8,0.412,Normal,statsbomb_measured,verified,
+2020-06-16,PRM,Barcelona,Leganés,68,scored,0.05,0.3,Normal,statsbomb_measured,verified,
+2020-03-07,PRM,Barcelona,Real Sociedad,80,scored,0.088,0.412,Normal,statsbomb_measured,verified,
+2019-11-18,FRN,Argentina,Uruguay,90,scored,0.2,0.15,standard,auto_estimate,med,https://youtu.be/EkaEo35hHRI?t=9
+2019-11-15,FRN,Argentina,Brazil,13,missed,0.7,0.15,standard,auto_estimate,med,https://youtu.be/mB-D1lOZB8g?t=51
+2019-11-09,PRM,Barcelona,Celta Vigo,22,scored,0.938,0.0,Normal,statsbomb_measured,verified,
+2019-11-02,PRM,Barcelona,Levante UD,37,scored,0.2,0.749,Normal,statsbomb_measured,verified,
+2019-06-19,CPA,Argentina,Paraguay,57,scored,0.25,0.35,standard,auto_estimate,med,https://youtu.be/Rps0R5fhdII?t=0
+2019-03-13,EUR,Barcelona,Olympique Lyonnais,18,scored,0.5,0.35,panenka,auto_estimate,high,https://youtu.be/LCMO68SGozk?t=18
+2019-03-09,PRM,Barcelona,Rayo Vallecano,50,scored,0.112,0.075,Normal,statsbomb_measured,verified,
+2019-02-16,PRM,Barcelona,Real Valladolid,84,missed,0.112,0.225,Normal,statsbomb_measured,verified,
+2019-02-16,PRM,Barcelona,Real Valladolid,42,scored,0.05,0.075,Normal,statsbomb_measured,verified,
+2019-02-02,PRM,Barcelona,Valencia,38,scored,0.287,0.075,Normal,statsbomb_measured,verified,
+2018-11-11,PRM,Barcelona,Real Betis,67,scored,0.125,0.787,Normal,statsbomb_measured,verified,
+2018-06-16,WCP,Argentina,Iceland,64,missed,0.25,0.2,standard,auto_estimate,med,https://youtu.be/PTYRyZlf9mo?t=3
+2018-05-29,FRN,Argentina,Haiti,17,scored,0.7,0.2,standard,auto_estimate,low,https://youtu.be/KS9syg_jJrI?t=12
+2018-01-17,CUP,Barcelona,Espanyol,62,missed,0.3,0.2,standard,auto_estimate,low,https://youtu.be/sOMZQJ-SDhQ?t=33
+2017-12-23,PRM,Barcelona,Real Madrid,63,scored,0.275,0.599,Normal,statsbomb_measured,verified,
+2017-12-17,PRM,Barcelona,RC Deportivo La Coruña,69,missed,0.15,0.524,Normal,statsbomb_measured,verified,
+2017-09-19,PRM,Barcelona,Eibar,20,scored,0.888,0.599,Normal,statsbomb_measured,verified,
+2017-08-26,PRM,Barcelona,Deportivo Alavés,38,missed,0.888,0.412,Normal,statsbomb_measured,verified,
+2017-08-13,SUP,Barcelona,Real Madrid,76,scored,0.7,0.2,standard,auto_estimate,med,https://youtu.be/vATdS7gDf5s?t=10
+2017-05-21,PRM,Barcelona,Eibar,74,scored,0.037,0.487,Normal,statsbomb_measured,verified,
+2017-05-21,PRM,Barcelona,Eibar,69,missed,0.338,0.337,Normal,statsbomb_measured,verified,
+2017-05-06,PRM,Barcelona,Villarreal,81,scored,0.362,0.824,Normal,statsbomb_measured,verified,
+2017-03-23,WCQ,Argentina,Chile,16,scored,,,,unplaced,,
+2017-03-19,PRM,Barcelona,Valencia,44,scored,0.5,0.075,Normal,statsbomb_measured,verified,
+2017-03-08,EUR,Barcelona,PSG,50,scored,0.6,0.5,standard,auto_estimate,med,https://youtu.be/8OMoukjAYNA?t=9
+2017-02-19,PRM,Barcelona,Leganés,89,scored,0.9,0.674,Normal,statsbomb_measured,verified,
+2017-01-26,CUP,Barcelona,Real Sociedad,55,scored,0.6,0.2,standard,auto_estimate,low,https://youtu.be/ASzh5Nykdms?t=6
+2016-11-23,EUR,Barcelona,Celtic,55,scored,0.7,0.3,standard,auto_estimate,low,https://youtu.be/g9V_Nx-ilQ0?t=0
+2016-10-22,PRM,Barcelona,Valencia,93,scored,0.938,0.075,Normal,statsbomb_measured,verified,
+2016-09-17,PRM,Barcelona,Leganés,54,scored,0.125,0.749,Normal,statsbomb_measured,verified,
+2016-03-29,WCQ,Argentina,Bolivia,30,scored,0.7,0.15,standard,auto_estimate,low,https://youtu.be/xUjo9LqF8EY?t=30
+2016-03-12,PRM,Barcelona,Getafe,10,missed,0.213,0.037,Normal,statsbomb_measured,verified,
+2016-03-06,PRM,Barcelona,Eibar,75,scored,0.487,0.487,Normal,statsbomb_measured,verified,
+2016-02-23,EUR,Barcelona,Arsenal,83,scored,0.35,0.15,standard,auto_estimate,med,https://youtu.be/kyaFtSaAlxo?t=6
+2016-02-14,PRM,Barcelona,Celta Vigo,80,missed,0.1,,Normal,statsbomb_measured,verified,
+2016-01-17,PRM,Barcelona,Athletic Club,6,scored,0.037,0.037,Normal,statsbomb_measured,verified,
+2015-09-20,PRM,Barcelona,Levante UD,75,missed,0.362,1.348,Normal,statsbomb_measured,verified,
+2015-09-20,PRM,Barcelona,Levante UD,60,scored,0.263,0.749,Normal,statsbomb_measured,verified,
+2015-08-23,PRM,Barcelona,Athletic Club,30,missed,0.9,0.075,Normal,statsbomb_measured,verified,
+2015-06-13,CPA,Argentina,Paraguay,35,scored,0.25,0.1,standard,auto_estimate,low,https://youtu.be/RhiWvNodl10?t=57
+2015-04-28,PRM,Barcelona,Getafe,8,scored,0.45,0.712,Lob,statsbomb_measured,verified,
+2015-03-14,PRM,Barcelona,Eibar,30,scored,0.175,0.599,Normal,statsbomb_measured,verified,
+2015-03-08,PRM,Barcelona,Rayo Vallecano,55,scored,0.062,0.0,Normal,statsbomb_measured,verified,
+2015-02-24,EUR,Barcelona,Manchester City,90,missed,0.25,0.15,standard,auto_estimate,med,https://youtu.be/XzIsY-fuLbQ?t=24
+2015-02-15,PRM,Barcelona,Levante UD,64,scored,0.088,0.0,Normal,statsbomb_measured,verified,
+2015-01-24,PRM,Barcelona,Elche,54,scored,0.787,0.075,Normal,statsbomb_measured,verified,
+2015-01-21,CUP,Barcelona,Atletico Madrid,85,missed,,,,unplaced,,
+2015-01-08,CUP,Barcelona,Elche,45,scored,0.7,0.2,standard,auto_estimate,low,https://youtu.be/6iI0xeKpwGs?t=6
+2014-11-12,FRN,Argentina,Croatia,57,scored,0.35,0.2,standard,auto_estimate,low,https://youtu.be/gsc5Xu254s8?t=0
+2014-10-11,FRN,Argentina,Brazil,41,missed,,,,unplaced,,
+2014-09-21,PRM,Barcelona,Levante UD,41,missed,1.062,0.599,Normal,statsbomb_measured,verified,
+2014-04-05,PRM,Barcelona,Real Betis,85,missed,0.213,0.337,Normal,statsbomb_measured,verified,
+2014-04-05,PRM,Barcelona,Real Betis,14,scored,0.7,0.075,Normal,statsbomb_measured,verified,
+2014-03-29,PRM,Barcelona,Espanyol,76,scored,0.838,0.112,Normal,statsbomb_measured,verified,
+2014-03-23,PRM,Barcelona,Real Madrid,83,scored,0.037,0.899,Normal,statsbomb_measured,verified,
+2014-03-23,PRM,Barcelona,Real Madrid,64,scored,0.088,0.524,Normal,statsbomb_measured,verified,
+2014-02-18,EUR,Barcelona,Manchester City,54,scored,0.65,0.15,standard,auto_estimate,med,https://youtu.be/I7aTs-c79u4?t=0
+2014-02-01,PRM,Barcelona,Valencia,53,scored,0.025,0.899,Normal,statsbomb_measured,verified,
+2013-11-06,EUR,Barcelona,AC Milan,30,scored,0.65,0.15,standard,auto_estimate,med,https://youtu.be/ZpF90UALMfk?t=15
+2013-09-11,WCQ,Argentina,Paraguay,52,scored,0.7,0.5,standard,auto_estimate,low,https://youtu.be/pIvkWXSH0AQ?t=9
+2013-09-11,WCQ,Argentina,Paraguay,12,scored,0.6,0.3,standard,auto_estimate,low,https://youtu.be/xtf9kWBFzrI?t=0
+2013-08-28,SUP,Barcelona,Atletico Madrid,89,missed,0.05,0.15,standard,auto_estimate,med,https://youtu.be/2924sHyoXYQ?t=4
+2013-08-18,PRM,Barcelona,Levante UD,41,scored,0.862,0.375,Normal,statsbomb_measured,verified,
+2013-06-15,FRN,Argentina,Guatemala,40,scored,,,,unplaced,,
+2013-03-23,WCQ,Argentina,Venezuela,44,scored,0.55,0.25,standard,auto_estimate,low,https://youtu.be/0CnuvMSkGBk?t=18
+2013-02-03,PRM,Barcelona,Valencia,38,scored,0.912,0.861,Normal,statsbomb_measured,verified,
+2013-01-27,PRM,Barcelona,Osasuna,27,scored,0.925,0.187,Normal,statsbomb_measured,verified,
+2013-01-06,PRM,Barcelona,Espanyol,28,scored,0.812,0.075,Normal,statsbomb_measured,verified,
+2012-09-15,PRM,Barcelona,Getafe,73,scored,0.2,0.487,Normal,statsbomb_measured,verified,
+2012-08-23,SUP,Barcelona,Real Madrid,70,scored,0.7,0.3,standard,auto_estimate,med,https://youtu.be/3T1Ir4WkGwI?t=3
+2012-08-15,FRN,Argentina,Germany,32,missed,0.5,1.3,standard,auto_estimate,low,https://youtu.be/pG_xzFG3Iqo?t=15
+2012-05-05,PRM,Barcelona,Espanyol,78,scored,0.075,0.487,Normal,statsbomb_measured,verified,
+2012-05-05,PRM,Barcelona,Espanyol,63,scored,0.025,0.075,Normal,statsbomb_measured,verified,
+2012-05-02,PRM,Barcelona,Málaga,58,scored,0.075,0.712,Normal,statsbomb_measured,verified,
+2012-05-02,PRM,Barcelona,Málaga,34,scored,0.662,0.075,Normal,statsbomb_measured,verified,
+2012-04-24,EUR,Barcelona,Chelsea,49,missed,0.5,1.0,standard,auto_estimate,med,https://youtu.be/Aq9waHBArdo?t=3
+2012-04-14,PRM,Barcelona,Levante UD,71,scored,0.225,0.787,Normal,statsbomb_measured,verified,
+2012-04-07,PRM,Barcelona,Real Zaragoza,85,scored,0.65,0.712,Normal,statsbomb_measured,verified,
+2012-04-03,EUR,Barcelona,AC Milan,41,scored,0.6,0.6,standard,auto_estimate,low,https://youtu.be/0K9aVsQ3ajI?t=18
+2012-04-03,EUR,Barcelona,AC Milan,11,scored,0.25,0.2,standard,auto_estimate,low,https://youtu.be/0K9aVsQ3ajI?t=18
+2012-03-31,PRM,Barcelona,Athletic Club,57,scored,0.1,0.075,Normal,statsbomb_measured,verified,
+2012-03-11,PRM,Barcelona,Racing Santander,55,scored,0.188,0.075,Normal,statsbomb_measured,verified,
+2012-02-29,FRN,Argentina,Switzerland,90,scored,,,,unplaced,,
+2012-02-01,CUP,Barcelona,Valencia,56,missed,0.25,0.2,standard,auto_estimate,med,https://youtu.be/2FeoWIQpgfs?t=12
+2012-01-15,PRM,Barcelona,Real Betis,85,scored,0.75,0.487,Normal,statsbomb_measured,verified,
+2011-11-23,EUR,Barcelona,AC Milan,31,scored,0.75,0.25,standard,auto_estimate,med,https://youtu.be/hvkc9HDtYqQ?t=27
+2011-11-01,EUR,Barcelona,Viktoria Plzen,24,scored,0.7,0.15,standard,auto_estimate,low,https://youtu.be/VO3AhOVwNMM?t=54
+2011-10-29,PRM,Barcelona,Mallorca,12,scored,0.138,0.861,Normal,statsbomb_measured,verified,
+2011-10-22,PRM,Barcelona,Sevilla,94,missed,0.088,0.337,Normal,statsbomb_measured,verified,
+2011-04-16,PRM,Barcelona,Real Madrid,52,scored,0.287,0.487,Normal,statsbomb_measured,verified,
+2011-04-09,PRM,Barcelona,Almería,52,scored,0.237,0.3,Normal,statsbomb_measured,verified,
+2011-03-08,EUR,Barcelona,Arsenal,71,scored,0.7,0.3,standard,auto_estimate,low,https://youtu.be/6mNr-JTAdxE?t=21
+2011-02-09,FRN,Argentina,Portugal,90,scored,0.5,0.3,standard,auto_estimate,low,https://youtu.be/J0H7tC4IGaQ?t=57
+2011-01-22,PRM,Barcelona,Racing Santander,32,scored,0.075,0.037,Normal,statsbomb_measured,verified,
+2011-01-19,CUP,Barcelona,Real Betis,54,missed,0.6,0.2,standard,auto_estimate,low,https://youtu.be/3LqFEoZNyIU?t=33
+2010-12-04,PRM,Barcelona,Osasuna,83,scored,0.062,0.0,Normal,statsbomb_measured,verified,
+2010-09-14,EUR,Barcelona,Panathinaikos,55,missed,,,,unplaced,,
+2009-11-14,FRN,Argentina,Spain,61,scored,0.65,0.25,standard,auto_estimate,low,https://youtu.be/Es62iTcAWgo?t=36
+2009-11-07,PRM,Barcelona,Mallorca,86,scored,0.0,0.15,Normal,statsbomb_measured,verified,
+2009-08-23,SUP,Barcelona,Athletic Bilbao,68,scored,0.5,0.3,standard,auto_estimate,low,https://youtu.be/hyaN7PSqdKM?t=3
+2009-04-11,PRM,Barcelona,Recreativo Huelva,80,missed,0.763,0.075,Normal,statsbomb_measured,verified,
+2009-03-07,PRM,Barcelona,Athletic Club,31,scored,0.838,0.562,Normal,statsbomb_measured,verified,
+2009-01-06,CUP,Barcelona,Atletico Madrid,57,scored,,,,unplaced,,
+2008-11-12,CUP,Barcelona,Benidorm,87,missed,0.4,0.2,standard,auto_estimate,low,https://youtu.be/6ySlhu88oCo?t=18
+2008-09-27,PRM,Barcelona,Espanyol,98,scored,0.188,0.0,Normal,statsbomb_measured,verified,
+2008-09-13,PRM,Barcelona,Racing Santander,70,scored,0.85,0.075,Normal,statsbomb_measured,verified,
+2008-05-04,PRM,Barcelona,Valencia,5,scored,0.275,0.075,Normal,statsbomb_measured,verified,
+2008-01-31,CUP,Barcelona,Villarreal,76,missed,,,,unplaced,,
+2007-11-27,EUR,Barcelona,Olympique Lyonnais,58,scored,0.35,0.25,standard,auto_estimate,low,https://youtu.be/715SXgSEt4c?t=0
+2007-11-24,PRM,Barcelona,Recreativo Huelva,81,scored,0.825,0.075,Normal,statsbomb_measured,verified,
+2007-10-28,PRM,Barcelona,Almería,80,scored,0.275,0.562,Normal,statsbomb_measured,verified,
+2007-09-22,PRM,Barcelona,Sevilla,79,scored,0.088,0.075,Normal,statsbomb_measured,verified,
