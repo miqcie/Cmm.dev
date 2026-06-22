@@ -416,7 +416,6 @@ function layoutAbout(w: number, _h: number): Line[] {
     ["humaine.studio", "https://humaine.studio"],
     ["eagleridge.io", "https://eagleridge.io"],
     ["linkedin.com/in/c-mcconnell", "https://www.linkedin.com/in/c-mcconnell/"],
-    ["data viz", "/viz/"],
   ]
   for (const [label, href] of links) {
     out.push({ x: gutter + 16, y, text: label, color: C.border, font, lineHeight: lh, href })
@@ -515,10 +514,11 @@ function renderNavBar(lines: Line[]): void {
   sepEl.style.color = C.muted
   stage.appendChild(sepEl)
 
-  const navScreens: { label: string; key: string; target: Screen }[] = [
+  const navScreens: { label: string; key: string; target?: Screen; href?: string }[] = [
     { label: "[h]ome", key: "h", target: "home" },
     { label: "[p]rojects", key: "p", target: "projects" },
     { label: "[a]bout", key: "a", target: "about" },
+    { label: "[v]iz", key: "v", href: "/viz/" },
   ]
 
   let navX = gutter
@@ -531,9 +531,11 @@ function renderNavBar(lines: Line[]): void {
     btn.style.top = `${navBtnY}px`
     btn.style.font = font
     btn.style.lineHeight = `${lh}px`
-    btn.style.color = currentScreen === nav.target ? C.cyan : C.muted
-    const target = nav.target
-    btn.addEventListener("click", () => navigate(target))
+    btn.style.color = nav.target && currentScreen === nav.target ? C.cyan : C.muted
+    const { target, href } = nav
+    btn.addEventListener("click", () =>
+      href ? (window.location.href = href) : navigate(target!),
+    )
     stage.appendChild(btn)
 
     const prep = prepareWithSegments(nav.label, font)
@@ -601,6 +603,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "p") navigate("projects")
   else if (e.key === "a") navigate("about")
   else if (e.key === "h" || e.key === "Escape") navigate("home")
+  else if (e.key === "v") window.location.href = "/viz/"
 })
 
 // Resize
