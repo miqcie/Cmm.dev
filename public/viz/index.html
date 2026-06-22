@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Viz — CMM.dev</title>
+<meta name="description" content="A shelf of one-off data visualizations by Chris McConnell.">
+<style>
+  :root{
+    --ink:#222019; --ink-soft:#6b675c; --ink-faint:#9b968a;
+    --paper:#fbfaf6; --rule:#dcd8cc; --rule-faint:#ece9df;
+    --accent:#9c6b1f; --accent-soft:#c9a35e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--paper);color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;-webkit-font-smoothing:antialiased;line-height:1.45;}
+  body{padding:54px 0 72px;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 28px;}
+  .eyebrow{font-family:"Gill Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);}
+  h1{font-size:40px;line-height:1.05;letter-spacing:-.01em;margin:12px 0 10px;}
+  .dek{font-size:18px;color:var(--ink-soft);font-style:italic;max-width:54ch;}
+  .rule{height:1px;background:var(--rule);margin:30px 0;}
+  ul{list-style:none;}
+  li{padding:22px 0;border-bottom:1px solid var(--rule-faint);}
+  li:last-child{border-bottom:none;}
+  a.card{text-decoration:none;color:inherit;display:block;}
+  a.card:hover h2{color:var(--accent);}
+  h2{font-size:24px;letter-spacing:-.01em;}
+  .meta{font-family:"Gill Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-top:6px;}
+  .sub{color:var(--ink-soft);margin-top:8px;font-size:16px;max-width:56ch;}
+  .home{font-family:"Gill Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;}
+  .home:hover{color:var(--accent);}
+  footer{margin-top:44px;font-family:"Gill Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:11px;letter-spacing:.1em;color:var(--ink-faint);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="home" href="/">← cmm.dev</a>
+    <div style="height:22px"></div>
+    <div class="eyebrow">CMM.dev</div>
+    <h1>Data Viz</h1>
+    <p class="dek">A shelf for one-off charts — built when a number got stuck in my head and a sketch wouldn't shake it loose.</p>
+    <div class="rule"></div>
+    <ul>
+      <li>
+        <a class="card" href="/viz/messi-from-the-spot/">
+          <h2>Messi From The Spot</h2>
+          <div class="meta">Football · Penalties</div>
+          <p class="sub">Lionel Messi's penalty record, read as an editorial chart.</p>
+        </a>
+      </li>
+    </ul>
+    <footer>More as they get made.</footer>
+  </div>
+</body>
+</html>

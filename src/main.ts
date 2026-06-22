@@ -416,6 +416,7 @@ function layoutAbout(w: number, _h: number): Line[] {
     ["humaine.studio", "https://humaine.studio"],
     ["eagleridge.io", "https://eagleridge.io"],
     ["linkedin.com/in/c-mcconnell", "https://www.linkedin.com/in/c-mcconnell/"],
+    ["data viz", "/viz/"],
   ]
   for (const [label, href] of links) {
     out.push({ x: gutter + 16, y, text: label, color: C.border, font, lineHeight: lh, href })
@@ -451,8 +452,11 @@ function renderLines(lines: Line[]): void {
     if (line.href) {
       const a = document.createElement("a")
       a.href = line.href
-      a.target = "_blank"
-      a.rel = "noreferrer"
+      // Internal links (root-relative) navigate in place; external links open a new tab.
+      if (/^https?:/.test(line.href)) {
+        a.target = "_blank"
+        a.rel = "noreferrer"
+      }
       a.className = "ln"
       el = a
     } else if (line.navTarget) {
