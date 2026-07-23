@@ -47,14 +47,14 @@ const langColors: Record<string, string> = {
 }
 
 const projects: Project[] = [
-  { name: "gilfoyle-tech-reviewer", description: "Technical review agent with Gilfoyle-style precision", language: "JavaScript", stars: 13, url: "https://github.com/miqcie/gilfoyle-tech-reviewer" },
-  { name: "grepai-beads-helpers", description: "Automation scripts for semantic code search & AI memory", language: "Shell", stars: 6, url: "https://github.com/miqcie/grepai-beads-helpers" },
-  { name: "Humaine-studio", description: "Thought lab on human + AI collaboration", language: "HTML", stars: 1, url: "https://github.com/miqcie/Humaine-studio" },
-  { name: "voice-pipeline", description: "Voice capture → transcribe → classify → route", language: "Python", stars: 0, url: "https://github.com/miqcie/voice-pipeline" },
+  { name: "gilfoyle", description: "Technical review agent with Gilfoyle-style precision", language: "JavaScript", stars: 21, url: "https://github.com/miqcie/gilfoyle" },
+  { name: "cal-attio-sync", description: "Free Cal.com → Attio booking sync, live in production", language: "TypeScript", stars: 0, url: "https://github.com/miqcie/cal-attio-sync" },
+  { name: "grepai-beads-helpers", description: "Automation scripts for semantic code search & AI memory", language: "Shell", stars: 7, url: "https://github.com/miqcie/grepai-beads-helpers" },
+  { name: "nightscout-clock", description: "CGM desk-clock firmware for my daughter's T1D", language: "C++", stars: 0, url: "https://github.com/miqcie/nightscout-clock" },
   { name: "mondrian", description: "Evidence-first Zero Trust runtime for startups", language: "Go", stars: 0, url: "https://github.com/miqcie/mondrian" },
   { name: "T1DCalculator", description: "iOS insulin dose calculator using medical formulas", language: "Swift", stars: 0, url: "https://github.com/miqcie/T1DCalculator" },
-  { name: "task-sync-system", description: "Event-driven task mgmt for ADHD workflows", language: "TypeScript", stars: 0, url: "https://github.com/miqcie/task-sync-system" },
-  { name: "chrome-to-safari-converter", description: "Browser extension converter tool", language: "JavaScript", stars: 0, url: "https://github.com/miqcie/chrome-to-safari-converter" },
+  { name: "voice-pipeline", description: "Voice capture → transcribe → classify → route", language: "Python", stars: 0, url: "https://github.com/miqcie/voice-pipeline" },
+  { name: "Humaine-studio", description: "Thought lab on human + AI collaboration", language: "HTML", stars: 1, url: "https://github.com/miqcie/Humaine-studio" },
 ]
 
 // ── ASCII art ───────────────────────────────────────────────────────────
@@ -158,7 +158,7 @@ function layoutHome(w: number, _h: number): Line[] {
   y += lh * 2
 
   // Description — wrapped
-  const desc = "GRC + Cybersecurity. The first mile for companies on their compliance journey. I build the tools I use with clients — then open-source the methodology."
+  const desc = "GRC + Cybersecurity. The first mile for companies on their compliance journey. I build the AI systems I use — compliance engines for clients, revenue systems for my own pipeline — then open-source the methodology."
   const descResult = measureLines(desc, font, contentW, lh)
   for (const line of descResult.lines) {
     const lw = line.width
@@ -337,10 +337,10 @@ function layoutAbout(w: number, _h: number): Line[] {
     const entries = [
       ["Now       ", "Eagle Ridge Advisory — Founder"],
       ["          ", "Humaine Studio — Applied AI Strategist"],
-      ["Before    ", "Deep Water Point — Dir. of AI & Strategic Ops"],
+      ["Before    ", "Deep Water Point — Dir., Digital & Business Transformation"],
       ["Education ", "NYU Stern MBA · University of Idaho BA"],
       ["Location  ", "Richmond, Virginia"],
-      ["Focus     ", "CMMC · Zero Trust · AI Agents · GRC Automation"],
+      ["Focus     ", "CMMC · Zero Trust · AI Agents · GTM Engineering"],
     ]
     for (const [label, value] of entries) {
       out.push({ x: bioX, y: bioY, text: label!, color: C.green, font, lineHeight: lh, bold: true })
@@ -373,10 +373,10 @@ function layoutAbout(w: number, _h: number): Line[] {
     const entries = [
       ["Now       ", "Eagle Ridge Advisory — Founder"],
       ["          ", "Humaine Studio — Applied AI Strategist"],
-      ["Before    ", "Deep Water Point — Dir. of AI & Strategic Ops"],
+      ["Before    ", "Deep Water Point — Dir., Digital & Business Transformation"],
       ["Education ", "NYU Stern MBA · University of Idaho BA"],
       ["Location  ", "Richmond, Virginia"],
-      ["Focus     ", "CMMC · Zero Trust · AI Agents · GRC Automation"],
+      ["Focus     ", "CMMC · Zero Trust · AI Agents · GTM Engineering"],
     ]
     for (const [label, value] of entries) {
       const labelPrep = prepareWithSegments(label!, font)
