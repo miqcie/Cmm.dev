@@ -24,11 +24,14 @@ bun run typecheck
 
 ## Deploy
 
-Pushes to `main` deploy two ways. GitHub Actions
-(`.github/workflows/deploy.yml`) builds the site and sends `dist/` to
-Cloudflare Pages. Cloudflare's Workers Builds Git integration reads
-`wrangler.jsonc` and deploys the same `dist/` as static assets. To deploy by
-hand, run `bun run build` and then `bun run deploy`.
+Pushes to `main` deploy through Cloudflare's Workers Builds Git integration,
+which reads `wrangler.jsonc`, runs `bun run build`, and uploads `dist/` as
+static assets.
+
+GitHub Actions (`.github/workflows/ci.yml`) typechecks and builds on pull
+requests and on `main`. It does not deploy; production deploys come from
+Workers Builds. To deploy by hand, run `bun run build` and then
+`bun run deploy`.
 
 ## Keyboard Navigation
 
