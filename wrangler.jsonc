@@ -1,8 +1,9 @@
 // Cloudflare Workers config for cmm.dev.
-// Used by Cloudflare's Workers Builds Git integration: it runs `bun run build`
-// and then `wrangler deploy`, which uploads ./dist as static assets.
-// GitHub Actions (.github/workflows/ci.yml) typechecks and builds; it does
-// not deploy. Manual deploys: `bun run build` then `bun run deploy`.
+// Workers Builds Git integration runs `bun run build` then `wrangler deploy`,
+// which uploads ./dist as static assets.
+// Local/manual deploys inject CLOUDFLARE_API_TOKEN from 1Password
+// (`bun run deploy:op`). Optional GitHub Actions deploy uses the same
+// wrangler.jsonc (never Pages) and the same op:// reference.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "cmm-dev",
