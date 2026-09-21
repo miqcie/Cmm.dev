@@ -1,0 +1,16 @@
+// Cloudflare Workers config for cmm.dev.
+// Used by Cloudflare's Workers Builds Git integration: it runs `bun run build`
+// and then `wrangler deploy`, which uploads ./dist as static assets.
+// (The GitHub Actions workflow in .github/workflows/deploy.yml still deploys
+// the same ./dist to Cloudflare Pages on pushes to main.)
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cmm-dev",
+  "compatibility_date": "2026-09-21",
+  "assets": {
+    "directory": "./dist",
+    // /viz/ -> /viz/index.html, /foo -> /foo.html or /foo/index.html
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}
