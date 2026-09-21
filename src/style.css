@@ -418,15 +418,17 @@ a {
 
 .portrait {
   margin: 0;
+  align-self: start; /* frame hugs the picture instead of stretching to the bio's height */
   border: 1px solid #000;
   padding: 8px;
   background: #fff;
   text-align: center;
 }
 
-.portrait pre {
-  margin: 0;
-  font: 12px/1.1 ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+/* 1-bit bitmap, drawn 1:1; pixelated keeps hard edges on high-DPI screens */
+.portrait img {
+  display: block;
+  image-rendering: pixelated;
 }
 
 .portrait figcaption {
