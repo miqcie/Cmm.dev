@@ -4,19 +4,248 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Chris McConnell — practitioner who builds: GRC + cybersecurity, AI agent systems, GTM engineering. Eagle Ridge Advisory, Humaine Studio." />
-    <title>CMM.dev</title>
-    <style>
-      * { box-sizing: border-box; margin: 0; }
-      html, body { background: #2e3440; color: #d8dee9; height: 100%; overflow: hidden; }
-      #stage { position: relative; width: 100vw; height: 100vh; overflow-y: auto; }
-      .ln { position: absolute; white-space: pre; user-select: text; -webkit-user-select: text; }
-      .nav-btn { position: absolute; white-space: pre; cursor: pointer; user-select: none; -webkit-user-select: none; background: none; border: none; padding: 0; }
-      a.ln { text-decoration: none; }
-      a.ln:hover { text-decoration: underline; }
-    </style>
+    <title>cmm.dev</title>
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="Plain-text summary for LLMs" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Chris McConnell",
+        "url": "https://cmm.dev",
+        "sameAs": [
+          "https://github.com/miqcie",
+          "https://humaine.studio",
+          "https://eagleridge.io",
+          "https://www.linkedin.com/in/c-mcconnell/"
+        ],
+        "jobTitle": "Founder, Eagle Ridge Advisory",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Richmond",
+          "addressRegion": "Virginia"
+        }
+      }
+    </script>
   </head>
   <body>
-    <div id="stage"></div>
+    <!-- Icon library: original 1-bit shapes, referenced with <use> throughout the page -->
+    <svg style="display: none" aria-hidden="true">
+      <!-- compact all-in-one computer: body, screen bezel, screen, floppy slot -->
+      <symbol id="i-computer" viewBox="0 0 32 32">
+        <rect x="4" y="2" width="24" height="20" fill="#000" />
+        <rect x="7" y="5" width="18" height="13" fill="#fff" />
+        <rect x="9" y="7" width="14" height="9" fill="#000" />
+        <rect x="2" y="22" width="28" height="6" fill="#000" />
+        <rect x="4" y="24" width="24" height="2" fill="#fff" />
+        <rect x="13" y="25" width="6" height="1" fill="#000" />
+      </symbol>
+      <!-- 3.5" floppy disk: body, metal shutter with notch, label -->
+      <symbol id="i-disk" viewBox="0 0 32 32">
+        <rect x="4" y="4" width="24" height="24" fill="#000" />
+        <rect x="6" y="6" width="20" height="20" fill="#fff" />
+        <rect x="10" y="4" width="12" height="8" fill="#000" />
+        <rect x="12" y="6" width="6" height="4" fill="#fff" />
+        <rect x="8" y="16" width="16" height="10" fill="#000" />
+        <rect x="9" y="17" width="14" height="8" fill="#fff" />
+      </symbol>
+      <!-- folder with tab -->
+      <symbol id="i-folder" viewBox="0 0 32 32">
+        <rect x="4" y="10" width="10" height="4" fill="#000" />
+        <rect x="4" y="12" width="24" height="16" fill="#000" />
+        <rect x="6" y="14" width="20" height="12" fill="#fff" />
+      </symbol>
+      <!-- page with folded corner and three text lines -->
+      <symbol id="i-doc" viewBox="0 0 32 32">
+        <rect x="7" y="3" width="18" height="26" fill="#000" />
+        <rect x="9" y="5" width="14" height="22" fill="#fff" />
+        <path d="M19 5 L19 11 L25 11 Z" fill="#000" />
+        <rect x="11" y="14" width="10" height="2" fill="#000" />
+        <rect x="11" y="18" width="10" height="2" fill="#000" />
+        <rect x="11" y="22" width="7" height="2" fill="#000" />
+      </symbol>
+    </svg>
+
+    <!-- Menu bar -->
+    <header class="menubar">
+      <nav aria-label="Menu bar">
+        <ul class="menu">
+          <li><a class="menu-title menu-brand" href="#home" data-window="home">cmm.dev</a></li>
+          <li><a class="menu-title" href="#projects" data-window="projects">Projects</a></li>
+          <li><a class="menu-title" href="#about" data-window="about">About</a></li>
+          <li><a class="menu-title" href="/viz/">Viz</a></li>
+        </ul>
+      </nav>
+      <p class="menubar-hint">Keys: H P A V</p>
+    </header>
+
+    <!-- Desktop: holds the three windows and the desktop icons -->
+    <main class="desktop" id="desktop">
+      <!-- Home window: "About this Macintosh"-style intro card -->
+      <section class="window active" id="home" data-window="home" aria-labelledby="home-title">
+        <header class="titlebar">
+          <button class="closebox" type="button" aria-label="Close window"></button>
+          <h1 class="title" id="home-title">cmm.dev</h1>
+          <button class="zoombox" type="button" aria-label="Zoom window"></button>
+        </header>
+        <div class="content">
+          <div class="hero">
+            <svg class="icon icon-computer" width="32" height="32" aria-hidden="true"><use href="#i-computer"></use></svg>
+            <div>
+              <p class="wordmark">CMM.DEV</p>
+              <p class="tagline">Practitioner Who Builds</p>
+            </div>
+          </div>
+          <p class="lede">GRC + Cybersecurity. The first mile for companies on their compliance journey. I build the AI systems I use — compliance engines for clients, revenue systems for my own pipeline — then open-source the methodology.</p>
+          <p class="button-row">
+            <a class="button default" href="#projects" data-window="projects">Projects</a>
+            <a class="button" href="#about" data-window="about">About</a>
+            <a class="button" href="/viz/">Viz</a>
+          </p>
+          <p class="fineprint">
+            <a href="https://github.com/miqcie" target="_blank" rel="noreferrer">github.com/miqcie</a>
+            ·
+            <a href="https://humaine.studio" target="_blank" rel="noreferrer">humaine.studio</a>
+            · Richmond, VA
+          </p>
+        </div>
+        <span class="sizebox" aria-hidden="true"></span>
+      </section>
+
+      <!-- Projects window: Finder-style list view of the 8 projects -->
+      <section class="window" id="projects" data-window="projects" aria-labelledby="projects-title">
+        <header class="titlebar">
+          <button class="closebox" type="button" aria-label="Close window"></button>
+          <h2 class="title" id="projects-title">Projects</h2>
+          <button class="zoombox" type="button" aria-label="Zoom window"></button>
+        </header>
+        <div class="content">
+          <p class="status-line">8 items</p>
+          <table class="list-view">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Kind</th>
+                <th scope="col">Stars</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name"><svg class="icon icon-doc" width="16" height="16" aria-hidden="true"><use href="#i-doc"></use></svg> <a href="https://github.com/miqcie/gilfoyle" target="_blank" rel="noreferrer">gilfoyle</a></td>
+                <td>JavaScript</td>
+                <td class="num">21</td>
+                <td>Technical review agent with Gilfoyle-style precision</td>
+              </tr>
+              <tr>
+                <td class="name"><svg class="icon icon-doc" width="16" height="16" aria-hidden="true"><use href="#i-doc"></use></svg> <a href="https://github.com/miqcie/cal-attio-sync" target="_blank" rel="noreferrer">cal-attio-sync</a></td>
+                <td>TypeScript</td>
+                <td class="num">—</td>
+                <td>Free Cal.com → Attio booking sync, live in production</td>
+              </tr>
+              <tr>
+                <td class="name"><svg class="icon icon-doc" width="16" height="16" aria-hidden="true"><use href="#i-doc"></use></svg> <a href="https://github.com/miqcie/grepai-beads-helpers" target="_blank" rel="noreferrer">grepai-beads-helpers</a></td>
+                <td>Shell</td>
+                <td class="num">7</td>
+                <td>Automation scripts for semantic code search &amp; AI memory</td>
+              </tr>
+              <tr>
+                <td class="name"><svg class="icon icon-doc" width="16" height="16" aria-hidden="true"><use href="#i-doc"></use></svg> <a href="https://github.com/miqcie/nightscout-clock" target="_blank" rel="noreferrer">nightscout-clock</a></td>
+                <td>C++</td>
+                <td class="num">—</td>
+                <td>CGM desk-clock firmware for my daughter's T1D</td>
+              </tr>
+              <tr>
+                <td class="name"><svg class="icon icon-doc" width="16" height="16" aria-hidden="true"><use href="#i-doc"></use></svg> <a href="https://github.com/miqcie/mondrian" target="_blank" rel="noreferrer">mondrian</a></td>
+                <td>Go</td>
+                <td class="num">—</td>
+                <td>Evidence-first Zero Trust runtime for startups</td>
+              </tr>
+              <tr>
+                <td class="name"><svg class="icon icon-doc" width="16" height="16" aria-hidden="true"><use href="#i-doc"></use></svg> <a href="https://github.com/miqcie/T1DCalculator" target="_blank" rel="noreferrer">T1DCalculator</a></td>
+                <td>Swift</td>
+                <td class="num">—</td>
+                <td>iOS insulin dose calculator using medical formulas</td>
+              </tr>
+              <tr>
+                <td class="name"><svg class="icon icon-doc" width="16" height="16" aria-hidden="true"><use href="#i-doc"></use></svg> <a href="https://github.com/miqcie/voice-pipeline" target="_blank" rel="noreferrer">voice-pipeline</a></td>
+                <td>Python</td>
+                <td class="num">—</td>
+                <td>Voice capture → transcribe → classify → route</td>
+              </tr>
+              <tr>
+                <td class="name"><svg class="icon icon-doc" width="16" height="16" aria-hidden="true"><use href="#i-doc"></use></svg> <a href="https://github.com/miqcie/Humaine-studio" target="_blank" rel="noreferrer">Humaine-studio</a></td>
+                <td>HTML</td>
+                <td class="num">1</td>
+                <td>Thought lab on human + AI collaboration</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <span class="sizebox" aria-hidden="true"></span>
+      </section>
+
+      <!-- About window: 1-bit bitmap portrait + bio -->
+      <section class="window" id="about" data-window="about" aria-labelledby="about-title">
+        <header class="titlebar">
+          <button class="closebox" type="button" aria-label="Close window"></button>
+          <h2 class="title" id="about-title">About Chris</h2>
+          <button class="zoombox" type="button" aria-label="Zoom window"></button>
+        </header>
+        <div class="content about-grid">
+          <figure class="portrait">
+            <img src="/portrait.png" width="224" height="208" alt="1-bit bitmap portrait of Chris McConnell: bald, glasses, full beard, smiling" />
+            <figcaption>Chris McConnell</figcaption>
+          </figure>
+          <div class="bio">
+            <h3>Chris McConnell, MBA</h3>
+            <p>Making sense of the revolution underfoot. I focus on the &quot;missing middle&quot; — systems that help us think better without taking decisions away. Oversight and augmentation, not replacement.</p>
+            <dl class="facts">
+              <dt>Now</dt><dd>Eagle Ridge Advisory — Founder</dd>
+              <dd>Humaine Studio — Applied AI Strategist</dd>
+              <dt>Before</dt><dd>Deep Water Point — Dir., Digital &amp; Business Transformation</dd>
+              <dt>Education</dt><dd>NYU Stern MBA · University of Idaho BA</dd>
+              <dt>Location</dt><dd>Richmond, Virginia</dd>
+              <dt>Focus</dt><dd>CMMC · Zero Trust · AI Agents · GTM Engineering</dd>
+            </dl>
+            <ul class="blurbs">
+              <li>Led 300+ consultants through Zero Trust for CMMC compliance.</li>
+              <li>Built AI workflows that cut 160 hrs/month to 12.</li>
+              <li>Now I build the tools and run the engagements myself.</li>
+            </ul>
+            <h4>Links</h4>
+            <ul class="links">
+              <li><a href="https://github.com/miqcie" target="_blank" rel="noreferrer">github.com/miqcie</a></li>
+              <li><a href="https://humaine.studio" target="_blank" rel="noreferrer">humaine.studio</a></li>
+              <li><a href="https://eagleridge.io" target="_blank" rel="noreferrer">eagleridge.io</a></li>
+              <li><a href="https://www.linkedin.com/in/c-mcconnell/" target="_blank" rel="noreferrer">linkedin.com/in/c-mcconnell</a></li>
+            </ul>
+          </div>
+        </div>
+        <span class="sizebox" aria-hidden="true"></span>
+      </section>
+
+      <!-- Desktop icons: right edge, like disks on a Mac desktop -->
+      <nav class="desktop-icons" aria-label="Desktop icons">
+        <a class="desk-icon" href="#home" data-window="home">
+          <svg class="icon" width="32" height="32" aria-hidden="true"><use href="#i-disk"></use></svg>
+          <span>cmm.dev</span>
+        </a>
+        <a class="desk-icon" href="#projects" data-window="projects">
+          <svg class="icon" width="32" height="32" aria-hidden="true"><use href="#i-folder"></use></svg>
+          <span>Projects</span>
+        </a>
+        <a class="desk-icon" href="#about" data-window="about">
+          <svg class="icon" width="32" height="32" aria-hidden="true"><use href="#i-doc"></use></svg>
+          <span>About Chris</span>
+        </a>
+        <a class="desk-icon" href="/viz/">
+          <svg class="icon" width="32" height="32" aria-hidden="true"><use href="#i-folder"></use></svg>
+          <span>Viz</span>
+        </a>
+      </nav>
+    </main>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

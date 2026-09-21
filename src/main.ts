@@ -1,616 +1,162 @@
-import {
-  prepareWithSegments,
-  layoutWithLines,
-  type PreparedTextWithSegments,
-} from "@chenglou/pretext"
+// cmm.dev — progressive-enhancement script for the Mac-desktop layout.
+// All content already lives in index.html; this only adds window-manager
+// behavior (front/back, drag, close, zoom, keyboard shortcuts).
+// Strict TS, zero dependencies.
 
-// ── Nord palette ────────────────────────────────────────────────────────
-const C = {
-  bg: "#2e3440",
-  text: "#d8dee9",
-  cyan: "#88c0d0",
-  yellow: "#ebcb8b",
-  green: "#a3be8c",
-  blue: "#81a1c1",
-  purple: "#b48ead",
-  red: "#bf616a",
-  border: "#5e81ac",
-  muted: "#4c566a",
-} as const
+const desktop = document.getElementById("desktop")!
 
-// ── Fonts ───────────────────────────────────────────────────────────────
-const MONO = '"SF Mono", "Fira Code", "Cascadia Code", "JetBrains Mono", Menlo, Monaco, "Courier New", monospace'
-const FONT = `14px ${MONO}`
-const FONT_SMALL = `13px ${MONO}`
-const LINE_HEIGHT = 22
-const LINE_HEIGHT_SMALL = 20
-const GUTTER = 24
-const NARROW = 540
+const windows = Array.from(document.querySelectorAll<HTMLElement>(".window"))
+const menuTitles = Array.from(document.querySelectorAll<HTMLAnchorElement>(".menu-title[data-window]"))
 
-// ── Project data ────────────────────────────────────────────────────────
-interface Project {
-  name: string
-  description: string
-  language: string
-  stars: number
-  url: string
+const narrowQuery = window.matchMedia("(max-width: 719px)")
+
+let topZ = 1
+
+function windowById(id: string): HTMLElement | null {
+  return document.getElementById(id)
 }
 
-const langColors: Record<string, string> = {
-  JavaScript: C.yellow,
-  Shell: C.green,
-  HTML: C.red,
-  Python: C.blue,
-  Go: C.cyan,
-  Swift: C.purple,
-  TypeScript: C.blue,
+// Bring a window to front, mark it active/open, sync the menu bar and hash.
+function focusWindow(id: string, userInitiated = true): void {
+  const target = windowById(id)
+  if (!target || !target.classList.contains("window")) return
+
+  for (const w of windows) w.classList.remove("active")
+  target.classList.remove("closed")
+  target.classList.add("active")
+  target.style.zIndex = String(++topZ)
+
+  for (const m of menuTitles) {
+    if (m.dataset.window === id) m.setAttribute("aria-current", "true")
+    else m.removeAttribute("aria-current")
+  }
+
+  // Initial load with no hash: leave the page at the top and the URL clean.
+  // (Writing a fragment before the load event makes the browser jump to it.)
+  if (!userInitiated) return
+
+  // On phones the windows stack, so "bring to front" means scroll to it.
+  if (narrowQuery.matches) {
+    target.scrollIntoView({ block: "start" })
+  }
+
+  history.replaceState(null, "", "#" + id)
 }
 
-const projects: Project[] = [
-  { name: "gilfoyle", description: "Technical review agent with Gilfoyle-style precision", language: "JavaScript", stars: 21, url: "https://github.com/miqcie/gilfoyle" },
-  { name: "cal-attio-sync", description: "Free Cal.com → Attio booking sync, live in production", language: "TypeScript", stars: 0, url: "https://github.com/miqcie/cal-attio-sync" },
-  { name: "grepai-beads-helpers", description: "Automation scripts for semantic code search & AI memory", language: "Shell", stars: 7, url: "https://github.com/miqcie/grepai-beads-helpers" },
-  { name: "nightscout-clock", description: "CGM desk-clock firmware for my daughter's T1D", language: "C++", stars: 0, url: "https://github.com/miqcie/nightscout-clock" },
-  { name: "mondrian", description: "Evidence-first Zero Trust runtime for startups", language: "Go", stars: 0, url: "https://github.com/miqcie/mondrian" },
-  { name: "T1DCalculator", description: "iOS insulin dose calculator using medical formulas", language: "Swift", stars: 0, url: "https://github.com/miqcie/T1DCalculator" },
-  { name: "voice-pipeline", description: "Voice capture → transcribe → classify → route", language: "Python", stars: 0, url: "https://github.com/miqcie/voice-pipeline" },
-  { name: "Humaine-studio", description: "Thought lab on human + AI collaboration", language: "HTML", stars: 1, url: "https://github.com/miqcie/Humaine-studio" },
-]
+// Any element with data-window navigates in place instead of following the hash link.
+document.addEventListener("click", (e) => {
+  const el = (e.target as HTMLElement).closest<HTMLElement>("a[data-window]")
+  if (!el) return
+  const id = el.dataset.window
+  if (!id) return
+  e.preventDefault()
+  focusWindow(id)
+})
 
-// ── ASCII art ───────────────────────────────────────────────────────────
-const BANNER = [
-  "  ██████╗███╗   ███╗███╗   ███╗   ██████╗ ███████╗██╗   ██╗",
-  " ██╔════╝████╗ ████║████╗ ████║   ██╔══██╗██╔════╝██║   ██║",
-  " ██║     ██╔████╔██║██╔████╔██║   ██║  ██║█████╗  ██║   ██║",
-  " ██║     ██║╚██╔╝██║██║╚██╔╝██║   ██║  ██║██╔══╝  ╚██╗ ██╔╝",
-  " ╚██████╗██║ ╚═╝ ██║██║ ╚═╝ ██║██╗██████╔╝███████╗ ╚████╔╝ ",
-  "  ╚═════╝╚═╝     ╚═╝╚═╝     ╚═╝╚═╝╚═════╝ ╚══════╝  ╚═══╝ ",
-]
+// Clicking anywhere in a window brings it to front.
+document.addEventListener("pointerdown", (e) => {
+  const win = (e.target as HTMLElement).closest<HTMLElement>(".window")
+  if (win) focusWindow(win.id)
+})
 
-const BANNER_SMALL = [
-  " ██████╗██╗  ██╗██╗  ██╗",
-  "██╔════╝███╗███║███╗███║",
-  "██║     ██████║██████║",
-  "██║     ██╔██╔██║██╔██╔██║",
-  "╚██████╗██║  ██║██║  ██║",
-  " ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝",
-  "       · D E V ·",
-]
+// Close / zoom boxes.
+for (const win of windows) {
+  const closeBtn = win.querySelector<HTMLButtonElement>(".closebox")
+  const zoomBtn = win.querySelector<HTMLButtonElement>(".zoombox")
 
-const PORTRAIT = [
-  "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⡖⠛⠛⠶⢶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⠀⠀⠀⢀⣴⠛⠒⠒⠂⠄⠩⠭⠭⠊⠻⣦⠀⠀⠀⠀⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⠀⠀⠀⣾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠸⣧⠀⠀⠀⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⠀⣀⣸⣧⣤⣤⣤⣤⣄⡀⠀⣠⣤⣤⣴⣶⣿⣄⡀⠀⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⣠⠟⣿⠀⠀⢠⣤⡀⣹⠛⢻⡇⣀⣤⣀⠀⢘⡿⢷⡄⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⣿⠀⣿⣆⠀⠈⠉⣠⡿⠀⠈⢧⡉⠀⠈⢀⣼⡇⠀⡟⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⠘⣧⣿⠈⠉⠉⣉⣩⣇⣀⣀⣆⣉⣉⡉⠉⢰⣇⡼⠃⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⠀⠀⢻⣦⣀⣾⠿⡿⠿⠿⠛⠛⣻⢿⣷⣀⣾⡏⠀⠀⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⡄⠙⠓⠶⠒⠛⠁⣼⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣦⣇⣇⣇⣠⣾⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀",
-  "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-]
+  closeBtn?.addEventListener("click", (e) => {
+    e.stopPropagation()
+    win.classList.add("closed")
+    win.classList.remove("active")
+    // Focus the top-most remaining open window, if any.
+    const open = windows
+      .filter((w) => !w.classList.contains("closed") && w !== win)
+      .sort((a, b) => Number(b.style.zIndex || 0) - Number(a.style.zIndex || 0))
+    if (open[0]) focusWindow(open[0].id)
+  })
 
-// ── Types ───────────────────────────────────────────────────────────────
-type Screen = "home" | "projects" | "about"
-
-interface Line {
-  x: number
-  y: number
-  text: string
-  color: string
-  font: string
-  lineHeight: number
-  href?: string
-  navTarget?: Screen
-  bold?: boolean
+  zoomBtn?.addEventListener("click", (e) => {
+    e.stopPropagation()
+    win.classList.toggle("zoomed")
+  })
 }
 
-// ── State ───────────────────────────────────────────────────────────────
-let currentScreen: Screen = "home"
-const stage = document.getElementById("stage") as HTMLDivElement
-const linePool: HTMLElement[] = []
+// ── Dragging (desktop widths only) ─────────────────────────────────────
+let dragTarget: HTMLElement | null = null
+let dragOffsetX = 0
+let dragOffsetY = 0
 
-// ── Pretext helpers ─────────────────────────────────────────────────────
-function measureLines(
-  text: string,
-  font: string,
-  maxWidth: number,
-  lh: number,
-): { lines: { text: string; width: number }[]; height: number } {
-  const prepared = prepareWithSegments(text, font)
-  const result = layoutWithLines(prepared, maxWidth, lh)
-  return { lines: result.lines, height: result.height }
-}
+document.addEventListener("pointerdown", (e) => {
+  if (narrowQuery.matches) return
+  const target = e.target as HTMLElement
+  const titlebar = target.closest<HTMLElement>(".titlebar")
+  if (!titlebar) return
+  if (target.closest(".closebox, .zoombox")) return
+  const win = titlebar.closest<HTMLElement>(".window")
+  if (!win) return
 
-// ── Layout engine ───────────────────────────────────────────────────────
+  const rect = win.getBoundingClientRect()
+  const deskRect = desktop.getBoundingClientRect()
+  dragTarget = win
+  dragOffsetX = e.clientX - rect.left
+  dragOffsetY = e.clientY - rect.top
 
-function layoutHome(w: number, _h: number): Line[] {
-  const out: Line[] = []
-  const narrow = w < NARROW
-  const gutter = narrow ? 16 : GUTTER
-  const contentW = w - gutter * 2
-  const banner = narrow ? BANNER_SMALL : BANNER
-  const font = narrow ? FONT_SMALL : FONT
-  const lh = narrow ? LINE_HEIGHT_SMALL : LINE_HEIGHT
+  win.style.left = `${rect.left - deskRect.left}px`
+  win.style.top = `${rect.top - deskRect.top}px`
 
-  // Measure banner width (character-by-character for monospace art)
-  let y = gutter + lh
+  titlebar.setPointerCapture(e.pointerId)
+})
 
-  // ASCII banner — centered
-  for (const line of banner) {
-    const prepared = prepareWithSegments(line, font)
-    const measured = layoutWithLines(prepared, 9999, lh)
-    const lineW = measured.lines[0]?.width ?? 0
-    out.push({ x: Math.max(gutter, Math.round((w - lineW) / 2)), y, text: line, color: C.cyan, font, lineHeight: lh })
-    y += lh
+document.addEventListener("pointermove", (e) => {
+  if (!dragTarget) return
+  const deskRect = desktop.getBoundingClientRect()
+  const titlebarHeight = 19
+
+  let left = e.clientX - deskRect.left - dragOffsetX
+  let top = e.clientY - deskRect.top - dragOffsetY
+
+  // Clamp so at least 40px of the title bar stays inside the desktop.
+  const maxLeft = deskRect.width - 40
+  const minLeft = -(dragTarget.offsetWidth - 40)
+  const maxTop = deskRect.height - titlebarHeight
+  left = Math.min(maxLeft, Math.max(minLeft, left))
+  top = Math.min(maxTop, Math.max(0, top))
+
+  dragTarget.style.left = `${left}px`
+  dragTarget.style.top = `${top}px`
+})
+
+document.addEventListener("pointerup", () => {
+  dragTarget = null
+})
+
+// Clear inline drag positions when crossing the narrow/desktop breakpoint.
+narrowQuery.addEventListener("change", () => {
+  for (const w of windows) {
+    w.style.left = ""
+    w.style.top = ""
   }
+})
 
-  y += lh * 2
-
-  // Tagline
-  const tagline = "Practitioner Who Builds"
-  const tagPrep = prepareWithSegments(tagline, font)
-  const tagW = layoutWithLines(tagPrep, 9999, lh).lines[0]?.width ?? 0
-  out.push({ x: Math.round((w - tagW) / 2), y, text: tagline, color: C.yellow, font, lineHeight: lh, bold: true })
-  y += lh * 2
-
-  // Description — wrapped
-  const desc = "GRC + Cybersecurity. The first mile for companies on their compliance journey. I build the AI systems I use — compliance engines for clients, revenue systems for my own pipeline — then open-source the methodology."
-  const descResult = measureLines(desc, font, contentW, lh)
-  for (const line of descResult.lines) {
-    const lw = line.width
-    out.push({ x: Math.round((w - lw) / 2), y, text: line.text, color: C.text, font, lineHeight: lh })
-    y += lh
-  }
-
-  y += lh * 2
-
-  // Nav separator
-  const sep = "─── Navigate ───"
-  const sepPrep = prepareWithSegments(sep, font)
-  const sepW = layoutWithLines(sepPrep, 9999, lh).lines[0]?.width ?? 0
-  out.push({ x: Math.round((w - sepW) / 2), y, text: sep, color: C.green, font, lineHeight: lh })
-  y += lh + Math.round(lh * 0.5)
-
-  // Nav buttons
-  const navItems: { label: string; target: Screen }[] = [
-    { label: "[p] projects", target: "projects" },
-    { label: "[a] about", target: "about" },
-  ]
-  const navText = navItems.map(n => n.label).join("    ")
-  const navPrep = prepareWithSegments(navText, font)
-  const navW = layoutWithLines(navPrep, 9999, lh).lines[0]?.width ?? 0
-  const navStartX = Math.round((w - navW) / 2)
-
-  // Measure each item's width to place them as separate clickable spans
-  let navX = navStartX
-  for (const item of navItems) {
-    const itemPrep = prepareWithSegments(item.label, font)
-    const itemW = layoutWithLines(itemPrep, 9999, lh).lines[0]?.width ?? 0
-    out.push({ x: navX, y, text: item.label, color: C.blue, font, lineHeight: lh, navTarget: item.target })
-    navX += itemW
-    // gap
-    const gapPrep = prepareWithSegments("    ", font)
-    const gapW = layoutWithLines(gapPrep, 9999, lh).lines[0]?.width ?? 0
-    navX += gapW
-  }
-  y += lh * 3
-
-  // Footer
-  const footer = "github.com/miqcie  •  humaine.studio  •  richmond, va"
-  const footResult = measureLines(footer, font, contentW, lh)
-  for (const line of footResult.lines) {
-    const lw = line.width
-    out.push({ x: Math.round((w - lw) / 2), y, text: line.text, color: C.muted, font, lineHeight: lh })
-    y += lh
-  }
-
-  return out
-}
-
-function layoutProjects(w: number, _h: number): Line[] {
-  const out: Line[] = []
-  const narrow = w < NARROW
-  const gutter = narrow ? 16 : GUTTER
-  const contentW = w - gutter * 2
-  const font = narrow ? FONT_SMALL : FONT
-  const lh = narrow ? LINE_HEIGHT_SMALL : LINE_HEIGHT
-  let y = gutter
-
-  // Header
-  out.push({ x: gutter, y, text: "─── Projects ───", color: C.yellow, font, lineHeight: lh, bold: true })
-  y += lh * 2
-
-  const cols = narrow ? 1 : 2
-  const colGap = 24
-  const colW = cols === 1 ? contentW : Math.floor((contentW - colGap) / 2)
-
-  // Lay out cards in columns
-  const colY = [y, y] // track y position per column
-
-  for (let i = 0; i < projects.length; i++) {
-    const col = cols === 1 ? 0 : i % 2
-    const colX = gutter + col * (colW + colGap)
-    let cy = colY[col]!
-
-    const p = projects[i]!
-    const langColor = langColors[p.language] || C.text
-
-    // Card top border
-    const innerW = colW - 4 // 2 chars for border on each side
-    const borderH = "╭" + "─".repeat(Math.max(2, Math.floor(innerW / 8.4))) + "╮" // approximate
-    // Instead of box drawing (hard to align), use a simple top rule
-    out.push({ x: colX, y: cy, text: "┌" + "─".repeat(40) + "┐", color: C.border, font, lineHeight: lh })
-    cy += lh
-
-    // Project name
-    out.push({ x: colX + 16, y: cy, text: p.name, color: C.cyan, font, lineHeight: lh, bold: true })
-    cy += lh
-
-    // Description — wrapped within card
-    const descResult = measureLines(p.description, font, colW - 32, lh)
-    for (const line of descResult.lines) {
-      out.push({ x: colX + 16, y: cy, text: line.text, color: C.text, font, lineHeight: lh })
-      cy += lh
-    }
-    cy += Math.round(lh * 0.5)
-
-    // Language + stars
-    const meta = `● ${p.language}` + (p.stars > 0 ? `  ★ ${p.stars}` : "")
-    out.push({ x: colX + 16, y: cy, text: meta, color: langColor, font, lineHeight: lh })
-    cy += lh
-
-    // URL link
-    const shortUrl = p.url.replace("https://github.com/", "")
-    out.push({ x: colX + 16, y: cy, text: shortUrl, color: C.border, font, lineHeight: lh, href: p.url })
-    cy += lh
-
-    // Bottom border
-    out.push({ x: colX, y: cy, text: "└" + "─".repeat(40) + "┘", color: C.border, font, lineHeight: lh })
-    cy += lh + Math.round(lh * 0.5)
-
-    colY[col] = cy
-  }
-
-  return out
-}
-
-function layoutAbout(w: number, _h: number): Line[] {
-  const out: Line[] = []
-  const narrow = w < NARROW
-  const gutter = narrow ? 16 : GUTTER
-  const contentW = w - gutter * 2
-  const font = narrow ? FONT_SMALL : FONT
-  const lh = narrow ? LINE_HEIGHT_SMALL : LINE_HEIGHT
-  let y = gutter
-
-  // Header
-  out.push({ x: gutter, y, text: "─── About ───", color: C.yellow, font, lineHeight: lh, bold: true })
-  y += lh * 2
-
-  if (narrow) {
-    // Mobile: portrait centered, then bio stacked below
-
-    // Portrait
-    for (const line of PORTRAIT) {
-      const prep = prepareWithSegments(line, font)
-      const pw = layoutWithLines(prep, 9999, lh).lines[0]?.width ?? 0
-      out.push({ x: Math.round((w - pw) / 2), y, text: line, color: C.blue, font, lineHeight: lh })
-      y += lh
-    }
-    y += lh
-  } else {
-    // Desktop: portrait on left, bio on right
-    const portraitX = gutter
-
-    // Lay down portrait lines
-    const portraitStartY = y
-    for (const line of PORTRAIT) {
-      out.push({ x: portraitX, y, text: line, color: C.blue, font, lineHeight: lh })
-      y += lh
-    }
-
-    // Bio on the right
-    const prep0 = prepareWithSegments(PORTRAIT[0]!, font)
-    const portraitW = layoutWithLines(prep0, 9999, lh).lines[0]?.width ?? 0
-    const bioX = portraitX + portraitW + 32
-    const bioW = contentW - portraitW - 32
-    let bioY = portraitStartY
-
-    // Name
-    out.push({ x: bioX, y: bioY, text: "Chris McConnell, MBA", color: C.cyan, font, lineHeight: lh, bold: true })
-    bioY += lh * 2
-
-    // Bio text
-    const bioText = 'Making sense of the revolution underfoot. I focus on the "missing middle" — systems that help us think better without taking decisions away. Oversight and augmentation, not replacement.'
-    const bioResult = measureLines(bioText, font, Math.max(200, bioW), lh)
-    for (const line of bioResult.lines) {
-      out.push({ x: bioX, y: bioY, text: line.text, color: C.text, font, lineHeight: lh })
-      bioY += lh
-    }
-    bioY += lh
-
-    // Experience entries
-    const entries = [
-      ["Now       ", "Eagle Ridge Advisory — Founder"],
-      ["          ", "Humaine Studio — Applied AI Strategist"],
-      ["Before    ", "Deep Water Point — Dir., Digital & Business Transformation"],
-      ["Education ", "NYU Stern MBA · University of Idaho BA"],
-      ["Location  ", "Richmond, Virginia"],
-      ["Focus     ", "CMMC · Zero Trust · AI Agents · GTM Engineering"],
-    ]
-    for (const [label, value] of entries) {
-      out.push({ x: bioX, y: bioY, text: label!, color: C.green, font, lineHeight: lh, bold: true })
-      const labelPrep = prepareWithSegments(label!, font)
-      const labelW = layoutWithLines(labelPrep, 9999, lh).lines[0]?.width ?? 0
-      // Wrap value text
-      const valResult = measureLines(value!, font, Math.max(100, bioW - labelW), lh)
-      for (let vi = 0; vi < valResult.lines.length; vi++) {
-        out.push({ x: bioX + labelW, y: bioY, text: valResult.lines[vi]!.text, color: C.text, font, lineHeight: lh })
-        bioY += lh
-      }
-    }
-
-    y = Math.max(y, bioY) + lh
-  }
-
-  if (narrow) {
-    // Mobile bio section
-    out.push({ x: gutter, y, text: "Chris McConnell, MBA", color: C.cyan, font, lineHeight: lh, bold: true })
-    y += lh * 2
-
-    const bioText = 'Making sense of the revolution underfoot. I focus on the "missing middle" — systems that help us think better without taking decisions away. Oversight and augmentation, not replacement.'
-    const bioResult = measureLines(bioText, font, contentW, lh)
-    for (const line of bioResult.lines) {
-      out.push({ x: gutter, y, text: line.text, color: C.text, font, lineHeight: lh })
-      y += lh
-    }
-    y += lh
-
-    const entries = [
-      ["Now       ", "Eagle Ridge Advisory — Founder"],
-      ["          ", "Humaine Studio — Applied AI Strategist"],
-      ["Before    ", "Deep Water Point — Dir., Digital & Business Transformation"],
-      ["Education ", "NYU Stern MBA · University of Idaho BA"],
-      ["Location  ", "Richmond, Virginia"],
-      ["Focus     ", "CMMC · Zero Trust · AI Agents · GTM Engineering"],
-    ]
-    for (const [label, value] of entries) {
-      const labelPrep = prepareWithSegments(label!, font)
-      const labelW = layoutWithLines(labelPrep, 9999, lh).lines[0]?.width ?? 0
-      out.push({ x: gutter, y, text: label!, color: C.green, font, lineHeight: lh, bold: true })
-      const valResult = measureLines(value!, font, Math.max(100, contentW - labelW), lh)
-      for (let vi = 0; vi < valResult.lines.length; vi++) {
-        out.push({ x: gutter + labelW, y, text: valResult.lines[vi]!.text, color: C.text, font, lineHeight: lh })
-        y += lh
-      }
-    }
-    y += lh
-  }
-
-  // Experience blurbs
-  y += lh
-  const blurbs = [
-    "Led 300+ consultants through Zero Trust for CMMC compliance.",
-    "Built AI workflows that cut 160 hrs/month to 12.",
-    "Now I build the tools and run the engagements myself.",
-  ]
-  for (const blurb of blurbs) {
-    const result = measureLines(blurb, font, contentW, lh)
-    for (const line of result.lines) {
-      out.push({ x: gutter, y, text: line.text, color: C.muted, font, lineHeight: lh })
-      y += lh
-    }
-  }
-
-  y += lh * 2
-
-  // Links
-  out.push({ x: gutter, y, text: "Links", color: C.blue, font, lineHeight: lh })
-  y += lh
-  const links: [string, string][] = [
-    ["github.com/miqcie", "https://github.com/miqcie"],
-    ["humaine.studio", "https://humaine.studio"],
-    ["eagleridge.io", "https://eagleridge.io"],
-    ["linkedin.com/in/c-mcconnell", "https://www.linkedin.com/in/c-mcconnell/"],
-  ]
-  for (const [label, href] of links) {
-    out.push({ x: gutter + 16, y, text: label, color: C.border, font, lineHeight: lh, href })
-    y += lh
-  }
-
-  return out
-}
-
-// ── DOM rendering (editorial-engine pattern) ────────────────────────────
-
-function syncPool(count: number): void {
-  while (linePool.length < count) {
-    const el = document.createElement("span")
-    el.className = "ln"
-    stage.appendChild(el)
-    linePool.push(el)
-  }
-  for (let i = 0; i < linePool.length; i++) {
-    linePool[i]!.style.display = i < count ? "" : "none"
-  }
-}
-
-function renderLines(lines: Line[]): void {
-  // We need separate elements for links vs text vs nav buttons
-  // Clear and rebuild — simpler than pooling 3 types
-  while (stage.firstChild) stage.removeChild(stage.firstChild)
-  linePool.length = 0
-
-  for (const line of lines) {
-    let el: HTMLElement
-
-    if (line.href) {
-      const a = document.createElement("a")
-      a.href = line.href
-      // Internal links (root-relative) navigate in place; external links open a new tab.
-      if (/^https?:/.test(line.href)) {
-        a.target = "_blank"
-        a.rel = "noreferrer"
-      }
-      a.className = "ln"
-      el = a
-    } else if (line.navTarget) {
-      const btn = document.createElement("button")
-      btn.className = "nav-btn"
-      const target = line.navTarget
-      btn.addEventListener("click", () => navigate(target))
-      el = btn
-    } else {
-      el = document.createElement("span")
-      el.className = "ln"
-    }
-
-    el.textContent = line.text
-    el.style.left = `${line.x}px`
-    el.style.top = `${line.y}px`
-    el.style.font = line.font
-    el.style.lineHeight = `${line.lineHeight}px`
-    el.style.color = line.color
-    if (line.bold) el.style.fontWeight = "700"
-
-    stage.appendChild(el)
-    linePool.push(el)
-  }
-
-  // Add bottom nav bar
-  renderNavBar(lines)
-}
-
-function renderNavBar(lines: Line[]): void {
-  const w = document.documentElement.clientWidth
-  const narrow = w < NARROW
-  const font = narrow ? FONT_SMALL : FONT
-  const lh = narrow ? LINE_HEIGHT_SMALL : LINE_HEIGHT
-
-  // Find the max Y of all lines to position the nav
-  let maxY = 0
-  for (const line of lines) {
-    const bottom = line.y + line.lineHeight
-    if (bottom > maxY) maxY = bottom
-  }
-
-  // Nav bar at the bottom of viewport or below content
-  const h = document.documentElement.clientHeight
-  const navY = Math.max(maxY + lh * 2, h - lh * 2)
-  const gutter = narrow ? 16 : GUTTER
-
-  // Separator line
-  const sepEl = document.createElement("span")
-  sepEl.className = "ln"
-  sepEl.textContent = "─".repeat(Math.floor((w - gutter * 2) / 8))
-  sepEl.style.left = `${gutter}px`
-  sepEl.style.top = `${navY}px`
-  sepEl.style.font = font
-  sepEl.style.lineHeight = `${lh}px`
-  sepEl.style.color = C.muted
-  stage.appendChild(sepEl)
-
-  const navScreens: { label: string; key: string; target?: Screen; href?: string }[] = [
-    { label: "[h]ome", key: "h", target: "home" },
-    { label: "[p]rojects", key: "p", target: "projects" },
-    { label: "[a]bout", key: "a", target: "about" },
-    { label: "[v]iz", key: "v", href: "/viz/" },
-  ]
-
-  let navX = gutter
-  const navBtnY = navY + lh
-  for (const nav of navScreens) {
-    const btn = document.createElement("button")
-    btn.className = "nav-btn"
-    btn.textContent = nav.label
-    btn.style.left = `${navX}px`
-    btn.style.top = `${navBtnY}px`
-    btn.style.font = font
-    btn.style.lineHeight = `${lh}px`
-    btn.style.color = nav.target && currentScreen === nav.target ? C.cyan : C.muted
-    const { target, href } = nav
-    btn.addEventListener("click", () =>
-      href ? (window.location.href = href) : navigate(target!),
-    )
-    stage.appendChild(btn)
-
-    const prep = prepareWithSegments(nav.label, font)
-    const itemW = layoutWithLines(prep, 9999, lh).lines[0]?.width ?? 0
-    navX += itemW
-
-    const gapPrep = prepareWithSegments("  ", font)
-    const gapW = layoutWithLines(gapPrep, 9999, lh).lines[0]?.width ?? 0
-    navX += gapW
-  }
-
-  if (!narrow) {
-    const brand = "cmm.dev"
-    const brandPrep = prepareWithSegments(brand, font)
-    const brandW = layoutWithLines(brandPrep, 9999, lh).lines[0]?.width ?? 0
-    const brandEl = document.createElement("span")
-    brandEl.className = "ln"
-    brandEl.textContent = brand
-    brandEl.style.left = `${w - gutter - brandW}px`
-    brandEl.style.top = `${navBtnY}px`
-    brandEl.style.font = font
-    brandEl.style.lineHeight = `${lh}px`
-    brandEl.style.color = C.muted
-    stage.appendChild(brandEl)
-  }
-
-  // Update stage height for scrolling
-  const totalHeight = navBtnY + lh * 2
-  stage.style.height = `${Math.max(totalHeight, h)}px`
-}
-
-// ── Navigation ──────────────────────────────────────────────────────────
-
-function navigate(screen: Screen): void {
-  currentScreen = screen
-  stage.scrollTop = 0
-  render()
-}
-
-function render(): void {
-  const w = document.documentElement.clientWidth
-  const h = document.documentElement.clientHeight
-
-  let lines: Line[]
-  switch (currentScreen) {
-    case "home":
-      lines = layoutHome(w, h)
-      break
-    case "projects":
-      lines = layoutProjects(w, h)
-      break
-    case "about":
-      lines = layoutAbout(w, h)
-      break
-  }
-
-  renderLines(lines)
-}
-
-// ── Events ──────────────────────────────────────────────────────────────
-
-// Keyboard navigation
+// ── Keyboard shortcuts ──────────────────────────────────────────────────
 document.addEventListener("keydown", (e) => {
-  if (e.ctrlKey || e.metaKey || e.shiftKey) return
-  if (e.key === "p") navigate("projects")
-  else if (e.key === "a") navigate("about")
-  else if (e.key === "h" || e.key === "Escape") navigate("home")
+  if (e.ctrlKey || e.metaKey || e.altKey) return
+  const target = e.target as HTMLElement | null
+  const tag = target?.tagName
+  if (tag === "INPUT" || tag === "TEXTAREA") return
+
+  if (e.key === "h" || e.key === "Escape") focusWindow("home")
+  else if (e.key === "p") focusWindow("projects")
+  else if (e.key === "a") focusWindow("about")
   else if (e.key === "v") window.location.href = "/viz/"
 })
 
-// Resize
-window.addEventListener("resize", () => render())
+// ── Initial focus ────────────────────────────────────────────────────────
+function focusFromHash(): void {
+  const id = location.hash.replace("#", "")
+  if (id && windowById(id)?.classList.contains("window")) focusWindow(id)
+  else focusWindow("home", false)
+}
 
-// ── Boot ────────────────────────────────────────────────────────────────
-
-// Wait for fonts to load, then render
-await document.fonts.ready
-render()
+window.addEventListener("hashchange", focusFromHash)
+focusFromHash()
