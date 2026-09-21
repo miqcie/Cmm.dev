@@ -1,0 +1,599 @@
+/* ==========================================================================
+   cmm.dev — classic 1-bit Macintosh desktop (System 6 / 1987 Apple HIG)
+   Strict 1-bit palette: only #000 and #fff literals anywhere in this file.
+   ========================================================================== */
+
+:root {
+  /* 50% gray desktop dither: alternating black/white in a 2x2 checker */
+  --dither: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0 / 2px 2px;
+  /* striped active title bar: 1px black / 1px white repeating rows */
+  --stripes: repeating-linear-gradient(#000 0 1px, #fff 1px 2px);
+  --black: #000;
+  --white: #fff;
+
+  /* font stacks (no web fonts, no external requests) */
+  --font-title: Chicago, "ChicagoFLF", Charcoal, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: Geneva, Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #000;
+}
+
+body {
+  font: 400 13px/1.45 var(--font-body);
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+
+/* ==========================================================================
+   Menu bar — the strip of menu titles pinned to the top of a Mac screen
+   ========================================================================== */
+
+.menubar {
+  position: sticky;
+  top: 0;
+  height: 20px;
+  background: #fff;
+  border-bottom: 1px solid #000;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-title {
+  display: inline-block;
+  padding: 0 10px;
+  line-height: 20px;
+  font: 700 13px var(--font-title);
+  text-decoration: none;
+  color: #000;
+}
+
+.menu-brand {
+  font-weight: 700;
+}
+
+.menu-title:hover,
+.menu-title:focus-visible,
+.menu-title[aria-current="true"] {
+  background: #000;
+  color: #fff;
+  outline: none;
+}
+
+.menubar-hint {
+  margin: 0;
+  padding: 0 10px;
+  font: 400 11px var(--font-body);
+  color: #000;
+}
+
+/* ==========================================================================
+   Desktop — the dithered gray surface windows and icons sit on
+   ========================================================================== */
+
+.desktop {
+  position: relative;
+  min-height: calc(100vh - 21px);
+  background: var(--dither);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Window chrome — title bar, close/zoom boxes, content pane, size box
+   ========================================================================== */
+
+.window {
+  background: #fff;
+  border: 1px solid #000;
+  /* hard 1-bit drop shadow: solid black offsets, no blur */
+  box-shadow: 1px 1px 0 #000, 2px 2px 0 #000;
+}
+
+.titlebar {
+  position: relative;
+  height: 19px;
+  border-bottom: 1px solid #000;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: default;
+}
+
+/* active window's title bar is striped, with the title sitting on a white
+   gap in the middle — the classic Mac "frontmost window" look */
+.window.active .titlebar {
+  background: var(--stripes);
+}
+
+.window.active .titlebar .title {
+  background: #fff;
+  padding: 0 6px;
+}
+
+/* inactive title bars are plain, and their close/zoom boxes are hidden */
+.window:not(.active) .closebox,
+.window:not(.active) .zoombox {
+  visibility: hidden;
+}
+
+.title {
+  margin: 0;
+  font: 700 13px/19px var(--font-title);
+}
+
+.closebox,
+.zoombox {
+  position: absolute;
+  top: 3px;
+  width: 11px;
+  height: 11px;
+  border: 1px solid #000;
+  background: #fff;
+  padding: 0;
+  cursor: pointer;
+}
+
+.closebox {
+  left: 8px;
+}
+
+.zoombox {
+  right: 8px;
+}
+
+/* zoom box's inner square */
+.zoombox::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid #000;
+}
+
+.closebox:active,
+.zoombox:active {
+  background: var(--stripes);
+}
+
+.content {
+  padding: 12px 16px 16px;
+  overflow: auto;
+  /* long content (the About bio, the Projects table) scrolls inside the
+     window instead of growing it, same as a real Finder window */
+  max-height: min(62vh, 560px);
+}
+
+/* size box (grow box) — bottom-right corner, nested square notches */
+.sizebox {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 15px;
+  height: 15px;
+  border-top: 1px solid #000;
+  border-left: 1px solid #000;
+  background: #fff;
+}
+
+.sizebox::after {
+  content: "";
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 9px;
+  height: 9px;
+  border: 1px solid #000;
+  /* inner notch, nested inside the outer square, for the grow-box look */
+  box-shadow: inset -3px -3px 0 -2px #000;
+}
+
+/* Mac-style scroll bars (WebKit) */
+.content::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: var(--dither);
+  border-left: 1px solid #000;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: #fff;
+  border: 1px solid #000;
+}
+
+.content::-webkit-scrollbar-button:single-button {
+  display: block;
+  height: 16px;
+  width: 16px;
+  background: #fff;
+  border: 1px solid #000;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.content::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M4 1 L7 6 L1 6 Z' fill='%23000'/%3E%3C/svg%3E");
+}
+
+.content::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M4 7 L1 2 L7 2 Z' fill='%23000'/%3E%3C/svg%3E");
+}
+
+/* Firefox scroll bars */
+.content {
+  scrollbar-color: #000 #fff;
+  scrollbar-width: auto;
+}
+
+.window.closed {
+  display: none;
+}
+
+.window.zoomed {
+  left: 16px !important;
+  top: 16px !important;
+  width: calc(100% - 32px) !important;
+}
+
+.window.zoomed .content {
+  max-height: calc(100vh - 120px);
+}
+
+/* ==========================================================================
+   Buttons — Mac dialog push buttons
+   ========================================================================== */
+
+.button {
+  display: inline-block;
+  padding: 3px 18px;
+  border: 1px solid #000;
+  border-radius: 7px;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  font: 700 13px var(--font-title);
+  min-width: 72px;
+  text-align: center;
+}
+
+/* the default button gets a thick double outline */
+.button.default {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 3px #000;
+  border-radius: 9px;
+}
+
+.button:hover,
+.button:focus-visible,
+.button:active {
+  background: #000;
+  color: #fff;
+  outline: none;
+}
+
+.button-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* ==========================================================================
+   Home window contents
+   ========================================================================== */
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hero .icon {
+  width: 64px;
+  height: 64px;
+  shape-rendering: crispEdges;
+  flex: none;
+}
+
+.wordmark {
+  margin: 0;
+  font: 700 28px var(--font-title);
+  letter-spacing: 0.04em;
+}
+
+.tagline {
+  margin: 2px 0 0;
+  font: 700 13px var(--font-title);
+}
+
+.lede {
+  max-width: 52ch;
+  margin: 16px 0 0;
+}
+
+.fineprint {
+  font-size: 11px;
+  margin-top: 14px;
+}
+
+.fineprint a {
+  text-decoration: none;
+}
+
+.fineprint a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Projects window — Finder list view
+   ========================================================================== */
+
+.status-line {
+  font-size: 11px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 4px;
+  margin: 0 0 8px;
+}
+
+.list-view {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.list-view thead th {
+  text-align: left;
+  font-weight: 400;
+  font-size: 11px;
+  border-bottom: 1px solid #000;
+  padding: 2px 8px 4px;
+}
+
+.list-view tbody td {
+  padding: 4px 8px;
+  vertical-align: top;
+}
+
+.list-view tbody tr:hover td {
+  background: #000;
+  color: #fff;
+}
+
+.list-view tbody tr:hover td a {
+  color: #fff;
+}
+
+.list-view .num {
+  text-align: right;
+}
+
+.list-view .name {
+  white-space: nowrap;
+}
+
+.list-view .name .icon {
+  vertical-align: -3px;
+  margin-right: 6px;
+  shape-rendering: crispEdges;
+}
+
+/* ==========================================================================
+   About window
+   ========================================================================== */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 20px;
+}
+
+.bio {
+  min-width: 0;
+}
+
+.portrait {
+  margin: 0;
+  border: 1px solid #000;
+  padding: 8px;
+  background: #fff;
+  text-align: center;
+}
+
+.portrait pre {
+  margin: 0;
+  font: 12px/1.1 ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+}
+
+.portrait figcaption {
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 12px;
+  row-gap: 2px;
+  margin: 12px 0;
+}
+
+.facts dt {
+  grid-column: 1;
+  font-weight: 700;
+}
+
+/* a second <dd> under one <dt> (two current roles) stays in the value column */
+.facts dd {
+  grid-column: 2;
+  margin: 0;
+}
+
+.blurbs {
+  font-size: 12px;
+  margin: 12px 0;
+  padding-left: 18px;
+}
+
+.links a {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Desktop icons — like disks sitting on the Mac desktop
+   ========================================================================== */
+
+.desktop-icons {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+.desk-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: #000;
+  text-decoration: none;
+  width: 80px;
+  text-align: center;
+  font: 11px var(--font-body);
+}
+
+.desk-icon .icon {
+  width: 32px;
+  height: 32px;
+  shape-rendering: crispEdges;
+}
+
+.desk-icon span {
+  background: #fff;
+  padding: 0 3px;
+}
+
+.desk-icon:hover .icon,
+.desk-icon:focus-visible .icon {
+  filter: invert(1);
+}
+
+.desk-icon:hover span,
+.desk-icon:focus-visible span {
+  background: #000;
+  color: #fff;
+}
+
+/* ==========================================================================
+   Breakpoints
+   ========================================================================== */
+
+/* Narrow: windows stack, no dragging, chrome that needs room is hidden */
+@media (max-width: 719px) {
+  .desktop {
+    padding: 12px;
+  }
+
+  .window {
+    position: static !important;
+    scroll-margin-top: 32px; /* keep the title bar clear of the sticky menu bar */
+    margin: 0 0 12px;
+    width: 100% !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  .content {
+    overflow-x: auto;
+    max-height: none;
+  }
+
+  /* keep all four columns; the list scrolls sideways inside its window */
+  .list-view {
+    min-width: 560px;
+  }
+
+  .desktop-icons,
+  .menubar-hint {
+    display: none;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portrait {
+    justify-self: center;
+  }
+}
+
+/* Desktop: windows are absolutely positioned and may overlap */
+@media (min-width: 720px) {
+  .window {
+    position: absolute;
+    max-width: calc(100vw - 130px);
+  }
+
+  #home {
+    left: 40px;
+    top: 44px;
+    width: 500px;
+  }
+
+  #projects {
+    left: 140px;
+    top: 372px;
+    width: 720px;
+  }
+
+  /* lower window: bound its height so it never runs off the desktop */
+  #projects .content {
+    max-height: max(220px, calc(100vh - 470px));
+  }
+
+  #about {
+    left: 320px;
+    top: 120px;
+    width: 640px;
+  }
+}
+
+/* Very wide: nudge windows apart so less overlaps */
+@media (min-width: 1280px) {
+  #projects {
+    left: 200px;
+  }
+
+  #about {
+    left: 540px;
+    top: 100px;
+    width: 600px;
+  }
+}

@@ -1,0 +1,52 @@
+# cmm.dev
+
+> Chris McConnell's personal portfolio site. Chris is a practitioner in GRC
+> and cybersecurity who builds the AI systems he uses: compliance engines for
+> clients, and revenue and GTM systems for his own pipeline, then open-sources
+> the methodology. The site lists his projects, background, and links.
+
+## Pages
+
+- Home (/#home): tagline "Practitioner Who Builds" and a short intro to
+  Chris's GRC and cybersecurity work, plus AI agent and GTM engineering.
+- Projects (/#projects): a table of 8 open-source projects with language and
+  star counts.
+- About (/#about): Chris's bio, career history, education, location, focus
+  areas, and links.
+- Viz (/viz/): a small gallery of one-off data visualizations, in its own
+  editorial style. First chart: "Messi From The Spot", every career penalty
+  plotted by where it crossed the goal.
+
+## Projects
+
+- [gilfoyle](https://github.com/miqcie/gilfoyle): Technical review agent with Gilfoyle-style precision (JavaScript, 21 stars)
+- [cal-attio-sync](https://github.com/miqcie/cal-attio-sync): Free Cal.com → Attio booking sync, live in production (TypeScript, 0 stars)
+- [grepai-beads-helpers](https://github.com/miqcie/grepai-beads-helpers): Automation scripts for semantic code search & AI memory (Shell, 7 stars)
+- [nightscout-clock](https://github.com/miqcie/nightscout-clock): CGM desk-clock firmware for my daughter's T1D (C++, 0 stars)
+- [mondrian](https://github.com/miqcie/mondrian): Evidence-first Zero Trust runtime for startups (Go, 0 stars)
+- [T1DCalculator](https://github.com/miqcie/T1DCalculator): iOS insulin dose calculator using medical formulas (Swift, 0 stars)
+- [voice-pipeline](https://github.com/miqcie/voice-pipeline): Voice capture → transcribe → classify → route (Python, 0 stars)
+- [Humaine-studio](https://github.com/miqcie/Humaine-studio): Thought lab on human + AI collaboration (HTML, 1 star)
+
+## About
+
+- Name: Chris McConnell, MBA
+- Now: Founder, Eagle Ridge Advisory; Applied AI Strategist, Humaine Studio
+- Before: Director, Digital & Business Transformation, Deep Water Point
+- Education: NYU Stern MBA, University of Idaho BA
+- Location: Richmond, Virginia
+- Focus: CMMC, Zero Trust, AI Agents, GTM Engineering
+- Led 300+ consultants through Zero Trust for CMMC compliance.
+- Built AI workflows that cut 160 hrs/month to 12.
+- Now builds the tools and runs the engagements himself.
+
+## Links
+
+- [github.com/miqcie](https://github.com/miqcie)
+- [humaine.studio](https://humaine.studio)
+- [eagleridge.io](https://eagleridge.io)
+- [linkedin.com/in/c-mcconnell](https://www.linkedin.com/in/c-mcconnell/)
+
+## Contact/Author
+
+Chris McConnell — github.com/miqcie
