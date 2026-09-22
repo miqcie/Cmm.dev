@@ -1,23 +1,76 @@
-name: Deploy to Cloudflare Pages
+# Optional Wrangler/Workers deploy. Production currently ships via Cloudflare
+# Workers Builds (wrangler.jsonc). This job does not use Pages and does not
+# read CLOUDFLARE_API_TOKEN from GitHub secrets.
+name: Deploy
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  # Needed only if you authenticate 1Password with workload identity (OIDC).
+  id-token: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Check 1Password authentication
+        id: auth
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          OP_CONNECT_TOKEN: ${{ secrets.OP_CONNECT_TOKEN }}
+          OP_CONNECT_HOST: ${{ secrets.OP_CONNECT_HOST || vars.OP_CONNECT_HOST }}
+          OP_WORKLOAD_ID: ${{ vars.OP_WORKLOAD_ID }}
+          OP_ENVIRONMENT_ID: ${{ vars.OP_ENVIRONMENT_ID }}
+          OP_INTEGRATION_KEY: ${{ secrets.OP_INTEGRATION_KEY }}
+        run: |
+          if [ -n "$OP_SERVICE_ACCOUNT_TOKEN" ]; then
+            echo "method=service-account" >> "$GITHUB_OUTPUT"
+          elif [ -n "$OP_CONNECT_TOKEN" ] && [ -n "$OP_CONNECT_HOST" ]; then
+            echo "method=connect" >> "$GITHUB_OUTPUT"
+          elif [ -n "$OP_WORKLOAD_ID" ] && [ -n "$OP_ENVIRONMENT_ID" ] && [ -n "$OP_INTEGRATION_KEY" ]; then
+            echo "method=oidc" >> "$GITHUB_OUTPUT"
+          else
+            echo "method=none" >> "$GITHUB_OUTPUT"
+            echo "::notice::Skipping Wrangler deploy. Add OP_SERVICE_ACCOUNT_TOKEN (service account with access to Developer Vault), 1Password Connect (OP_CONNECT_HOST + OP_CONNECT_TOKEN), or workload identity. Do not store CLOUDFLARE_API_TOKEN in GitHub secrets. Workers Builds remains the production path."
+          fi
+
+      - uses: actions/checkout@v5
+        if: steps.auth.outputs.method != 'none'
 
       - uses: oven-sh/setup-bun@v2
+        if: steps.auth.outputs.method != 'none'
 
       - run: bun install --frozen-lockfile
+        if: steps.auth.outputs.method != 'none'
 
       - run: bun run build
+        if: steps.auth.outputs.method != 'none'
 
-      - uses: cloudflare/wrangler-action@v3
+      - name: Load Cloudflare API token from 1Password
+        if: steps.auth.outputs.method == 'service-account' || steps.auth.outputs.method == 'connect'
+        uses: 1password/load-secrets-action@v5
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name cmm-dev
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          OP_CONNECT_HOST: ${{ secrets.OP_CONNECT_HOST || vars.OP_CONNECT_HOST }}
+          OP_CONNECT_TOKEN: ${{ secrets.OP_CONNECT_TOKEN }}
+          OP_ENV_FILE: .env.op
+
+      - name: Load Cloudflare API token via 1Password workload identity
+        if: steps.auth.outputs.method == 'oidc'
+        uses: 1password/load-secrets-action@v5
+        with:
+          export-env: true
+        env:
+          OP_WORKLOAD_ID: ${{ vars.OP_WORKLOAD_ID }}
+          OP_ENVIRONMENT_ID: ${{ vars.OP_ENVIRONMENT_ID }}
+          OP_INTEGRATION_KEY: ${{ secrets.OP_INTEGRATION_KEY }}
+
+      - name: Deploy Worker
+        if: steps.auth.outputs.method != 'none'
+        run: bun run deploy
