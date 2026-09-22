@@ -38,7 +38,19 @@ a Projects title bar hidden under Home, the About window sliding under the
 desktop icons, and a phone-load scroll that hid the Home title bar under the
 menu bar.
 
+## Going Live (2026-09-22)
+
+- PR #19 merged: CI runs typecheck and build; the optional Actions deploy
+  reads its token from 1Password and skips until a service account exists.
+- Stale Cloudflare bot branch `cloudflare/workers-autoconfig` (March, old
+  stack, 17 conflict blocks) deleted. It was the source of the "conflicts."
+- cmm.dev and www.cmm.dev attached to the `cmm-dev` Worker in the dashboard.
+  Both serve the new site. A local DNS cache held the empty answer from the
+  move for a few minutes; flushing it fixed the Mac.
+- Obsolete issues #5 and #7 closed.
+
 ## What's Next
 
-- Decide whether the Projects table on phones should drop a column instead of scrolling sideways.
-- Consider a real pull-down "Go" menu if the site grows more pages.
+- Delete the unused Pages project; decide on the optional Actions deploy (#20).
+- Phone Projects table: sideways scroll vs dropping the Description column (#21).
+- Higher-resolution portrait if source line art is added (#22).
