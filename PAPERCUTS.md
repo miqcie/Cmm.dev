@@ -8,3 +8,4 @@
 - 2026-09-22: wrap-up step 6, adding a prevention rule to ~/.claude/CLAUDE.md → auto-mode classifier denied the Edit as "Instruction Poisoning"; Chris pasted the line by hand. Third classifier block this session (git push, CLAUDE.md edit, plus the standing rm rule): sanding target, now codified in CLAUDE.md.
 - 2026-09-22: `open -t file.md` opened the default text editor → Chris wants iA Writer; rule added to CLAUDE.md and bd memory.
 - 2026-09-22: chaining two commands with `;` per CLAUDE.md line 85 → PreToolUse hook rejected it ("One command per tool call"); the rule text is stale, hook now wants exactly one command. Tracked in bead chrismcconnell-52hx.
+- 2026-09-28: activating a creator page from an existing Buy Me a Coffee supporter account → the product hid creator setup behind a separate flow and assigned an opaque public slug instead of the requested username, causing failed setup attempts and a link correction.
