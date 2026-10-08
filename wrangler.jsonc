@@ -7,8 +7,12 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "cmm-dev",
+  "main": "worker.ts",
   "compatibility_date": "2026-09-21",
   "assets": {
+    "binding": "ASSETS",
+    // "/" goes through worker.ts for Markdown negotiation and Vary: Accept
+    "run_worker_first": ["/"],
     "directory": "./dist",
     // /viz/ -> /viz/index.html, /foo -> /foo.html or /foo/index.html
     "html_handling": "auto-trailing-slash",
