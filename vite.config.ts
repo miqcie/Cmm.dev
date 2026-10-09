@@ -3,5 +3,8 @@ import { defineConfig } from "vite"
 export default defineConfig({
   build: {
     target: "esnext",
+    rollupOptions: {
+      input: ["index.html", "about.html", "contact.html", "privacy.html"],
+    },
   },
 })
