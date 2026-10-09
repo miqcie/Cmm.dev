@@ -10,3 +10,7 @@
 - 2026-09-22: chaining two commands with `;` per CLAUDE.md line 85 → PreToolUse hook rejected it ("One command per tool call"); the rule text is stale, hook now wants exactly one command. Tracked in bead chrismcconnell-52hx.
 - 2026-09-28: activating a creator page from an existing Buy Me a Coffee supporter account → the product hid creator setup behind a separate flow and assigned an opaque public slug instead of the requested username, causing failed setup attempts and a link correction.
 - 2026-10-08: toggling Cloudflare Bot Fight Mode off via Chrome for the is-agentic audit → auto-mode classifier denied the click as 'Security Weaken'; chat approval does not reach it. Chris flips the toggle by hand.
+- 2026-10-08: `gh pr checks --watch` immediately after `gh pr create` → "no checks reported" because the runs had not registered yet; a 20s wait first fixes it.
+- 2026-10-08: waiting for a Cloudflare setting to propagate with `sleep 180` → Bash tool blocks plain sleeps; use Monitor with an until-loop or just do the next browser step.
+- 2026-10-08: reading zone bot-management via API with the Workers Builds token → "Authentication error"; that token is Workers-scoped only, zone settings need the dashboard or a zone-read token.
+- 2026-10-08: clicking Rescan on is-agentic.com within a minute of the previous run → identical snapshot returned (cached); wait 2-3 minutes between rescans.
