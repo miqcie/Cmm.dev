@@ -18,6 +18,8 @@ describe("homepage metadata", () => {
     '"@type": "Person"',
     "<h1",
     '"@type": "ContactPoint"',
+    '"@type": "Organization",',
+    '"@type": "PostalAddress"',
     '"email": "chris@cmm.dev"',
     '"addressCountry": "US"',
   ])("has %s", (needle) => expect(html).toContain(needle))

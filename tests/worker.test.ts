@@ -47,6 +47,15 @@ describe("404", () => {
     expect(body.error.message).toContain("/nope")
     expect(body.error.hint).toContain("llms.txt")
   })
+  test("Accept: text/markdown gets a Markdown error with a link", async () => {
+    const res = await get("/nope", "text/markdown")
+    expect(res.status).toBe(404)
+    expect(res.headers.get("content-type")).toBe("text/markdown; charset=utf-8")
+    const body = await res.text()
+    expect(body).toContain("/nope")
+    expect(body).toContain("https://cmm.dev/llms.txt")
+    expect(body.length).toBeGreaterThan(20)
+  })
   test("browser keeps the asset 404 untouched", async () => {
     const res = await get("/nope", "text/html")
     expect(res.status).toBe(404)
