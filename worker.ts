@@ -1,5 +1,5 @@
 // cmm.dev edge handler. Static assets do the real work; this only adds what
-// agents ask for: Markdown negotiation on "/", and JSON 404s for non-browsers.
+// agents ask for: Markdown negotiation on "/", and Markdown or JSON 404s for non-browsers.
 // Runs before assets only for "/" (see run_worker_first in wrangler.jsonc);
 // every other path reaches here only when no asset matched.
 
@@ -31,6 +31,12 @@ export default {
 
     const res = await env.ASSETS.fetch(request)
     if (res.status !== 404 || accept.includes("text/html")) return res
+    if (accept.includes("text/markdown")) {
+      return new Response(
+        `# Not found\n\nNo resource at ${url.pathname}.\n\nSee [llms.txt](https://cmm.dev/llms.txt) for the list of pages, or [sitemap.xml](https://cmm.dev/sitemap.xml).\n`,
+        { status: 404, headers: { "content-type": MARKDOWN, vary: "Accept" } },
+      )
+    }
     return Response.json(
       {
         error: {
