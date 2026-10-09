@@ -50,7 +50,7 @@
 
 ## Contact/Author
 
-Chris McConnell — github.com/miqcie
+Chris McConnell — chris@cmm.dev — github.com/miqcie — https://cmm.dev/contact
 
 ## When to use this site
 

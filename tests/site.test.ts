@@ -17,6 +17,9 @@ describe("homepage metadata", () => {
     '<meta property="og:image"',
     '"@type": "Person"',
     "<h1",
+    '"@type": "ContactPoint"',
+    '"email": "chris@cmm.dev"',
+    '"addressCountry": "US"',
   ])("has %s", (needle) => expect(html).toContain(needle))
   test("title names the person, not only the domain", () => {
     expect(html).toMatch(/<title>[^<]*Chris McConnell[^<]*<\/title>/)
@@ -32,6 +35,9 @@ describe("trust anchor pages", () => {
     expect(html).toContain("<h1")
     expect(html).toContain(`<link rel="canonical" href="https://cmm.dev/${page}"`)
     expect(text(html).length).toBeGreaterThan(500)
+  })
+  test("/contact shows the email", () => {
+    expect(read("contact.html")).toContain('href="mailto:chris@cmm.dev"')
   })
 })
 

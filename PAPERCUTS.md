@@ -9,3 +9,4 @@
 - 2026-09-22: `open -t file.md` opened the default text editor → Chris wants iA Writer; rule added to CLAUDE.md and bd memory.
 - 2026-09-22: chaining two commands with `;` per CLAUDE.md line 85 → PreToolUse hook rejected it ("One command per tool call"); the rule text is stale, hook now wants exactly one command. Tracked in bead chrismcconnell-52hx.
 - 2026-09-28: activating a creator page from an existing Buy Me a Coffee supporter account → the product hid creator setup behind a separate flow and assigned an opaque public slug instead of the requested username, causing failed setup attempts and a link correction.
+- 2026-10-08: toggling Cloudflare Bot Fight Mode off via Chrome for the is-agentic audit → auto-mode classifier denied the click as 'Security Weaken'; chat approval does not reach it. Chris flips the toggle by hand.
