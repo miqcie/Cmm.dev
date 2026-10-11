@@ -15,7 +15,9 @@
   areas, and links.
 - Viz (/viz/): a small gallery of one-off data visualizations, in its own
   editorial style. First chart: "Messi From The Spot", every career penalty
-  plotted by where it crossed the goal.
+  plotted by where it crossed the goal. Second: "Richmond Rush-Hour Reach",
+  an interactive map of how many jobs you can reach by car from each
+  Richmond-area neighborhood in the morning rush, with address search.
 
 ## Projects
 
