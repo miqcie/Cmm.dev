@@ -53,7 +53,7 @@ describe("machine-readable files", () => {
     const xml = read("sitemap.xml")
     expect(xml).toStartWith('<?xml version="1.0" encoding="UTF-8"?>')
     expect(xml).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
-    for (const loc of ["/", "/about", "/contact", "/privacy", "/work", "/demo/model-picker/", "/viz/", "/viz/messi-from-the-spot/", "/viz/richmond-rush-hour-reach/"]) {
+    for (const loc of ["/", "/about", "/contact", "/privacy", "/work", "/demo/model-picker/", "/demo/agent-access/", "/viz/", "/viz/messi-from-the-spot/", "/viz/richmond-rush-hour-reach/"]) {
       expect(xml).toContain(`<loc>https://cmm.dev${loc}</loc>`)
     }
     const urls = xml.match(/<url>/g)?.length
@@ -73,5 +73,17 @@ describe("model picker demo", () => {
   })
   test("carries all nine models", () => {
     expect(html.match(/\{ name: "/g)?.length).toBe(9)
+  })
+})
+
+describe("agent access sandbox", () => {
+  const html = read("demo/agent-access/index.html")
+  test("has an h1, a canonical link, and real text without JavaScript", () => {
+    expect(html).toContain("<h1")
+    expect(html).toContain('<link rel="canonical" href="https://cmm.dev/demo/agent-access/"')
+    expect(text(html).length).toBeGreaterThan(500)
+  })
+  test("carries all nine requests", () => {
+    expect(html.match(/\{ id: "/g)?.length).toBe(9)
   })
 })
