@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How Chris McConnell Works With Claude — cmm.dev</title>
+    <meta name="description" content="Work samples you can open and check, and how Chris McConnell and Claude split the work: who sets the rules, who builds, and what checks the result." />
+    <link rel="canonical" href="https://cmm.dev/work" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="menubar">
+      <nav aria-label="Menu bar">
+        <ul class="menu">
+          <li><a class="menu-title menu-brand" href="/">cmm.dev</a></li>
+          <li><a class="menu-title" href="/work" aria-current="true">Work</a></li>
+          <li><a class="menu-title" href="/about">About</a></li>
+          <li><a class="menu-title" href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="desktop page">
+      <article class="window active">
+        <header class="titlebar"><h1 class="title">How I Work With Claude</h1></header>
+        <div class="content">
+          <p>Each item below is something you can open, run, or read. I build most of it with Claude, Anthropic's AI model, working in Claude Code. I set the rules, Claude does most of the typing, and tests decide when the work is done.</p>
+
+          <h2>Work you can check</h2>
+          <table class="list-view samples">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">What it shows</th>
+                <th scope="col">The proof</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name"><a href="https://github.com/miqcie/optima-cmmc-assessor-judgment" rel="noreferrer">CMMC assessor benchmark</a></td>
+                <td>How to pick a model for expert work: write the tasks, grade every answer, and weigh score against cost.</td>
+                <td>36 tasks, 9 models, 1,027 graded criteria, run on Artificial Analysis Optima on 2026-10-15. The top score was 90% at $0.13 a task. A model that scored 80% cost $0.0025, about 50 times less for 10 points lower.</td>
+              </tr>
+              <tr>
+                <td class="name"><a href="https://github.com/miqcie/claude-config-evals" rel="noreferrer">claude-config-evals</a></td>
+                <td>Cutting AI cost with evidence. Each rule in a config gets a small test, so a cut that breaks something shows up.</td>
+                <td>Trimmed an always-on config from about 12,000 tokens to about 6,000. Same pass rate, 10 to 15% lower cost per run.</td>
+              </tr>
+              <tr>
+                <td class="name"><a href="https://github.com/miqcie/deirdre" rel="noreferrer">deirdre</a></td>
+                <td>A writing reviewer built on Deirdre McCloskey's <cite>Economical Writing</cite>. It quotes the weak line, names the rule, and gives a rewrite.</td>
+                <td>Ships as a Claude Code plugin with a linter that can fail a CI build. It reviewed this page.</td>
+              </tr>
+              <tr>
+                <td class="name"><a href="https://github.com/miqcie/gilfoyle" rel="noreferrer">gilfoyle</a></td>
+                <td>A code reviewer that checks the spec first and the code second, and backs each finding with a fix and a test.</td>
+                <td>Tested on sample diffs: real bugs, clean changes, false alarms, and hidden instructions planted to fool it.</td>
+              </tr>
+              <tr>
+                <td class="name"><a href="https://github.com/miqcie/cal-attio-sync" rel="noreferrer">cal-attio-sync</a></td>
+                <td>A small service built for the messy real world: it handles repeated and out-of-order messages without making duplicates.</td>
+                <td>It runs in production and syncs every booking on my calendar to my CRM.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Work I can show you, but not link</h2>
+          <dl class="facts">
+            <dt>Agent access broker</dt>
+            <dd>One gate sits between my AI agents and 15 business apps. The gate holds the login tokens, so the agents never see them. An agent may read without asking. Any change it wants to make waits for my approval.</dd>
+            <dt>Monthly reporting agent</dt>
+            <dd>At Deep Water Point, the monthly report took 4 people 160 hours. I interviewed the operations team first, then built an agent. Now it takes 1 person 8 hours.</dd>
+          </dl>
+          <p>The broker's code is private. I'm glad to walk you through it on a call.</p>
+
+          <h2>Who does what</h2>
+          <dl class="facts">
+            <dt>I choose the problem</dt>
+            <dd>And I decide what "done" means before any code exists, usually as a test or a grading rubric.</dd>
+            <dt>I write the rules</dt>
+            <dd>Each repository carries a plain-English operating manual (a <code>CLAUDE.md</code> file) that Claude reads first: how to work, what never to do, and how to check itself.</dd>
+            <dt>Claude builds</dt>
+            <dd>Research with a link for every claim, drafts, code, and tests.</dd>
+            <dt>Reviewers check</dt>
+            <dd>deirdre for prose, gilfoyle for code, automated tests in CI for both.</dd>
+            <dt>I approve what leaves</dt>
+            <dd>Anything that touches the outside world waits for me: a merge to production, an email, a payment. Claude opens a pull request, and I read it and merge it.</dd>
+          </dl>
+
+          <h2>This page is an example</h2>
+          <p>It started as a comment I left on a research memo: "set up a portfolio page that shows, not tells." Claude read this site's design notes, wrote the page in the site's own 1987 Macintosh style, ran deirdre on the words, added the page to the site's tests, and opened a pull request. I read it and merged it. The change history is public in the <a href="https://github.com/miqcie/cmm.dev" rel="noreferrer">cmm.dev repository</a>.</p>
+
+          <p>Want to see something run? Email <a href="mailto:chris@cmm.dev">chris@cmm.dev</a>.</p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

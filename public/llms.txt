@@ -13,6 +13,8 @@
   star counts.
 - About (/#about): Chris's bio, career history, education, location, focus
   areas, and links.
+- Work (/work): work samples with links to check them, and how Chris and
+  Claude split the work (who sets the rules, who builds, what checks it).
 - Viz (/viz/): a small gallery of one-off data visualizations, in its own
   editorial style. First chart: "Messi From The Spot", every career penalty
   plotted by where it crossed the goal. Second: "Richmond Rush-Hour Reach",
@@ -39,7 +41,7 @@
 - Location: Richmond, Virginia
 - Focus: CMMC, Zero Trust, AI Agents, GTM Engineering
 - Led 300+ consultants through Zero Trust for CMMC compliance.
-- Built AI workflows that cut 160 hrs/month to 12.
+- Built AI workflows that cut 160 hrs/month to 8.
 - Now builds the tools and runs the engagements himself.
 
 ## Links
@@ -68,5 +70,5 @@ Do not use it for: an API, a product, or a service to call. The site is static.
 There is no API, SDK, CLI, or developer portal.
 
 How to read it: `GET https://cmm.dev/` with `Accept: text/markdown` returns this
-file. `/sitemap.xml` lists every page. `/about`, `/contact`, and `/privacy` are
+file. `/sitemap.xml` lists every page. `/about`, `/contact`, `/privacy`, and `/work` are
 plain HTML. Unknown paths return a JSON 404 unless you ask for HTML.
