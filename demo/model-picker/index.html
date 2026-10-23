@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Picker — Chris McConnell, cmm.dev</title>
+    <meta name="description" content="Pick the AI model for an expert job by weighing score against cost, using real results from a 36-task, 9-model CMMC assessor benchmark." />
+    <link rel="canonical" href="https://cmm.dev/demo/model-picker/" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <style>
+      .picker {
+        display: grid;
+        align-content: start;
+        gap: 16px;
+        padding: 44px 16px 24px;
+        max-width: 1180px;
+        margin: 0 auto;
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .picker .window {
+        position: static;
+        width: 100%;
+        min-width: 0;
+      }
+      .picker .content {
+        max-height: none;
+      }
+      .picker h2 {
+        font: 700 13px var(--font-title);
+        margin: 12px 0 6px;
+      }
+      @media (min-width: 900px) {
+        .picker {
+          grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+          align-items: start;
+        }
+        .span-2 {
+          grid-column: 1 / -1;
+        }
+      }
+      fieldset {
+        border: 1px solid #000;
+        margin: 0 0 12px;
+        padding: 6px 10px 8px;
+      }
+      legend {
+        font: 700 12px var(--font-title);
+        padding: 0 4px;
+      }
+      .checks label {
+        display: flex;
+        gap: 8px;
+        padding: 2px 0;
+        cursor: pointer;
+      }
+      .checks input,
+      input[type="range"] {
+        accent-color: #000;
+      }
+      .checks small {
+        margin-left: auto;
+        font-size: 11px;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      input[type="range"] {
+        flex: 1;
+        min-width: 140px;
+      }
+      .field {
+        width: 96px;
+        font: inherit;
+        border: 1px solid #000;
+        padding: 0 4px;
+      }
+      .answer {
+        border: 2px solid #000;
+        padding: 8px 10px;
+        margin: 0 0 12px;
+      }
+      .answer p {
+        margin: 0 0 6px;
+      }
+      .answer p:last-child {
+        margin: 0;
+      }
+      .answer b.big {
+        font: 700 16px var(--font-title);
+      }
+      #chart {
+        width: 100%;
+        height: auto;
+        display: block;
+        border: 1px solid #000;
+      }
+      #chart text {
+        font: 10px var(--font-body);
+      }
+      .ok {
+        font: 700 11px var(--font-title);
+        padding: 0 4px;
+        background: #000;
+        color: #fff;
+      }
+      .scroll {
+        overflow-x: auto;
+      }
+      .scroll .list-view {
+        min-width: 520px;
+      }
+      .list-view tr.pick td {
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="menubar">
+      <nav aria-label="Menu bar">
+        <ul class="menu">
+          <li><a class="menu-title menu-brand" href="/">cmm.dev</a></li>
+          <li><a class="menu-title" href="/work">Work</a></li>
+          <li><a class="menu-title" href="/demo/model-picker/" aria-current="true">Model Picker</a></li>
+          <li><a class="menu-title" href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="desktop picker">
+      <section class="window active span-2" aria-labelledby="intro-title">
+        <header class="titlebar"><h1 class="title" id="intro-title">Model Picker</h1></header>
+        <div class="content">
+          <p>Which AI model should do a job? The answer depends on the job, how good "good enough" is, and how many times you'll run it. Pick all three below. The data is real: I wrote 36 tasks that a CMMC compliance assessor does, graded 9 models against 1,027 criteria on Artificial Analysis Optima, and recorded the cost of each answer (October 15, 2026).</p>
+          <p class="fineprint">Source: <a href="https://github.com/miqcie/optima-cmmc-assessor-judgment" rel="noreferrer">the benchmark repository</a>. Scores here average the per-task results file, and a task with no score counts as zero, so a few differ from the report's headline means. Your settings stay in this browser.</p>
+        </div>
+      </section>
+
+      <section class="window active" aria-labelledby="ask-title">
+        <header class="titlebar"><h2 class="title" id="ask-title">Your Job</h2></header>
+        <div class="content">
+          <fieldset class="checks" id="cats">
+            <legend>1. What kind of work?</legend>
+          </fieldset>
+          <fieldset>
+            <legend>2. What score is good enough?</legend>
+            <div class="row">
+              <input type="range" id="bar" min="50" max="100" step="1" aria-label="Minimum score, percent" />
+              <b id="bar-out"></b>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>3. How many tasks a month?</legend>
+            <div class="row">
+              <input class="field" type="number" id="volume" min="0" step="1000" aria-label="Tasks per month" />
+              <span>tasks</span>
+            </div>
+          </fieldset>
+          <p class="button-row"><button class="button" type="button" id="reset">Start over</button></p>
+        </div>
+      </section>
+
+      <section class="window active" aria-labelledby="ans-title">
+        <header class="titlebar"><h2 class="title" id="ans-title">The Answer</h2></header>
+        <div class="content">
+          <div class="answer" id="answer" aria-live="polite"></div>
+          <svg id="chart" viewBox="0 0 560 300" role="img" aria-labelledby="chart-title">
+            <title id="chart-title">Score against cost per task for each model. Cost uses a log scale.</title>
+          </svg>
+        </div>
+      </section>
+
+      <section class="window active span-2" aria-labelledby="tbl-title">
+        <header class="titlebar"><h2 class="title" id="tbl-title">All Nine Models</h2></header>
+        <div class="content scroll">
+          <table class="list-view">
+            <thead>
+              <tr>
+                <th scope="col">Model</th>
+                <th scope="col" class="num">Score on your mix</th>
+                <th scope="col" class="num">Cost per task</th>
+                <th scope="col" class="num">Cost per month</th>
+                <th scope="col" class="num">Time per task</th>
+                <th scope="col">Good enough?</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="window active span-2" aria-labelledby="why-title">
+        <header class="titlebar"><h2 class="title" id="why-title">What This Shows</h2></header>
+        <div class="content">
+          <p>Price did not buy quality on this test. Leave every box checked and set the bar at 85%: the cheapest model that clears it costs about 1% as much as the most expensive one. Then check only "SSP narrative review," the hardest category, and watch the leader change. A single leaderboard number hides that. The right model depends on the work.</p>
+          <p>That's how I'd approach any AI rollout. Write the real tasks, grade the answers against a rubric, and choose on score and cost together, one job at a time. Want the method for your own work? Email <a href="mailto:chris@cmm.dev">chris@cmm.dev</a>. <a href="/work">More work samples</a>.</p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Model Picker. Data from results/figures/task_model_scores.csv and the
+      // Optima report (cost and time per task), 2026-10-15.
+      ;(function () {
+        const KEY = "cmm-model-picker-v1"
+        const CATS = [
+          { key: "SPRS and eligibility", label: "Scoring and eligibility", tasks: 9 },
+          { key: "Assessor work audit", label: "Auditing another assessor's work", tasks: 8 },
+          { key: "SSP narrative review", label: "SSP narrative review", tasks: 7 },
+          { key: "Scoping and intake", label: "Scoping and intake", tasks: 7 },
+          { key: "Recall calibration", label: "Recall of the rules", tasks: 5 },
+        ]
+        // [sum of task scores, task count] per category; cost in $ per task; time in seconds
+        const MODELS = [
+          { name: "GPT-6 Astra (medium)", cost: 0.13, secs: 33, s: { "SPRS and eligibility": [800, 9], "Assessor work audit": [800, 8], "SSP narrative review": [450, 7], "Scoping and intake": [650, 7], "Recall calibration": [500, 5] } },
+          { name: "Claude Fable 5.1 (medium)", cost: 0.414, secs: 53, s: { "SPRS and eligibility": [800, 9], "Assessor work audit": [650, 8], "SSP narrative review": [500, 7], "Scoping and intake": [700, 7], "Recall calibration": [500, 5] } },
+          { name: "Inkling (xhigh)", cost: 0.06, secs: 60, s: { "SPRS and eligibility": [750, 9], "Assessor work audit": [692, 8], "SSP narrative review": [550, 7], "Scoping and intake": [700, 7], "Recall calibration": [500, 5] } },
+          { name: "GPT-5.6 Luna (medium)", cost: 0.0046, secs: 17, s: { "SPRS and eligibility": [700, 9], "Assessor work audit": [625, 8], "SSP narrative review": [600, 7], "Scoping and intake": [650, 7], "Recall calibration": [500, 5] } },
+          { name: "GLM-5.3-Flash", cost: 0.0025, secs: 85, s: { "SPRS and eligibility": [600, 9], "Assessor work audit": [525, 8], "SSP narrative review": [400, 7], "Scoping and intake": [550, 7], "Recall calibration": [500, 5] } },
+          { name: "Gemini 3.5 Flash-Lite (medium)", cost: 0.011, secs: 7, s: { "SPRS and eligibility": [750, 9], "Assessor work audit": [750, 8], "SSP narrative review": [350, 7], "Scoping and intake": [550, 7], "Recall calibration": [500, 5] } },
+          { name: "Muse Spark 1.3 (medium)", cost: 0.023, secs: 13, s: { "SPRS and eligibility": [500, 9], "Assessor work audit": [242, 8], "SSP narrative review": [500, 7], "Scoping and intake": [600, 7], "Recall calibration": [500, 5] } },
+          { name: "Claude 4.5 Haiku", cost: 0.072, secs: 102, s: { "SPRS and eligibility": [400, 9], "Assessor work audit": [667, 8], "SSP narrative review": [400, 7], "Scoping and intake": [475, 7], "Recall calibration": [400, 5] } },
+          { name: "Gemma 4 31B", cost: 0.0011, secs: 19, s: { "SPRS and eligibility": [300, 9], "Assessor work audit": [400, 8], "SSP narrative review": [250, 7], "Scoping and intake": [417, 7], "Recall calibration": [500, 5] } },
+        ]
+        const DEFAULT = { cats: CATS.map((c) => c.key), bar: 85, volume: 10000 }
+
+        let st = load()
+        function load() {
+          try {
+            const s = JSON.parse(localStorage.getItem(KEY) || "null")
+            if (s && Array.isArray(s.cats)) return s
+          } catch (e) {}
+          return { ...DEFAULT, cats: [...DEFAULT.cats] }
+        }
+        function save() {
+          try {
+            localStorage.setItem(KEY, JSON.stringify(st))
+          } catch (e) {}
+        }
+
+        const $ = (id) => document.getElementById(id)
+        const usd = (n) =>
+          n >= 10 ? "$" + Math.round(n).toLocaleString("en-US") : n >= 1 ? "$" + n.toFixed(2) : "$" + n.toPrecision(2)
+        const secs = (n) => (n >= 60 ? Math.floor(n / 60) + "m " + (n % 60) + "s" : n + "s")
+
+        function score(m) {
+          let sum = 0
+          let n = 0
+          st.cats.forEach((c) => {
+            sum += m.s[c][0]
+            n += m.s[c][1]
+          })
+          return n ? sum / n : 0
+        }
+
+        function renderControls() {
+          $("cats").insertAdjacentHTML(
+            "beforeend",
+            CATS.map(
+              (c) =>
+                `<label><input type="checkbox" value="${c.key}" ${st.cats.includes(c.key) ? "checked" : ""} /> ${c.label} <small>${c.tasks} tasks</small></label>`,
+            ).join(""),
+          )
+          $("bar").value = st.bar
+          $("volume").value = st.volume
+        }
+
+        function render() {
+          $("bar-out").textContent = st.bar + "%"
+          const rows = MODELS.map((m) => ({ ...m, score: score(m), month: m.cost * st.volume })).sort(
+            (a, b) => b.score - a.score || a.cost - b.cost,
+          )
+          const ok = rows.filter((r) => r.score >= st.bar)
+          const cheapest = ok.slice().sort((a, b) => a.cost - b.cost)[0]
+          const best = rows[0]
+          const a = $("answer")
+          if (!st.cats.length) {
+            a.innerHTML = "<p>Check at least one kind of work.</p>"
+          } else if (!cheapest) {
+            a.innerHTML = `<p>No model reaches ${st.bar}% on this mix. The best is <b>${best.name}</b> at ${best.score.toFixed(0)}%. Lower the bar, or keep a person on this work.</p>`
+          } else {
+            const times = best.cost / cheapest.cost
+            a.innerHTML =
+              `<p>Use <b class="big">${cheapest.name}</b></p>` +
+              `<p>It scores ${cheapest.score.toFixed(0)}% on your mix and costs ${usd(cheapest.month)} a month at ${st.volume.toLocaleString("en-US")} tasks.</p>` +
+              (best.name === cheapest.name
+                ? "<p>It is also the top scorer here.</p>"
+                : `<p>The top scorer, ${best.name}, gets ${best.score.toFixed(0)}% for ${usd(best.month)} a month: ${times >= 2 ? Math.round(times) + " times" : times.toFixed(1) + " times"} the cost for ${Math.round(best.score) - Math.round(cheapest.score)} more points.</p>`)
+          }
+          $("rows").innerHTML = rows
+            .map(
+              (r) =>
+                `<tr class="${cheapest && r.name === cheapest.name ? "pick" : ""}"><td class="name">${r.name}</td><td class="num">${r.score.toFixed(0)}%</td><td class="num">${usd(r.cost)}</td><td class="num">${usd(r.month)}</td><td class="num">${secs(r.secs)}</td><td>${r.score >= st.bar ? '<span class="ok">Yes</span>' : "No"}</td></tr>`,
+            )
+            .join("")
+          drawChart(rows, cheapest)
+        }
+
+        // Label nudges so the three top models and the two mid-cost ones do not collide
+        const LABEL = { "GPT-6 Astra": { mid: true, dy: -12 }, "Claude Fable 5.1": { left: true, dy: 16 }, Inkling: { left: true, dy: 16 }, "Muse Spark 1.3": { left: true } }
+
+        // Score (y, 40-100%) against cost per task (x, log scale $0.001-$1)
+        function drawChart(rows, cheapest) {
+          const W = 560, H = 300, L = 44, R = 16, T = 14, B = 34
+          const x = (c) => L + ((Math.log10(c) + 3) / 3) * (W - L - R)
+          const y = (s) => T + (1 - (s - 40) / 60) * (H - T - B)
+          let g = ""
+          ;[40, 60, 80, 100].forEach((s) => {
+            g += `<line x1="${L}" x2="${W - R}" y1="${y(s)}" y2="${y(s)}" stroke="#000" stroke-dasharray="1 3" /><text x="${L - 6}" y="${y(s) + 3}" text-anchor="end">${s}%</text>`
+          })
+          ;[0.001, 0.01, 0.1, 1].forEach((c) => {
+            g += `<text x="${x(c)}" y="${H - 18}" text-anchor="middle">${usd(c)}</text>`
+          })
+          g += `<text x="${(L + W - R) / 2}" y="${H - 4}" text-anchor="middle">Cost per task (log scale)</text>`
+          const by = y(Math.max(40, st.bar))
+                    g += `<line x1="${L}" x2="${W - R}" y1="${by}" y2="${by}" stroke="#000" stroke-width="2" /><text x="${L + 4}" y="${by - 5}" font-weight="700" paint-order="stroke" stroke="#fff" stroke-width="3">good enough: ${st.bar}%</text>`
+          rows.forEach((r) => {
+            const px = x(r.cost), py = y(Math.max(40, r.score))
+            const pick = cheapest && r.name === cheapest.name
+            const short = r.name.replace(/ \(.*\)/, "")
+            const nudge = LABEL[short] || {}
+            const left = nudge.left ?? px > W - 140
+            const dy = nudge.dy || 0
+            g += pick
+              ? `<rect x="${px - 6}" y="${py - 6}" width="12" height="12" fill="#000" />`
+              : `<rect x="${px - 4}" y="${py - 4}" width="8" height="8" fill="#fff" stroke="#000" />`
+            g += `<text x="${nudge.mid ? px : left ? px - 9 : px + 9}" y="${py + 3 + dy}" text-anchor="${nudge.mid ? "middle" : left ? "end" : "start"}" font-weight="${pick ? 700 : 400}" paint-order="stroke" stroke="#fff" stroke-width="3">${short}</text>`
+          })
+          $("chart").innerHTML =
+            `<title id="chart-title">Score against cost per task for each model. Cost uses a log scale.</title>` +
+            g
+        }
+
+        $("cats").addEventListener("change", () => {
+          st.cats = [...$("cats").querySelectorAll("input:checked")].map((i) => i.value)
+          save()
+          render()
+        })
+        $("bar").addEventListener("input", (e) => {
+          st.bar = Number(e.target.value)
+          save()
+          render()
+        })
+        $("volume").addEventListener("input", (e) => {
+          st.volume = Math.max(0, Number(e.target.value) || 0)
+          save()
+          render()
+        })
+        $("reset").addEventListener("click", () => {
+          st = { ...DEFAULT, cats: [...DEFAULT.cats] }
+          save()
+          $("cats").querySelectorAll("input").forEach((i) => (i.checked = true))
+          $("bar").value = st.bar
+          $("volume").value = st.volume
+          render()
+        })
+
+        renderControls()
+        render()
+      })()
+    </script>
+  </body>
+</html>
