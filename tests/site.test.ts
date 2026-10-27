@@ -71,6 +71,10 @@ describe("model picker demo", () => {
     expect(html).toContain('<link rel="canonical" href="https://cmm.dev/demo/model-picker/"')
     expect(text(html).length).toBeGreaterThan(500)
   })
+  test("embeds the Optima report with a plain link fallback", () => {
+    expect(html).toContain('<iframe class="report" src="https://artificialanalysis.ai/optima/s/sh__couKeO-DQyAXglYVCkUqA"')
+    expect(html).toContain('<a href="https://artificialanalysis.ai/optima/s/sh__couKeO-DQyAXglYVCkUqA"')
+  })
   test("carries all nine models", () => {
     expect(html.match(/\{ name: "/g)?.length).toBe(9)
   })

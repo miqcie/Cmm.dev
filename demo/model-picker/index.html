@@ -38,6 +38,12 @@
           grid-column: 1 / -1;
         }
       }
+      .report {
+        display: block;
+        width: 100%;
+        height: 80vh;
+        border: 1px solid #000;
+      }
       fieldset {
         border: 1px solid #000;
         margin: 0 0 12px;
@@ -188,6 +194,14 @@
             </thead>
             <tbody id="rows"></tbody>
           </table>
+        </div>
+      </section>
+
+      <section class="window active span-2" aria-labelledby="report-title">
+        <header class="titlebar"><h2 class="title" id="report-title">The Full Optima Report</h2></header>
+        <div class="content">
+          <p>This is the original run on Artificial Analysis Optima, with every task and grade. <a href="https://artificialanalysis.ai/optima/s/sh__couKeO-DQyAXglYVCkUqA" rel="noreferrer">Open it in a new tab</a> if the frame below is small or blank.</p>
+          <iframe class="report" src="https://artificialanalysis.ai/optima/s/sh__couKeO-DQyAXglYVCkUqA" title="CMMC Assessor Judgment, Optima benchmark results on Artificial Analysis" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
         </div>
       </section>
 
