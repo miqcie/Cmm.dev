@@ -623,3 +623,47 @@ a {
   font: 700 13px var(--font-title);
   margin: 16px 0 4px;
 }
+
+/* /work on phones: the page window must not grow past the screen, and the
+   three-column samples list stacks into one card per row */
+@media (max-width: 719px) {
+  .page .window {
+    min-width: 0;
+  }
+
+  .page .facts {
+    grid-template-columns: 1fr;
+  }
+
+  .page .facts dd {
+    grid-column: 1;
+    margin-bottom: 6px;
+  }
+
+  .list-view.samples {
+    min-width: 0;
+  }
+
+  .list-view.samples thead {
+    display: none;
+  }
+
+  .list-view.samples tr,
+  .list-view.samples td {
+    display: block;
+  }
+
+  .list-view.samples tr {
+    border-bottom: 1px solid #000;
+    padding: 4px 0;
+  }
+
+  .list-view.samples td {
+    padding: 2px 0;
+  }
+
+  .list-view.samples .name {
+    white-space: normal;
+    font-weight: 700;
+  }
+}

@@ -32,7 +32,7 @@ describe("homepage metadata", () => {
 })
 
 describe("trust anchor pages", () => {
-  test.each(["about", "contact", "privacy"])("/%s has 500+ characters and an h1", (page) => {
+  test.each(["about", "contact", "privacy", "work"])("/%s has 500+ characters and an h1", (page) => {
     const html = read(page + ".html")
     expect(html).toContain("<h1")
     expect(html).toContain(`<link rel="canonical" href="https://cmm.dev/${page}"`)
@@ -53,7 +53,7 @@ describe("machine-readable files", () => {
     const xml = read("sitemap.xml")
     expect(xml).toStartWith('<?xml version="1.0" encoding="UTF-8"?>')
     expect(xml).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
-    for (const loc of ["/", "/about", "/contact", "/privacy", "/viz/", "/viz/messi-from-the-spot/", "/viz/richmond-rush-hour-reach/"]) {
+    for (const loc of ["/", "/about", "/contact", "/privacy", "/work", "/viz/", "/viz/messi-from-the-spot/", "/viz/richmond-rush-hour-reach/"]) {
       expect(xml).toContain(`<loc>https://cmm.dev${loc}</loc>`)
     }
     const urls = xml.match(/<url>/g)?.length
