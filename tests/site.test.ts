@@ -53,7 +53,7 @@ describe("machine-readable files", () => {
     const xml = read("sitemap.xml")
     expect(xml).toStartWith('<?xml version="1.0" encoding="UTF-8"?>')
     expect(xml).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
-    for (const loc of ["/", "/about", "/contact", "/privacy", "/work", "/viz/", "/viz/messi-from-the-spot/", "/viz/richmond-rush-hour-reach/"]) {
+    for (const loc of ["/", "/about", "/contact", "/privacy", "/work", "/demo/model-picker/", "/demo/agent-access/", "/viz/", "/viz/messi-from-the-spot/", "/viz/richmond-rush-hour-reach/"]) {
       expect(xml).toContain(`<loc>https://cmm.dev${loc}</loc>`)
     }
     const urls = xml.match(/<url>/g)?.length
@@ -61,5 +61,33 @@ describe("machine-readable files", () => {
   })
   test("llms.txt says when to use the site", () => {
     expect(read("llms.txt")).toContain("## When to use this site")
+  })
+})
+
+describe("model picker demo", () => {
+  const html = read("demo/model-picker/index.html")
+  test("has an h1, a canonical link, and real text without JavaScript", () => {
+    expect(html).toContain("<h1")
+    expect(html).toContain('<link rel="canonical" href="https://cmm.dev/demo/model-picker/"')
+    expect(text(html).length).toBeGreaterThan(500)
+  })
+  test("embeds the Optima report with a plain link fallback", () => {
+    expect(html).toContain('<iframe class="report" src="https://artificialanalysis.ai/optima/s/sh__couKeO-DQyAXglYVCkUqA"')
+    expect(html).toContain('<a href="https://artificialanalysis.ai/optima/s/sh__couKeO-DQyAXglYVCkUqA"')
+  })
+  test("carries all nine models", () => {
+    expect(html.match(/\{ name: "/g)?.length).toBe(9)
+  })
+})
+
+describe("agent access sandbox", () => {
+  const html = read("demo/agent-access/index.html")
+  test("has an h1, a canonical link, and real text without JavaScript", () => {
+    expect(html).toContain("<h1")
+    expect(html).toContain('<link rel="canonical" href="https://cmm.dev/demo/agent-access/"')
+    expect(text(html).length).toBeGreaterThan(500)
+  })
+  test("carries all nine requests", () => {
+    expect(html.match(/\{ id: "/g)?.length).toBe(9)
   })
 })

@@ -15,6 +15,13 @@
   areas, and links.
 - Work (/work): work samples with links to check them, and how Chris and
   Claude split the work (who sets the rules, who builds, what checks it).
+- Model Picker (/demo/model-picker/): an interactive tool on real benchmark
+  data. Pick a mix of CMMC assessor tasks, a minimum score, and a monthly
+  volume; it names the cheapest of 9 models that clears the bar.
+- Agent Access Sandbox (/demo/agent-access/): an interactive demo of an agent
+  access broker. A fictional agent asks to act on a customer's bank, email,
+  calendar, and CRM; the visitor sets the rules and approves or denies, and an
+  audit log records each decision.
 - Viz (/viz/): a small gallery of one-off data visualizations, in its own
   editorial style. First chart: "Messi From The Spot", every career penalty
   plotted by where it crossed the goal. Second: "Richmond Rush-Hour Reach",
