@@ -14,3 +14,4 @@
 - 2026-10-08: waiting for a Cloudflare setting to propagate with `sleep 180` → Bash tool blocks plain sleeps; use Monitor with an until-loop or just do the next browser step.
 - 2026-10-08: reading zone bot-management via API with the Workers Builds token → "Authentication error"; that token is Workers-scoped only, zone settings need the dashboard or a zone-read token.
 - 2026-10-08: clicking Rescan on is-agentic.com within a minute of the previous run → identical snapshot returned (cached); wait 2-3 minutes between rescans.
+- 2026-10-30: merging stacked PRs → #35 targeted #34's branch, so it merged there, not main; #34 then conflicted with #33. Check each PR's base before merging a stack.
