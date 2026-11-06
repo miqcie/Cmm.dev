@@ -26,7 +26,9 @@
   editorial style. First chart: "Messi From The Spot", every career penalty
   plotted by where it crossed the goal. Second: "Richmond Rush-Hour Reach",
   an interactive map of how many jobs you can reach by car from each
-  Richmond-area neighborhood in the morning rush, with address search.
+  Richmond-area neighborhood in the morning rush, with address search. Third:
+  "London's Professional Football Clubs", the 14 Greater London clubs in the
+  Premier League and EFL for 2026/27 mapped by home ground and league.
 
 ## Projects
 
