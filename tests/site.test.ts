@@ -53,7 +53,7 @@ describe("machine-readable files", () => {
     const xml = read("sitemap.xml")
     expect(xml).toStartWith('<?xml version="1.0" encoding="UTF-8"?>')
     expect(xml).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
-    for (const loc of ["/", "/about", "/contact", "/privacy", "/work", "/demo/model-picker/", "/demo/agent-access/", "/viz/", "/viz/messi-from-the-spot/", "/viz/richmond-rush-hour-reach/"]) {
+    for (const loc of ["/", "/about", "/contact", "/privacy", "/work", "/demo/model-picker/", "/demo/agent-access/", "/viz/", "/viz/messi-from-the-spot/", "/viz/richmond-rush-hour-reach/", "/viz/london-football-clubs/"]) {
       expect(xml).toContain(`<loc>https://cmm.dev${loc}</loc>`)
     }
     const urls = xml.match(/<url>/g)?.length

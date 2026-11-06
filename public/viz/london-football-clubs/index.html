@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>London's Professional Football Clubs 2026/27 — CMM.dev</title>
+<meta name="description" content="All 14 Greater London clubs in the Premier League and EFL for 2026/27, mapped by home ground and coloured by league. Hover for ground, borough and capacity.">
+<link rel="canonical" href="https://cmm.dev/viz/london-football-clubs/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="London's Professional Football Clubs 2026/27">
+<meta property="og:description" content="All 14 Greater London clubs in the Premier League and EFL, mapped by home ground and coloured by league.">
+<meta property="og:url" content="https://cmm.dev/viz/london-football-clubs/">
+<meta property="og:image" content="https://cmm.dev/viz/london-football-clubs/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cmm.dev/viz/london-football-clubs/og.png">
+<meta name="twitter:title" content="London's Professional Football Clubs 2026/27">
+<meta name="twitter:description" content="All 14 Greater London clubs in the Premier League and EFL, mapped by home ground and coloured by league.">
+<style>
+  :root{
+    --paper:#F4EFE4;
+    --paper-2:#EBE4D4;
+    --ink:#1E1B16;
+    --muted:#6E665A;
+    --rule:#CFC5B0;
+    --land:#FBF8F1;
+    --river:#9CC3D6;
+    --pl:#C8102E;
+    --ch:#1F4E9C;
+    --l1:#D98B12;
+    --l2:#12806A;
+    --display:"Gill Sans","Gill Sans MT","Seravek","Trebuchet MS",sans-serif;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif)}
+  body{
+    background-image:radial-gradient(rgba(30,27,22,.05) 1px,transparent 1px);
+    background-size:18px 18px;
+    padding:28px 28px 72px;
+  }
+  .sheet{max-width:1320px;margin:0 auto}
+  .crumb{font-family:var(--display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:18px}
+  .crumb:hover{color:var(--ink)}
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:3px double var(--ink);padding-bottom:14px;margin-bottom:20px;flex-wrap:wrap}
+  .kicker{font-family:var(--display);letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:var(--muted)}
+  h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,4.2vw,54px);line-height:.95;margin:6px 0 0;letter-spacing:-.01em}
+  h1 em{font-family:var(--serif);font-weight:400;font-style:italic}
+  .tally{display:flex;gap:18px;font-family:var(--display)}
+  .tally div{text-align:right}
+  .tally b{display:block;font-size:34px;line-height:1;font-weight:600}
+  .tally span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px;align-items:start}
+  @media (max-width:980px){.layout{grid-template-columns:minmax(0,1fr)}}
+
+  .mapcard{position:relative;min-width:0;background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;padding:14px;box-shadow:0 1px 0 #fff inset,0 10px 30px -18px rgba(30,27,22,.4)}
+  .mapwrap{position:relative;width:100%;aspect-ratio:1000/800;overflow:hidden}
+  svg{display:block;width:100%;height:100%}
+  .boundary{fill:var(--land);stroke:var(--ink);stroke-width:1.6}
+  .boundary-shadow{fill:none;stroke:rgba(30,27,22,.12);stroke-width:9;stroke-linejoin:round}
+  .river{fill:none;stroke:var(--river);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+  .river-core{fill:none;stroke:#C9E0EA;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .grid line{stroke:rgba(30,27,22,.07);stroke-width:1}
+  .place{font-family:var(--serif);font-style:italic;font-size:13px;fill:#9A8F7C;letter-spacing:.04em}
+  .thames-label{font-family:var(--serif);font-style:italic;font-size:14px;fill:#5F8FA6;letter-spacing:.3em}
+  .club{cursor:pointer;transition:opacity .25s}
+  .club .halo{fill:#fff;opacity:.9}
+  .club .dot{stroke:#fff;stroke-width:2.5;transition:r .2s}
+  .club .ring{fill:none;stroke-width:1.5;opacity:0;transition:opacity .2s}
+  .club text{font-family:var(--display);font-size:15px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--land);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
+  .club text.sub{font-size:11px;font-weight:400;fill:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  .club.outside text{fill:var(--muted)}
+  .club.outside .dot{stroke-dasharray:3 2}
+  .club:hover .ring,.club.active .ring{opacity:1}
+  .club.dim{opacity:.13}
+  .club.hidden{display:none}
+  .scale text,.compass text{font-family:var(--display);font-size:11px;fill:var(--muted);letter-spacing:.1em}
+  .scale line,.scale rect{stroke:var(--ink);stroke-width:1}
+
+  .note{font-family:var(--display);font-size:12px;color:var(--muted);margin:10px 4px 0;line-height:1.5}
+
+  aside{min-width:0;display:flex;flex-direction:column;gap:16px}
+  .panel{background:var(--land);border:1px solid var(--rule);border-radius:4px;padding:16px 18px}
+  .panel h2{font-family:var(--display);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:600}
+  .legend{display:flex;flex-direction:column;gap:6px}
+  .legend button{all:unset;cursor:pointer;display:grid;grid-template-columns:16px 1fr auto;align-items:center;gap:10px;padding:7px 8px;border-radius:3px;font-family:var(--display);font-size:15px;transition:background .15s,opacity .15s}
+  .legend button:hover{background:var(--paper)}
+  .legend button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .legend button.off{opacity:.35}
+  .legend button.off .sw{background:transparent!important}
+  .sw{width:14px;height:14px;border-radius:50%;border:2.5px solid}
+  .legend .n{font-weight:600;font-variant-numeric:tabular-nums}
+  .legend .tier{font-size:11px;color:var(--muted);letter-spacing:.08em;margin-left:6px}
+
+  .detail{min-height:150px}
+  .detail .lg{font-family:var(--display);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+  .detail h3{font-family:var(--display);font-size:26px;margin:4px 0 2px;line-height:1.05;font-weight:600}
+  .detail .nick{font-style:italic;color:var(--muted);margin-bottom:12px}
+  .detail dl{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;margin:0;font-size:14px}
+  .detail dt{font-family:var(--display);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+  .detail dd{margin:0}
+  .detail .empty{color:var(--muted);font-style:italic;font-size:14px;line-height:1.5}
+
+  .list{list-style:none;margin:0;padding:0;font-family:var(--display);font-size:14px}
+  .list li{display:flex;align-items:center;gap:9px;padding:5px 2px;border-bottom:1px dotted var(--rule);cursor:pointer}
+  .list li:last-child{border:0}
+  .list li:hover{color:var(--ch)}
+  .list li .d{width:9px;height:9px;border-radius:50%;flex:none}
+  .list li small{margin-left:auto;color:var(--muted);font-size:11px}
+  .list li.hidden{display:none}
+
+  footer{font-family:var(--display);font-size:11px;color:var(--muted);margin-top:18px;letter-spacing:.04em;line-height:1.6}
+  footer a{color:inherit}
+
+  @keyframes drop{from{transform:translateY(-14px);opacity:0}to{transform:none;opacity:1}}
+  .club{animation:drop .5s cubic-bezier(.2,.8,.3,1.3) both}
+  @media (prefers-reduced-motion:reduce){.club{animation:none}}
+
+  /* ?og: trimmed layout used to render the social preview image */
+  body.og{padding:24px 28px}
+  body.og .crumb,body.og .note,body.og .detail,body.og .panel:last-child{display:none}
+  body.og .mapwrap{aspect-ratio:auto;height:600px}
+  @media print{
+    @page{size:A4 landscape;margin:10mm}
+    body{padding:0;background-image:none}
+    .layout{grid-template-columns:minmax(0,1fr) 260px}
+    .detail,.crumb{display:none}
+    .mapcard,.panel{box-shadow:none;break-inside:avoid}
+    .club{animation:none}
+  }
+</style>
+</head>
+<body>
+<script>if(location.search.includes("og"))document.body.classList.add("og")</script>
+<div class="sheet">
+  <a class="crumb" href="/viz/">← Data Viz</a>
+  <header>
+    <div>
+      <div class="kicker">Greater London · Season 2026/27</div>
+      <h1>The capital's <em>professional</em> clubs</h1>
+    </div>
+    <div class="tally" id="tally"></div>
+  </header>
+
+  <div class="layout">
+    <div class="mapcard">
+      <div class="mapwrap"><svg id="map" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of Greater London football clubs"></svg></div>
+      <p class="note">Dots mark each club's home ground. Hover or tap a club for details; click a league in the key to filter. Watford (dashed) plays just beyond the Greater London boundary in Hertfordshire, so it isn't in the count.</p>
+    </div>
+
+    <aside>
+      <div class="panel">
+        <h2>Key · by league</h2>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="panel detail" id="detail" aria-live="polite">
+        <h2>Club</h2>
+        <div class="empty">Pick a dot on the map or a name below.</div>
+      </div>
+      <div class="panel">
+        <h2>All clubs</h2>
+        <ul class="list" id="list"></ul>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    "Professional" here means the 92 Premier League and EFL clubs. League placings reflect promotions and relegations into 2026/27, per Wikipedia's 2026–27 <a href="https://en.wikipedia.org/wiki/2026%E2%80%9327_EFL_Championship">Championship</a>, <a href="https://en.wikipedia.org/wiki/2026%E2%80%9327_EFL_League_One">League One</a> and <a href="https://en.wikipedia.org/wiki/2026%E2%80%9327_EFL_League_Two">League Two</a> pages. Capacities are the figures published by the <a href="https://www.premierleague.com/en/news/4725666/all-you-need-to-know-about-the-20-premier-league-stadiums">Premier League</a> (September 2026) and on those Wikipedia season pages. Boundary and Thames are simplified hand-drawn outlines; stadium positions are approximate. First drafted in the Dia browser, then fact-checked and published here.
+  </footer>
+</div>
+
+<script>
+const LEAGUES = {
+  PL:{name:"Premier League", tier:"Tier 1", color:"var(--pl)"},
+  CH:{name:"Championship",   tier:"Tier 2", color:"var(--ch)"},
+  L1:{name:"League One",     tier:"Tier 3", color:"var(--l1)"},
+  L2:{name:"League Two",     tier:"Tier 4", color:"var(--l2)"},
+};
+
+// dx/dy/anchor = label placement relative to the dot
+const CLUBS = [
+  {id:"ars", name:"Arsenal", nick:"The Gunners", lg:"PL", ground:"Emirates Stadium", area:"Holloway", borough:"Islington", cap:"60,704", lat:51.5549, lon:-0.1084, dx:-14, dy:-6, a:"end"},
+  {id:"che", name:"Chelsea", nick:"The Blues", lg:"PL", ground:"Stamford Bridge", area:"Fulham", borough:"Hammersmith & Fulham", cap:"40,044", lat:51.4817, lon:-0.1910, dx:14, dy:-8, a:"start"},
+  {id:"tot", name:"Tottenham Hotspur", nick:"Spurs", lg:"PL", ground:"Tottenham Hotspur Stadium", area:"Tottenham", borough:"Haringey", cap:"62,850", lat:51.6043, lon:-0.0664, dx:14, dy:-6, a:"start"},
+  {id:"cry", name:"Crystal Palace", nick:"The Eagles", lg:"PL", ground:"Selhurst Park", area:"Selhurst", borough:"Croydon", cap:"25,194", lat:51.3983, lon:-0.0855, dx:-14, dy:5, a:"end"},
+  {id:"ful", name:"Fulham", nick:"The Cottagers", lg:"PL", ground:"Craven Cottage", area:"Fulham", borough:"Hammersmith & Fulham", cap:"28,107", lat:51.4749, lon:-0.2217, dx:-6, dy:28, a:"end"},
+  {id:"bre", name:"Brentford", nick:"The Bees", lg:"PL", ground:"Gtech Community Stadium", area:"Brentford", borough:"Hounslow", cap:"17,250", lat:51.4908, lon:-0.2886, dx:-14, dy:5, a:"end"},
+  {id:"whu", name:"West Ham United", nick:"The Hammers", lg:"CH", ground:"London Stadium", area:"Stratford", borough:"Newham", cap:"62,500", lat:51.5386, lon:-0.0166, dx:14, dy:16, a:"start"},
+  {id:"qpr", name:"Queens Park Rangers", nick:"The Hoops", lg:"CH", ground:"Loftus Road", area:"Shepherd's Bush", borough:"Hammersmith & Fulham", cap:"18,439", lat:51.5093, lon:-0.2322, dx:-12, dy:-10, a:"end"},
+  {id:"mil", name:"Millwall", nick:"The Lions", lg:"CH", ground:"The Den", area:"Bermondsey", borough:"Lewisham", cap:"20,146", lat:51.4859, lon:-0.0509, dx:-6, dy:28, a:"end"},
+  {id:"cha", name:"Charlton Athletic", nick:"The Addicks", lg:"CH", ground:"The Valley", area:"Charlton", borough:"Greenwich", cap:"27,111", lat:51.4865, lon:0.0364, dx:12, dy:24, a:"start"},
+  {id:"wat", name:"Watford", nick:"The Hornets", lg:"CH", ground:"Vicarage Road", area:"Watford", borough:"Hertfordshire (outside Greater London)", cap:"22,200", lat:51.6498, lon:-0.4015, dx:14, dy:-6, a:"start", outside:true},
+  {id:"wim", name:"AFC Wimbledon", nick:"The Dons", lg:"L1", ground:"Plough Lane", area:"Wimbledon", borough:"Merton", cap:"9,215", lat:51.4314, lon:-0.1866, dx:-14, dy:5, a:"end"},
+  {id:"bro", name:"Bromley", nick:"The Ravens", lg:"L1", ground:"Hayes Lane", area:"Hayes", borough:"Bromley", cap:"6,100", lat:51.3900, lon:0.0210, dx:14, dy:5, a:"start"},
+  {id:"ori", name:"Leyton Orient", nick:"The O's", lg:"L1", ground:"Brisbane Road", area:"Leyton", borough:"Waltham Forest", cap:"9,271", lat:51.5602, lon:-0.0127, dx:14, dy:-6, a:"start"},
+  {id:"bar", name:"Barnet", nick:"The Bees", lg:"L2", ground:"The Hive", area:"Canons Park, Edgware", borough:"Harrow", cap:"6,500", lat:51.6030, lon:-0.2930, dx:-14, dy:5, a:"end"},
+];
+
+// Simplified Greater London outline [lon, lat]
+const BOUNDARY = [
+  [-0.50,51.60],[-0.47,51.63],[-0.42,51.635],[-0.38,51.63],[-0.33,51.64],[-0.29,51.645],[-0.24,51.67],[-0.18,51.67],
+  [-0.12,51.69],[-0.06,51.685],[-0.01,51.68],[0.04,51.645],[0.09,51.635],[0.15,51.625],[0.20,51.63],[0.26,51.63],
+  [0.30,51.61],[0.33,51.58],[0.32,51.545],[0.27,51.52],[0.22,51.495],[0.21,51.475],[0.18,51.455],[0.16,51.43],
+  [0.15,51.39],[0.15,51.35],[0.12,51.31],[0.07,51.29],[0.02,51.29],[-0.03,51.31],[-0.08,51.29],[-0.13,51.29],
+  [-0.17,51.31],[-0.22,51.33],[-0.27,51.335],[-0.31,51.37],[-0.33,51.39],[-0.38,51.405],[-0.44,51.43],[-0.49,51.445],
+  [-0.51,51.47],[-0.49,51.50],[-0.50,51.53],[-0.49,51.565]
+];
+
+const THAMES = [
+  [-0.40,51.405],[-0.37,51.405],[-0.33,51.41],[-0.31,51.415],[-0.32,51.435],[-0.31,51.455],[-0.29,51.465],[-0.28,51.483],
+  [-0.255,51.487],[-0.24,51.472],[-0.225,51.466],[-0.21,51.47],[-0.195,51.468],[-0.175,51.478],[-0.15,51.485],[-0.125,51.488],
+  [-0.12,51.502],[-0.105,51.509],[-0.08,51.508],[-0.055,51.505],[-0.035,51.508],[-0.025,51.494],[-0.01,51.486],[0.003,51.493],
+  [0.006,51.506],[0.02,51.505],[0.04,51.497],[0.07,51.497],[0.10,51.51],[0.14,51.508],[0.17,51.495],[0.19,51.48],[0.24,51.47],[0.30,51.465]
+];
+
+const PLACES = [
+  {t:"Westminster",lat:51.497,lon:-0.135},{t:"The City",lat:51.516,lon:-0.090},
+  {t:"Croydon",lat:51.372,lon:-0.10},{t:"Heathrow",lat:51.470,lon:-0.455},
+  {t:"Romford",lat:51.578,lon:0.18},{t:"Enfield",lat:51.652,lon:-0.08},
+  {t:"Kingston",lat:51.395,lon:-0.30},{t:"Harrow",lat:51.578,lon:-0.34},
+  {t:"Bexley",lat:51.44,lon:0.13},{t:"Ealing",lat:51.513,lon:-0.31}
+];
+
+// Equirectangular projection corrected for latitude
+const LON0=-0.53, LAT1=51.71, K=1000/(0.89*Math.cos(51.5*Math.PI/180));
+const px = lon => (lon-LON0)*Math.cos(51.5*Math.PI/180)*K;
+const py = lat => (LAT1-lat)*K + 10;
+const path = pts => pts.map((p,i)=>(i?"L":"M")+px(p[0]).toFixed(1)+","+py(p[1]).toFixed(1)).join("");
+const smooth = pts => {
+  let d="M"+px(pts[0][0])+","+py(pts[0][1]);
+  for(let i=1;i<pts.length-1;i++){
+    const x=px(pts[i][0]),y=py(pts[i][1]),nx=px(pts[i+1][0]),ny=py(pts[i+1][1]);
+    d+=` Q${x.toFixed(1)},${y.toFixed(1)} ${((x+nx)/2).toFixed(1)},${((y+ny)/2).toFixed(1)}`;
+  }
+  const l=pts[pts.length-1]; return d+` L${px(l[0])},${py(l[1])}`;
+};
+
+const NS="http://www.w3.org/2000/svg";
+const el=(tag,attrs={},parent)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;};
+const svg=document.getElementById("map");
+
+// grid
+const g0=el("g",{class:"grid"},svg);
+for(let x=0;x<=1000;x+=50) el("line",{x1:x,y1:0,x2:x,y2:800},g0);
+for(let y=0;y<=800;y+=50) el("line",{x1:0,y1:y,x2:1000,y2:y},g0);
+
+const clipPathD = path(BOUNDARY)+"Z";
+el("path",{d:clipPathD,class:"boundary-shadow",transform:"translate(3,4)"},svg);
+el("path",{d:clipPathD,class:"boundary"},svg);
+const defs=el("defs",{},svg);
+const cp=el("clipPath",{id:"gl"},defs); el("path",{d:clipPathD},cp);
+
+const rg=el("g",{"clip-path":"url(#gl)"},svg);
+el("path",{d:smooth(THAMES),class:"river"},rg);
+el("path",{d:smooth(THAMES),class:"river-core"},rg);
+const tl=el("text",{class:"thames-label",x:px(-0.165),y:py(51.474)+4},svg); tl.textContent="THAMES";
+
+PLACES.forEach(p=>{const t=el("text",{class:"place",x:px(p.lon),y:py(p.lat),"text-anchor":"middle"},svg);t.textContent=p.t;});
+
+// scale bar (10 km) + compass
+const tenKm = 10/111.32*K;
+const sc=el("g",{class:"scale",transform:"translate(40,750)"},svg);
+el("rect",{x:0,y:0,width:tenKm/2,height:6,fill:"var(--ink)"},sc);
+el("rect",{x:tenKm/2,y:0,width:tenKm/2,height:6,fill:"var(--land)"},sc);
+[[0,"0"],[tenKm/2,"5"],[tenKm,"10 km"]].forEach(([x,t])=>{const e=el("text",{x,y:22,"text-anchor":x?"middle":"start"},sc);e.textContent=t;});
+const cm=el("g",{class:"compass",transform:"translate(950,60)"},svg);
+el("path",{d:"M0,-26 L8,6 L0,0 L-8,6 Z",fill:"var(--ink)"},cm);
+const nt=el("text",{x:0,y:22,"text-anchor":"middle"},cm); nt.textContent="N";
+
+// clubs (draw outside-boundary first so London clubs stack on top)
+const nodes={};
+[...CLUBS].sort((a,b)=>(b.outside?1:0)-(a.outside?1:0)).forEach((c,i)=>{
+  const x=px(c.lon),y=py(c.lat),col=LEAGUES[c.lg].color;
+  const g=el("g",{class:"club"+(c.outside?" outside":""),tabindex:0,role:"button","aria-label":`${c.name}, ${LEAGUES[c.lg].name}`,"data-lg":c.lg,style:`animation-delay:${i*45}ms`},svg);
+  el("circle",{class:"ring",cx:x,cy:y,r:16,stroke:col},g);
+  el("circle",{class:"halo",cx:x,cy:y,r:11},g);
+  el("circle",{class:"dot",cx:x,cy:y,r:c.lg==="PL"?9:7.5,fill:c.outside?"var(--land)":col,stroke:c.outside?col:"#fff"},g);
+  const t=el("text",{x:x+c.dx,y:y+c.dy,"text-anchor":c.a},g); t.textContent=c.name;
+  const s=el("text",{class:"sub",x:x+c.dx,y:y+c.dy+13,"text-anchor":c.a},g); s.textContent=c.ground;
+  g.addEventListener("mouseenter",()=>select(c.id));
+  g.addEventListener("click",()=>select(c.id));
+  g.addEventListener("focus",()=>select(c.id));
+  nodes[c.id]=g;
+});
+
+// legend + tally
+const inside=CLUBS.filter(c=>!c.outside);
+const off=new Set();
+const legend=document.getElementById("legend");
+Object.entries(LEAGUES).forEach(([k,L])=>{
+  const n=inside.filter(c=>c.lg===k).length;
+  const b=document.createElement("button");
+  b.setAttribute("aria-pressed","true");
+  b.innerHTML=`<span class="sw" style="border-color:${L.color};background:${L.color}"></span><span>${L.name}<span class="tier">${L.tier}</span></span><span class="n">${n}</span>`;
+  b.onclick=()=>{off.has(k)?off.delete(k):off.add(k);b.classList.toggle("off",off.has(k));b.setAttribute("aria-pressed",String(!off.has(k)));applyFilter();};
+  legend.appendChild(b);
+});
+document.getElementById("tally").innerHTML=
+  `<div><b>${inside.length}</b><span>Clubs</span></div><div><b>${inside.filter(c=>c.lg==="PL").length}</b><span>In the Prem</span></div>`;
+
+// list
+const list=document.getElementById("list");
+const order={PL:0,CH:1,L1:2,L2:3};
+[...CLUBS].sort((a,b)=>order[a.lg]-order[b.lg]||a.name.localeCompare(b.name)).forEach(c=>{
+  const li=document.createElement("li");
+  li.dataset.lg=c.lg; li.dataset.id=c.id;
+  li.innerHTML=`<span class="d" style="background:${LEAGUES[c.lg].color}"></span>${c.name}<small>${c.outside?"Herts":c.borough.replace(" & Fulham"," & F.")}</small>`;
+  li.onmouseenter=()=>{hover(c.id)};
+  li.onmouseleave=()=>{hover(null)};
+  li.onclick=()=>select(c.id);
+  list.appendChild(li);
+});
+
+function applyFilter(){
+  CLUBS.forEach(c=>{
+    nodes[c.id].classList.toggle("hidden",off.has(c.lg));
+    list.querySelector(`[data-id="${c.id}"]`).classList.toggle("hidden",off.has(c.lg));
+  });
+}
+function hover(id){
+  CLUBS.forEach(c=>nodes[c.id].classList.toggle("dim",id!==null&&c.id!==id));
+}
+function select(id){
+  CLUBS.forEach(c=>nodes[c.id].classList.toggle("active",c.id===id));
+  const c=CLUBS.find(x=>x.id===id),L=LEAGUES[c.lg];
+  document.getElementById("detail").innerHTML=`<h2>Club</h2>
+    <div class="lg" style="color:${L.color}">${L.name} · ${L.tier}</div>
+    <h3>${c.name}</h3><div class="nick">${c.nick}</div>
+    <dl><dt>Ground</dt><dd>${c.ground}</dd><dt>Area</dt><dd>${c.area}</dd>
+    <dt>Borough</dt><dd>${c.borough}</dd><dt>Capacity</dt><dd>${c.cap}</dd></dl>`;
+}
+</script>
+</body>
+</html>
