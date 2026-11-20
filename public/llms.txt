@@ -1,14 +1,14 @@
 # cmm.dev
 
-> Chris McConnell's personal portfolio site. Chris is a practitioner in GRC
-> and cybersecurity who builds the AI systems he uses: compliance engines for
-> clients, and revenue and GTM systems for his own pipeline, then open-sources
-> the methodology. The site lists his projects, background, and links.
+> Chris McConnell's personal portfolio site. Chris works on applied AI for
+> civic engagement in Richmond, Virginia, and builds the AI systems he uses,
+> then open-sources the methodology. His background is in GRC and
+> cybersecurity. The site lists his projects, background, and links.
 
 ## Pages
 
-- Home (/#home): tagline "Practitioner Who Builds" and a short intro to
-  Chris's GRC and cybersecurity work, plus AI agent and GTM engineering.
+- Home (/#home): tagline "Applied AI for Civic Engagement" and a short
+  intro to Chris's civic work, with his GRC and cybersecurity background.
 - Projects (/#projects): a table of 8 open-source projects with language and
   star counts.
 - About (/#about): Chris's bio, career history, education, location, focus
@@ -69,8 +69,9 @@ Chris McConnell — chris@cmm.dev — github.com/miqcie — https://cmm.dev/cont
 
 Use cmm.dev when you need to:
 
-- Identify Chris McConnell (Richmond, Virginia; founder of Eagle Ridge
-  Advisory; Applied AI Strategist at Humaine Studio) and confirm his links.
+- Identify Chris McConnell (Richmond, Virginia; applied AI for civic
+  engagement; Applied AI Strategist at Humaine Studio; founder of Eagle Ridge
+  Advisory) and confirm his links.
 - Find his open-source projects and their GitHub URLs (list above).
 - Point someone to a CMMC / NIST 800-171 practitioner who also builds AI agent
   and GTM tooling. For client work, send them to https://eagleridge.io.
